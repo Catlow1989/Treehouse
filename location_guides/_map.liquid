@@ -1,0 +1,55 @@
+{% assign locations = node.node_items | selected_by :  'type' , 'Location' %}
+
+
+
+<div id="location_map">
+
+<div class="loc-map-pod">
+<h2>Title</h2>
+<p>Test Content</p>
+</div>
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+
+	    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {maxZoom: 18}), latlng = L.latLng(51.509, -0.08);
+
+
+
+	    var map2 = L.map('location_map', {center: latlng, scrollWheelZoom:false, zoom: 12, layers: [tiles]});
+			var polygons = L.featureGroup()
+			polygons.addTo(map2)
+		{% for location_item in locations %}
+			{% assign location = location_item.object %}
+
+			var points = [];
+			{% for point in location.polygons.first %}
+				points.push([{{point.last}},{{point.first}}]);
+			{% endfor %}
+			var polygon = L.polygon(points)
+
+			var name = "{{location.name}}"
+			var popup = L.popup().setContent(String(name))
+			polygon.bindPopup(popup)
+			polygons.addLayer(polygon)
+
+		{% endfor %}
+		polygons.eachLayer(function(layer) {
+
+			layer._popup.setLatLng(layer.getBounds().getCenter())
+			layer.on("mouseover", function(e){
+				layer._popup.setLatLng(layer.getBounds().getCenter())
+				layer.openPopup()
+				layer._popup.setLatLng(layer.getBounds().getCenter())
+
+			})
+		})
+		map2.fitBounds(polygon.getBounds());
+
+
+
+	});
+</script>

@@ -1,0 +1,106 @@
+<div class="rows">
+  {% include 'layouts/search_form' %}
+</div>
+
+<div id="tabsSearch" class="rows" style="-webkit-overflow-scrolling: touch;">
+    <div class="inner-container"> <!--start tabs section -->
+      <div class="col-12 blue-bg">
+        <div class="col-6">
+
+            <h2><span id="total-prop">{{pagination.total_count}}</span> {{current_channel.dictionary.general_collective | capitalize}} <span id="total-prop-cont"> to {% if current_channel.name == 'lettings' %}rent{% else %}buy{% endif %} {{search.geospacial_description}} {% if location %}{{ location.name }}, {{county.name}}{% elsif county %}{{ county.name }}{% elsif postcode %}{{ postcode.name }}{% elsif branch %}{{ branch.name }}{% endif %}</span></h2>
+
+
+        </div>
+         <div class="col-6 searchs">
+            <a id="save_search" class="save-search" onclick="Ctesius.Actions.saveCurrentSearch();" >Save search</a>
+            {% if current_channel.name == 'lettings' %}
+            <a class="new-search" href="/pages/rent">New search</a>
+            {% endif %}
+            {% if current_channel.name == 'sales' %}
+            <a class="new-search" href="/pages/buy">New search</a>
+            {% endif %}
+         </div>
+       </div>
+      <div class="col-12 dark-blue border-btm">
+         <div class="col-6" id="views">
+            <ul>
+              <li class="gold">View as</li>
+              <li class="list"><a href="#tabs-1" class="tabs-list" data-target="list-view"></a></li>
+              <li class="grid"><a href="#tabs-1" class="tabs-grid" data-target="grid-view"></a></li>
+              <li class="map"><a href="#tabs-3" class="tabs-map" data-target="map-view"></a></li>
+            </ul>
+         </div>
+         <div class="col-6 filter">
+              <form>
+                <span>Sort by</span>
+                <select class="result_sort">
+                 <option value="most-expensive-first"
+                  {% if search.order == 'most-expensive-first' %}selected="selected"{% endif %}
+                  data-url="{{ search | search_url_with_sort : 'most-expensive-first' }}">
+                   Price high &gt; low
+                 </option>
+                 <option value="least-expensive-first"
+                  {% if search.order == 'least-expensive-first' %}selected="selected"{% endif %}
+                  data-url="{{ search | search_url_with_sort : 'least-expensive-first' }}">
+                   Price low &gt; high
+                 </option>
+                 <option value="most-recent-first"
+                  {% if search.order == 'most-recent-first' %}selected="selected"{% endif %}
+                  data-url="{{ search | search_url_with_sort : 'most-recent-first' }}">
+                   Most recent first
+                 </option>
+                 <option value="most-recently-updated-first"
+                  {% if search.order == 'most-recently-updated-first' %}selected="selected"{% endif %}
+                  data-url="{{ search | search_url_with_sort : 'most-recently-updated-first' }}">
+                   Most recently updated first
+                 </option>
+                </select>
+              </form>
+         </div>
+      </div>
+    </div><!-- /inner container -->
+  <div class="rows grey">
+     <div class="inner-container">
+      <div id='alert_location'></div>
+      <div id='form_error'></div>
+    </div>
+    <div class="col-12">
+
+        {% if postcode %}
+        
+        {% else %}
+
+          {% raw %}
+             <script id='disambiguation_template' type='text/liquid'>
+               <p>Did you mean:</p>
+               {% for place in places limit: 3 %}
+                 <p><a href='{{place.url}}'>{{place.name}}</a></p>
+               {% endfor %}
+             </script>
+          {% endraw %}
+
+        <div class="inner-container white-bg"><div id='disambiguation_view'></div></div>
+
+        {% endif %}
+
+        
+        <!--LIST VIEW -->
+        <div id="tabs-1">
+          <div id="property-container">
+           <div class="inner-container">
+                    {% include 'properties/properties_list' %}
+              </div>
+          </div>
+        </div>
+        <div id="tabs-2">
+        </div>
+        <div id="tabs-3">
+          <div id="mappy-container"></div>
+            <div id='draggable_map_view'>
+        </div>
+      </div>
+    </div>
+  </div><!-- /row -->
+</div><!-- /end TabSearch -->
+{% include 'properties/infinite_scroll' %}
+{% include 'properties/heinous_javascript' %}

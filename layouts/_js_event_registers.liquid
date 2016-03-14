@@ -1,0 +1,473 @@
+<script type="text/javascript">
+  function show_drawer(name){
+    $("#drawer_extra_dots_" + name).hide();
+    $("#drawer_content_" + name ).show();
+  }
+
+  function highlight_saved_search(){
+    $("#saved_search_btn").effect("transfer",{ to: $('#user_micro_view #saved_searches_link') }, 800);
+    $('#saved_searches_link').effect('highlight',{color: '#e07719'},2000);
+  }
+
+$(document).ready(function(){
+
+  Ctesius.addConfig('enable_draw_a_map', true);
+  Ctesius.addConfig('enable_user_history', true);
+  Ctesius.addConfig('draw_a_map', true);
+  Ctesius.addConfig('custom_max_zoom',18)
+	Ctesius.addConfig('autopan_padding',[5,120]);
+  Ctesius.addConfig('fit_bounds_after_draw',true)
+
+  Ctesius.addConfig('properties', {% include_as_json properties/properties_list %}.properties)
+  Ctesius.addConfig('flash-message-user-create-successful', 'Thank you for registering. One of our team will be in touch soon!')
+
+  $('#search_form_button').click(function(form){
+    Ctesius.Actions.submitSearchForm();
+    return false;
+  });
+
+  Ctesius.registerEvent('saved_property_view_rendered', function (saved_property){
+    $('#saved_properties_view').removeClass("hidden");
+    $('#mini_property_'+saved_property.id).mouseenter(function(){$('#remove_icon_'+saved_property.id).show()});
+    $('#mini_property_'+saved_property.id).mouseleave(function(){$('#remove_icon_'+saved_property.id).hide()});
+  });
+
+  var decorate_for_property = function (saved_property){
+      $(".shortlist_link_"+saved_property.id).html("Remove from Shortlist");
+      $( ".add-to-shortlist" ).removeClass( "plus-sign" ).addClass( "removed_from" );
+      $(".shortlist_link_"+saved_property.id).attr("onclick", 'Ctesius.Actions.removeSavedProperty('+saved_property.id+'); return false;')
+    }
+
+  Ctesius.registerEvent('saved_property_view_rendered', decorate_for_property);
+
+  Ctesius.registerEvent('saved_property_removed', function(saved_property, collection){
+      $(".shortlist_link_"+saved_property.id).html("Add to Shortlist");
+      $( ".add-to-shortlist" ).removeClass( "removed_from" ).addClass( "plus-sign" );
+      $(".shortlist_link_"+saved_property.id).attr("onclick", 'Ctesius.Actions.addSavedProperty('+saved_property.id+'); return false;')
+      if(collection.size() == 0){
+        $('#saved_properties_view').addClass("hidden");
+      }
+
+    });
+
+  Ctesius.registerEvent('saved_search_added', function(search, collection){
+   if (search.equalTo(Ctesius.getSearch())){
+    $('#save_search').html('Remove search');
+    $("#save_search").attr("onClick", 'Ctesius.Actions.removeSavedSearch("'+search.search_id()+'");')
+   }
+
+   $('#saved_searches_link span').effect('highlight',{color: '#ffffff'}, 3000);
+  });
+
+  Ctesius.registerEvent('saved_search_removed', function(search, collection){
+   if (search.equalTo(Ctesius.getSearch())){
+    $("#save_search").html("Save search")
+    $("#save_search").attr("onclick", 'Ctesius.Actions.saveCurrentSearch();')
+   }
+  });
+
+  Ctesius.registerEvent('after_saved_property_added_by_action', function(saved_property){
+    $("#property_row_"+saved_property.id).effect("transfer",{ to: $("#mini_property_" + saved_property.id) }, 800);
+    $('#saved_properties_link span').effect('highlight',{color: '#ffffff'},3000);
+  });
+
+  var add_branches_link = function(user_history_collection){
+    var last_search = user_history_collection.last()
+    if(last_search != undefined && last_search.get('place') != undefined){
+      var place_id = last_search.get('place').get('place_id')
+      var el = $('a#find_agents')
+      el.attr("href", '/branches' + '?place_id=' + place_id)
+    }
+  }
+
+  Ctesius.registerEvent('user_history_search_added', function(user_history_collection){
+    add_branches_link(user_history_collection);
+  });
+
+  Ctesius.registerEvent('user_history_ready', function(user_history_collection){
+    add_branches_link(user_history_collection);
+  });
+
+   Ctesius.registerEvent('banner', function(){
+    $('#draggable_map_view').append("<div id='bannercontainer'></div>")
+  });
+
+  Ctesius.registerEvent('banner', function(){
+
+    $('#bannercontainer').wrap("<div class='map-tools'></div>");
+    $('.map-tools').wrap("<div class='inner-container map-tool-container'></div>");
+    $('#mappy-container').append( $('.map-tool-container') );
+
+  });
+
+  Ctesius.registerEvent('banner', function(){
+    $('.leaflet-control-container').append("<div class='inner-container'></div>");
+
+     $('.leaflet-left.leaflet-top').appendTo(".map-tools");
+  });
+
+  Ctesius.registerEvent('drawbanner', function(){
+    $('#bannercontainer').append("<div class='mappy' style='position:relative' padding-left='100px'> Please click Draw and sketch on the map the area you are interested in.  </div>");
+  });
+
+  Ctesius.registerEvent('editbanner', function(){
+    $('#bannercontainer').append("<div class='mappyedit' style='position:relative' padding-left='100px'>Click and drag a point on the shape to adjust the area. Press save when you are finished editing. </div>");
+  });
+
+  Ctesius.registerEvent('deletebanner', function(){
+    $('#bannercontainer').append("<div class='mappydelete' style='position:relative' padding-left='100px'>Please click the area on the map to confirm deletion of your search.</div>");
+  });
+
+  Ctesius.registerEvent('editbannertoggled', function(){
+    $('.mappyedit').siblings().hide();
+    $('.mappyedit').slideToggle()
+  });
+
+  Ctesius.registerEvent('deletebannertoggled', function(){
+    $('.mappydelete').siblings().hide();
+    $('.mappydelete').slideToggle();
+  });
+
+  Ctesius.registerEvent('drawbannertoggled', function(){
+    $('.mappy').siblings().hide();
+    $('.mappy').slideToggle();
+  });
+
+  Ctesius.registerEvent('before_saved_property_removed_by_action', function(saved_property_id){
+    if($("#mini_property_"+saved_property_id).length>0 && $("#property_row_"+saved_property_id).length>0)
+    $("#mini_property_"+saved_property_id).effect("transfer",{ to: $("#property_row_" + saved_property_id) }, 800);
+    $('#saved_properties_link').effect('highlight',{color: '#e07719'},3000);
+  });
+
+  Ctesius.registerEvent('redirection_flash_ready', function(message, type){
+    var mess = '<div class="alert alert-'+type+'"><a class="close" data-dismiss="alert">×</a>'+message+'</div>'
+    $('#alert_location').html(mess)
+  });
+
+  Ctesius.addConfig('permit_blank_searches', true);
+
+  //Function to allow searching of property type via the value of the hidden form field (which was passed value radio radio buttons)
+  //Here we assign the Hidden Field #type to a new variables and pass this to the search.attribute.type object as its value.
+
+  Ctesius.registerEvent('after_search_builder', function(search){
+
+    var prop_type = $('#type').val();
+    search.attributes.type = prop_type;
+    return search;
+
+  });
+
+  Ctesius.registerEvent('before_draggable_map_updated',function(){
+    $('#total-prop').html('Updating map...')
+  });
+
+  Ctesius.registerEvent('draggable_map_updated',function(res){
+     $('#total-prop-cont').empty();
+     $('#total-prop').html(res.pagination.total_count);
+  });
+
+
+ 
+
+$(document).ready(function(){
+
+    if (window.location.hash == '#map') {
+      $( "li > .tabs-map" ).trigger('click');
+    }
+
+    $( "li > .tabs-map" ).on( "click", function() {
+
+          window.location.hash = '#map';
+
+          if(location.hash === "#tabs-3"){
+              window.location.hash = '#map';
+
+          }
+
+    });
+
+
+
+  $( "li > .tabs-grid, li > .tabs-list" ).click(function(){
+        $($(this).attr('href')).fadeIn('slow');
+        window.location.hash = '';
+
+    });
+
+});
+
+
+function readyFn( jQuery ) {
+
+          $('.imgLinkList').hover(function(){
+                $(this).closest('.col-6').find('#preview').css({'background-image':'url('+ $(this).attr('src') +')'});
+          },function(){
+                $(this).closest('.col-6').find('#preview').css({'background-image':''});
+
+          });
+
+
+          $('.imgLinkGrid').hover(function(){
+                $(this).closest('.col-4').find('#preview').css({'background-image':'url('+ $(this).attr('src') +')'});
+          },function(){
+                $(this).closest('.col-4').find('#preview').css({'background-image':''});
+
+          });
+
+}
+
+
+function lightBx( jQuery ) {
+
+
+    //This itertates through each array and adds a data attribute to each one
+
+    var test = "#floorplan-flight";
+    var id = "floorplan-flight";
+    var test2 = "#gardenplan-flight";
+    var id2 = "gardenplan-flight";
+    var test3 = "#video-flight";
+    var id3 = "video-flight";
+    var i = 0;
+    var d = 0;
+    var g = 0
+    var f = 0;
+    var y = 0;
+    var q = 0;
+
+    $("div.results-floor").each(function(index) {
+
+          d = d + 1;
+
+          var k = d.toString();
+          var res2 = id.concat(k);
+
+         $(this).attr("id", res2);
+    });
+
+     $("div.results-garden").each(function(index) {
+
+          g = g + 1;
+
+          var z = g.toString();
+          var res3 = id2.concat(z);
+
+         $(this).attr("id", res3);
+    });
+
+
+     $("div.results-video").each(function(index) {
+
+          y = y + 1;
+
+          var e = y.toString();
+          var res6 = id3.concat(e);
+
+         $(this).attr("id", res6);
+    });
+
+
+    $("a.feather ").each(function(index) {
+
+          i = i + 1;
+
+          var n = i.toString();
+          var res = test.concat(n);
+
+         $(this).attr("data-featherlight", res);
+    });
+
+    $("a.feather-gar ").each(function(index) {
+
+          f = f + 1;
+
+          var t = f.toString();
+          var res4 = test2.concat(t);
+
+         $(this).attr("data-featherlight", res4);
+    });
+
+
+  $("a.feather-vid ").each(function(index) {
+
+          q = q + 1;
+
+          var s = q.toString();
+          var res5 = test3.concat(s);
+
+         $(this).attr("data-featherlight", res5);
+    });
+
+
+
+
+}
+
+  Ctesius.registerEvent('performed_property_data', function(performed_data){
+      readyFn();
+      lightBx();
+  });
+
+
+  Ctesius.addConfig( 'sales_range', {{ company.sales_price_range | yaml_safe }});
+  Ctesius.addConfig( 'lets_range', {{ company.lettings_price_range_monthly | yaml_safe }});
+
+  var sales_last = Ctesius.getConfig('sales_range').last();
+  var sales_first = Ctesius.getConfig('sales_range').first();
+  var lets_last = Ctesius.getConfig('lets_range').last();
+  var lets_first = Ctesius.getConfig('lets_range').first();
+
+
+  Ctesius.registerEvent('after_search_builder', function (search){
+
+      if ($('#max_price').val() == sales_last) {
+          console.log(search.attributes.max_price);
+          search.attributes.max_price = '';
+      }
+
+      if ($('#max_price').val() == lets_last) {
+          console.log(search.attributes.max_price);
+          search.attributes.max_price = '';
+      }
+
+       if ($('#max_beds').val() == 5) {
+          console.log(search.attributes.max_beds);
+          search.attributes.max_beds = '';
+      }
+
+      if (search.hasOwnProperty('attributes')) {
+            console.log('yes!');
+            console.log(search.attributes.max_price);
+       } else {
+            console.log('No !');
+      }
+
+      console.log ( search );
+
+  });
+
+  Ctesius.addConfig('custom_property_pin', function(property) {
+
+     // set defaults if theme_preferences not set
+
+     var markerIcon = Ctesius.getConfig('root_url') + 'assets/leaflet/marker-icon.png';
+     var markerIconSize = [25,41];
+     var markerShadowUrl = Ctesius.getConfig('root_url') + 'assets/leaflet/marker-shadow.png';
+     var markerShadowSize = [41,41];
+     var status, channel;
+
+     property.get('status') ? status = property.get('status') : status = '{{property.status}}';
+     property.get('property_channel') ? channel = property.get('property_channel') : channel = '{{property.property_channel}}';
+
+    //  console.log(channel)
+    //  console.log(status)
+
+     if (channel == 'sales') {
+      var markerIcon = "{{ theme_preferences.map_pin_marker_asset | url_for_site_asset }}";
+      } else if (channel ='lettings') {
+      var markerIcon = "{{ '/icos/small-blue-pin.png' | theme_image_url }}"
+     }
+
+     {% if theme_preferences.map_pin_marker_size %}
+      var markerIconSize = "{{ theme_preferences.map_pin_marker_size }}".split(',');
+     {% endif %}
+
+     {% if theme_preferences.map_pin_marker_shadow %}
+      var markerShadowUrl = "{{ theme_preferences.map_pin_marker_shadow | url_for_site_asset }}";
+     {% endif %}
+
+     {% if theme_preferences.map_pin_marker_shadow_size %}
+      var markerShadowSize = "{{ theme_preferences.map_pin_marker_shadow_size }}".split(',');
+     {% endif %}
+
+     return new L.Icon.Default({
+      iconUrl: markerIcon,
+      iconSize: markerIconSize,
+      shadowUrl: markerShadowUrl,
+      shadowSize: markerShadowSize
+     })
+    });
+
+
+  $('body').on('change', '.result_sort', function(event) {
+     var url = $(':selected', $(event.target)).data('url');
+     if(url != undefined) {
+      window.location.href = url;
+     }
+  });
+
+});
+
+Ctesius.registerEvent('performed_next_infinite_scroll', function(a){
+  if (!a.pagination.has_next_page){
+    $('.btnLoadMoreProperties').hide();
+  }
+});
+
+
+Ctesius.registerEvent('performed_next_infinite_scroll', function(a){
+  if (!a.pagination.has_next_page){
+    $('.btnLoadMoreProperties').hide();
+  }
+});
+
+Ctesius.registerEvent('infinite_scroll_complete', function() {
+  $(".results-contact-form").each(function() {
+    $(this).find('form').find(".custom_redirect").val(window.location.pathname);
+    $(this).find('form').validate({
+      // Specify the validation rules
+      rules: {
+        firstname: "required",
+        surname: "required",
+        email: {
+          required: true,
+          email: true
+        }
+      },
+      excluded: ':disabled',
+      // Specify the validation error messages
+      messages: {
+        firstname: "Please enter your firstname",
+        surname: "Please enter your lastname",
+        email: "Please enter a valid email address"
+      }
+    });
+  });
+});
+
+
+
+
+$(function() {
+
+  $("#property-lead-form, .contact_form").validate({
+    // Specify the validation rules
+    rules: {
+      first_name: "required",
+      last_name: "required",
+      email: {
+        required: true,
+        email: true
+      }
+    },
+
+    // Specify the validation error messages
+    messages: {
+      first_name: "Please enter your firstname",
+      last_name: "Please enter your lastname",
+      email: "Please enter a valid email address"
+    }
+  });
+
+});
+
+
+
+
+
+
+   
+  
+
+
+</script>

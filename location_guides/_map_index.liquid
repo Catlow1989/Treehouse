@@ -1,0 +1,71 @@
+<div id="location_map" style="width:100%;"></div>
+
+<script type="text/javascript">
+
+
+
+	$(document).ready(function(){
+	    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {maxZoom: 18}), latlng = L.latLng(51.509, -0.08);
+	    map2 = L.map('location_map', {center: latlng, scrollWheelZoom:false, zoom: 12, layers: [tiles]});
+		polygons = L.featureGroup()
+		polygons.addTo(map2)
+
+
+
+			
+
+
+
+
+
+		{% for hf_node in nodes %}
+
+			{% assign node_items = hf_node.node_items | selected_by :  'name' , 'hero_intro'  | map : 'object' %}
+
+			{% for node_item in node_items %}
+
+				var secondary = "<p>{{node_item.content_text}}</p>";
+
+			{% endfor %}			
+
+			{% assign node_items = hf_node.node_items | selected_by :  'type' , 'Location' %}
+
+			{% for node_item in node_items %}
+				var points = [];
+				{% for point in node_item.object.polygons.first %}
+					pt = L.latLng({{point.last}},{{point.first}});
+					points.push(pt);
+				{% endfor %}
+
+				var polygon = L.polygon(points);
+				var name = "<a href='/location_guides/{{hf_node.slug}}'><h1>{{hf_node.title}}</h1></a>";
+
+
+				var third = name + secondary;
+
+				var popup = L.popup().setContent(String(third));
+
+				polygon.bindPopup(popup);
+				polygons.addLayer(polygon);
+			{% endfor %}
+		
+		{% endfor %}
+
+		polygons.eachLayer(function(layer) {
+			layer._popup.setLatLng(layer.getBounds().getCenter())
+			layer.on("click", function(e){
+				layer._popup.setLatLng(layer.getBounds().getCenter())
+				layer.openPopup()
+				layer._popup.setLatLng(layer.getBounds().getCenter())
+			});
+		});
+
+		map2.fitBounds(polygons.getBounds());
+
+
+
+	});	
+
+
+
+</script>

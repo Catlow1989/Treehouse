@@ -1,0 +1,20 @@
+{% for image in property.photos %}
+
+     <li class="col-4" >
+          <a id="image_thumb_slider" href="" onclick="preventDefault();">
+                <img src="{{ image | url_for_property_photo : "153x102" }}" alt="" />
+          </a>
+     </li>
+
+{% endfor %}
+
+
+    <script type="text/javascript">
+
+		//This itertates through each array and adds a data attribute to each one
+		$("#galleryPager > li > #image_thumb_slider").each(function(index) {
+			   $(this).attr("data-slide-index", index);
+			});
+
+
+	</script>

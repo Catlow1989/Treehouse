@@ -1,0 +1,141 @@
+
+<div class="rows">
+
+        <div class="col-12">
+
+
+                  <div id="static-hero" style="background-image:url('{{"news-hero.jpg" | theme_image_url}}');">
+
+
+                    
+                  </div>
+
+
+
+                
+
+        </div>
+
+                  
+
+  </div>
+
+
+
+
+  <div class="rows news-single-container">
+
+  <div class="inner-container">
+
+    <div class="col-12 white-bg ">
+
+      <div class="news-header">  
+
+        <p class="date">
+            <span></span> {{ article.date }} <a class="news-back" href="/articles">View all news articles</a>
+        </p>
+
+       <h1>{{ article.title }}</h1>
+
+            
+      </div>
+
+        <div id="news-blocks" class="col-8">
+
+           <div class="news-article">
+
+             
+
+              {% if article.image %}
+             
+                <img src="{{ article.image | url_for_agency_logo }}" class="article-img" />
+             
+              {% endif %}
+
+              <p>{{ article.content }}</p>
+
+
+           </div>
+
+           <div class="news-share">
+                <a class="share-this-news" data-featherlight="#socialShare" href="#">Share News Article</a>
+                <a class="prev-news" href="/articles">View all news articles</a>
+           </div>
+
+
+                      <div id="socialShare" class="social">
+                        <div class="socialIcon">
+
+    
+                            <a class="" href="https://www.facebook.com/sharer/sharer.php?u={{agency.external_domain}}{{page.canonical_url}}" target="_blank">  <img src="{{'icos/facebook.jpg' | theme_image_url}}" alt="Facebook">Share on Facebook</a> <br />
+
+                        </div>
+                        <div class="socialIcon">
+
+                            <a href="http://{{agency.external_domain}}{{page.canonical_url}}" title="Great news article on Karl Tatler! {{property.display_address}}" class="tweet" target="_blank"><img src="{{'icos/twitter.jpg' | theme_image_url}}" title="{{page.canonical_url}}" alt="Twitter">Share on Twitter</a>
+
+                            <script type="text/javascript">
+
+                                // We bind a new event to our link
+                                $('a.tweet').click(function(e){
+                                 
+                                  //We tell our browser not to follow that link
+                                  e.preventDefault();
+                                 
+                                  //We get the URL of the link
+                                  var loc = $(this).attr('href');
+                                 
+                                  //We get the title of the link
+
+                                  var title  = encodeURIComponent($(this).attr('title'));
+                                 
+                                  //We trigger a new window with the Twitter dialog, in the middle of the page
+                                  window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+                                 
+                                });
+
+                            </script>
+                        </div>
+                       
+                     </div>
+
+
+
+        </div> <!--End #Newsblocks .col8 -->
+
+
+        <div id="news-blocks" class="col-4">
+           <p>As leading Wirral estate agents and lettings agents we have plenty to talk about and like to give our opinions on a few things too! Read about what we have to say, our latest news and industry news.</p> 
+
+           <div class="related-news">
+
+           <h4>Other news articles of interest</h4>
+
+           {% assign other_articles = agency.articles | selected_by : 'topic', article.topic | excluding : article , 'slug' %}
+
+           {% for article in other_articles limit: 2 %}
+          
+               <img src="{{ article.image | url_for_agency_logo }}" class="article-img" />
+               <a href="/articles/{{ article.slug }}"><h3>{{ article.title }}</h3></a>
+               <p class="date"><span></span>{{ article.date }}</p>
+           
+            {% endfor %}
+
+           </div>
+        </div><!--End #Newsblocks .col4-->
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+

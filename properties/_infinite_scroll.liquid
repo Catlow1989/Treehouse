@@ -1,0 +1,155 @@
+
+{% raw %}
+  <script id="infinite_scroll_properties_template" type="text/liquid">
+    {% for property in properties %}
+      <div class="col-12 list">
+        <div class="col-6 mobile-pd">
+          <a href="{{ property.property_url }}"><h1>{{property.display_address}}</h1></a>
+          <h2>{{property.price}} {% if current_channel.name == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://www.karltatler.com/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}</h2>
+          <hr>
+        </div>
+
+      <div class="col-6">
+        <a href="{{ property.property_url }}">
+          <div class="single-imagery">
+            <div id="holder">
+              <div id="preview"></div>
+              <p class="sold-flags">{{ property.property_overlay }} </p>
+              <img class="list-main" src="{{ property.main_photo }}" alt="">
+              <p class="photos">{{ property.photos_size }}</p>
+            </div>
+
+            <div class="supporting-imagery">
+              <img class="imgLinkList" src="{{ property.second_photo }}"/>
+              <img class="imgLinkList" src="{{ property.third_photo }}"/>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6">
+        <div class="mobilepd-hide">
+          <a href="{{ property.property_url }}"><h1>{{property.display_address}}</h1></a>
+          <h2>{{property.price}} {% if current_channel.name == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://www.karltatler.com/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}</h2>
+          <hr>
+        </div>
+        <p>{{property.bedrooms}} bedrooms</p>
+        <a id="add-to-shortlist" class="add-to-shortlist plus-sign shortlist_link_{{ property.property_id }}" href="#" onclick="Ctesius.Actions.addSavedProperty({{property.property_id}}); return false;">Add to shortlist</a>
+        <p class="short-description">{{property.short_description | truncate : 150}}</p>
+
+        <div class="mobile-cta">
+          <a href="{{ property.property_url }}"><img src="http://mr1.homeflow.co.uk/files/site_asset/image/3037/8621/view-the-details-mob-g.jpg" title="View the Details"></a>
+          <a href="{{ property.property_url }}#lead-form"><img src="http://mr0.homeflow.co.uk/files/site_asset/image/3037/8620/arrange-a-viewing-mob-g.jpg" title="Arrange a Viewing"></a>
+      </div>
+
+        {% unless property.floorplans == null and property.video_url == null %}
+        <!-- why is the request viewing link inside this loop? -->
+          <div class="plans-holder">
+          {% for floorplan in property.floorplans %}
+            {% if forloop.index == 1  %}
+              {% unless property.floorplans.size == 0 %}
+                <a class="floorplan feather" data-featherlight="#floorplan-flight" href="">Floor plan</a>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+          {% for floorplan in property.floorplans  %}
+            {% if forloop.index == 1  %}
+              {% unless property.floorplans.size == 0 %}
+                <div id="floorplan-flight" class="results-flight results-floor">
+                  <img src="{{ floorplan | url_for_generic_image : '743x_' }}" title="Floor plan">
+                </div>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+          {% for floorplan in property.floorplans  %}
+            {% if forloop.index == 2  %}
+              {% unless property.floorplans.size == 1 %}
+                <a class="gardenplan feather-gar" data-featherlight="#gardenplan-flight" href="">Garden plan</a>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+          {% for floorplan in property.floorplans  %}
+            {% if forloop.index == 2  %}
+              {% unless property.floorplans.size == 1 %}
+                <div id="gardenplan-flight" class="results-flight results-garden">
+                  <img src="{{ floorplan | url_for_generic_image : '643x_' }}" title="Garden plan">
+                </div>
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+
+
+
+          {% unless property.video_embed == null %}
+            <a class="video-ico feather-vid" data-featherlight="#video-flight" href="">Video</a>
+          {% endunless %}
+
+          {% unless property.video_embed == null %}
+            <div id="video-flight"  class="results-flight results-video">
+              {{ property.video_embed }}
+            </div>
+          {% endunless %}
+          <a href="#myContactForm-{{ property.property_id }}" class="view-location" data-toggle="modal" data-target="#myContactForm-{{ property.property_id }}">Request a viewing</a>
+
+          <div id="myContactForm-{{ property.property_id }}" class="results-contact-form modal">
+            <button data-dismiss="modal"></button>
+            <form id="myResultsForm-{{ property.property_id }}" action="/properties/{{ property.property_id }}/{{ property.primary_channel }}/leads" method="post">
+              <input class="custom_redirect" type="hidden" name="lead[custom_redirect]" value="{{page.current_path}}">
+              <div class="col-12">
+                <div class="col-6">
+                  <label for="firstname">First name</label>
+                  <input class="required" type="text" id="firstname" name="lead_client[first_name]">
+                </div>
+                <div class="col-6">
+                  <label for="surname">Last name</label>
+                  <input class="required" type="text"  id="surname" name="lead_client[last_name]" >
+                </div>
+                <div class="col-6">
+                  <label for="email">Email address</label>
+                  <input class="required" type="email" id="email" name="lead_client[email]" >
+                </div>
+                <div class="col-6">
+                  <label for="telephone">Telephone number</label>
+                  <input class="required" type="tel" id="telephone" name="lead_client[tel_home]" >
+                </div>
+              </div>
+              <div class="col-12">
+                  <label for="message">Please advise when you would like to view or what further information you require</label>
+                  <textarea id="message" name="lead[message]" ></textarea>
+                  <input id="results-send" type="submit" value="Send">
+              </div>
+            </form>
+          </div>
+        </div>
+      {% endunless %}
+    </div>
+  </div>
+
+      <div class="col-4 grid grid-item">
+        <a href="{{property.property_url}}">
+          <div class="single-imagery">
+            <div id="preview"></div>
+            <p class="sold-flag">{{ property_overlay | photo_overlay }} </p>
+            <img class="grid-main"  src="{{ property.main_photo}}" alt="">
+            <p class="photos">{{ property.photos_size }}</p>
+          </div>
+        </a>
+        <div class="col-12">
+          <a href="{{property.property_url}}">
+            <img class="imgLinkGrid" src="{{ property.second_photo  }}"/>
+            <img class="imgLinkGrid" src="{{ property.third_photo }}"/>
+            <h1>{{property.display_address | truncate: 30 }}</h1>
+          </a>
+          <h2>{{property.price}} {% if current_channel.name == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://karltatler.agent.staging.homeflow.co.uk/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}</h2>
+          <p>{{property.bedrooms}} bedrooms</p>
+          <a id="add-to-shortlist" class="add-to-shortlist plus-sign shortlist_link_{{ property.property_id }}" href="#" onclick="Ctesius.Actions.addSavedProperty({{property.property_id}}); return false;">Add to shortlist</a>
+        </div>
+      </div>
+    {% endfor %}
+
+  </script>
+{% endraw %}

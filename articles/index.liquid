@@ -1,0 +1,124 @@
+<div class="rows">
+
+        <div class="col-12">
+
+
+                  <div id="static-hero" style="background-image:url('{{"news-hero.jpg" | theme_image_url}}');">
+ 
+                 
+
+                    
+                  </div>
+
+                
+
+        </div>
+
+                  
+
+  </div>
+
+
+
+        
+
+
+ 
+
+
+
+
+<div class="rows news-index-container">
+
+  <div class="inner-container">
+
+    <div class="col-12 white-bg ">
+
+          <h2>All {% if topic %}{{topic}}{% endif %} articles</h2>
+
+        <div id="news-blocks" class="col-8">
+
+          {% for news_article in articles %}
+
+           <div class="news-article">
+
+              <h1>
+                <a href="/articles/{{news_article.slug}}">{{ news_article.title | truncate: 55 }}</a>
+              </h1>
+
+              <p class="date">
+                <span></span> {{ news_article.date }}
+              </p>
+
+               {% if news_article.promo_image %}
+                  <img src="{{news_article.promo_image | url_for_generic_image }}" />
+               {% else %}
+                  <!-- <img src="{{ news_article.image | url_for_generic_image }}" class="article-img" /> -->
+               {% endif %}
+
+              <p>{{ news_article.promo | truncate: 250 }}</p>
+
+              <p><a class="next-art" href="/articles/{{news_article.slug}}">Read more</a></p>
+
+           </div>
+
+           {% endfor %}
+
+           <p class="lazy-holder" ><button class="lazy-trigger" href="#">Load More</button></p>
+
+        </div> <!--End #Newsblocks .col8 -->
+
+
+        <div id="news-blocks" class="col-4">
+           <p>As leading Wirral estate agents and lettings agents we have plenty to talk about and like to give our opinions on a few things too! Read about what we have to say, our latest news and industry news.</p> 
+
+           <div class="news-categories">
+
+           <h3>News categories</h3>
+
+           <ul>
+
+            <li><a href="/articles">All</a></li>
+            <li><a href="/articles/topic-general">Industry</a></li>
+            <li><a href="/articles/topic-residential">Sales</a></li>
+            <li><a href="/articles/topic-lettings">Lettings</a></li>
+            <li><a href="/articles/topic-company">Company</a></li>
+           </ul>
+
+           </div>
+        </div><!--End #Newsblocks .col4-->
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+ <script type="text/javascript">
+
+
+$( document ).ready(function() {
+
+var lastChild = $(".news-article").last().addClass("last");
+
+      $(function () {
+        $(".lazy-trigger").on("click", function () {
+          $("#news-blocks.col-8").find(".news-article:hidden:lt(5)").show();
+
+
+          if (!$('.last').is(':hidden')) {
+                $( ".lazy-trigger" ).hide();
+            } else {
+
+            }
+          });
+
+
+      });
+
+});
+ </script>

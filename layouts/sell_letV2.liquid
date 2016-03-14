@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{page.page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="{{page.page_title}}">
+    <meta name="description" content="{{page.page_description}}">
+
+
+    <!-- for Facebook -->          
+    <meta property="og:title" content="{{page.page_title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="{{page.page_description}}" />
+
+
+
+    {{ "application" | javascript_include_tag }}
+    {{ "application" | stylesheet_link_tag }}
+    {{ "normalize" | theme_stylesheet_link_tag }}
+    {{ "owl.carousel" | theme_stylesheet_link_tag }}
+    {{ "owl.theme" | theme_stylesheet_link_tag }}
+    {{ "jquery.screwdefaultbuttonsV2.min" | theme_javascript_link_tag }}
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.2.3/release/featherlight.min.css" type="text/css" rel="stylesheet" title="Featherlight Styles" />
+    {{ "nolan" | theme_stylesheet_link_tag }}
+    {{ "owl.carousel.min" | theme_javascript_link_tag }}
+    {{ "featherlight.min" | theme_javascript_link_tag }}
+    {{ "jquery.responsiveTabs" | theme_javascript_link_tag }}
+
+    <script type="text/javascript">
+
+
+    $(document).ready(function(){
+
+      $(function(){
+            $('.valuation-form input:checkbox').screwDefaultButtons({
+
+              image: 'url("/liquid_assets/images/icos/checkicos.jpg")',
+              width: 20,
+              height: 20
+
+            });
+
+      });
+       });
+
+    </script>
+
+    
+  </head>
+
+  <body>
+    {% include 'layouts/js_templates' %}
+    {% include 'layouts/js_event_registers' %}
+    <div class="container">
+
+      <div id="user_micro_view"></div>
+
+ <header> <!--start header -->
+
+      <div class="vendor-login">
+
+
+            <span>Vendors: </span>
+            <a href=""><span>Register</span></a>
+            <a href=""><span>Log in</span></a>
+
+
+      </div>
+
+      <div class="inner-container">
+
+          <div class="logo"><a href="/"><img src="{{agency.logo | url_for_agency_logo}}" alt="{{agency.name}} logo"/></a></div>
+
+          <div class="buttons">
+            <span>Vendors: </span>
+            <a href=""><button>Register</button></a>
+            <a href=""><button>Log in</button></a>
+          </div>
+
+          <div class="main-menu">
+
+              <div class="contain-mob-btn">
+
+                <button class="show-menu cmn-toggle-switch cmn-toggle-switch__htx">
+                       <span>Menu</span>
+                </button>
+
+                <span class="menu-wording">Menu</span>
+
+              </div>
+
+                <button class="search-props-mob">
+                    <span>Search properties</span>
+                </button>
+
+                <div class="login-buttons-mob">
+                    <a href="/branches"><button><span>Contact us</span></button></a>
+                </div>
+
+          
+
+
+                <div class="mob-search-bar">
+                    <form action='/search' method='get'>
+
+                      <input type="hidden" id='place_id' name='place_id' value='{{place_id}}'>
+                      <a id="locate_btn" onclick="Ctesius.Actions.geoLocate()"></a>
+                      <input type="text" placeholder="Enter location or postcode" id='location' name="location" value="{{location_field}}">
+
+                      <label class="home-rent"><input  type="radio" name='channel' id="let" value="lettings" onclick="Ctesius.Actions.submitSearchForm(); return false;">Rent</label>
+                      <label class="home-buy"><input type="radio" name='channel' id="buy" value="sales" onclick="Ctesius.Actions.submitSearchForm(); return false;">Buy</label>
+
+                    </form>
+                </div>
+
+              
+                <ul  id="menu">
+              {% assign primary_menu = 'primary' | site_menu %}
+                
+                            
+                                {% for menu_item in primary_menu.items %}
+                                    <li class="{% if menu_item.category == page.category %}menu-active{% endif %}">
+                                        <a href="{{menu_item.url}}">{{menu_item.name}}
+                                        </a>
+                                    </li>                                                                                            
+                           
+                            
+               
+                
+              {% endfor %}
+                
+              </ul>
+
+             
+
+
+
+          </div>
+        </div>
+
+    </header> <!-- /end hero image and thumbnails -->
+
+<div id="wrapper"> <!--start wrapper main content -->
+
+
+<div class="slider-wrapper"> <!--start hero image and thumbnails -->
+
+      <span id="slider-prev"></span><span id="slider-next"></span>
+
+
+
+      <div class="sell-let-slider">
+        
+          <div class="hero">
+            <div class="image-cropper">
+              {% content_block sell_let_selling_hero %}
+
+                           <img class="centered" src="{{ content_block_image | url_for_generic_image}}" />
+
+              {% endcontent_block %}
+            </div>
+            <div class="static-pod">
+
+              {% content_block sell_let_selling_hero %}
+
+              <h1>{{ content_block_title }}</h1> 
+              <p>{{ content_block_text }}</p>
+
+              {% endcontent_block %}
+
+
+              <button id="request-valuation-btn"><a href="">Request a valuation</a></button>
+            </div>
+          </div>
+
+          <div class="hero">
+            <div class="image-cropper">
+              {% content_block sell_let_letting_hero %}
+
+                           <img class="centered" src="{{ content_block_image | url_for_generic_image}}" />
+
+
+                {% endcontent_block %}
+            </div>
+            <div class="static-pod">
+              {% content_block sell_let_letting_hero %}
+
+              <h1>{{ content_block_title }}</h1> 
+              <p>{{ content_block_text }}</p>
+
+              {% endcontent_block %}
+
+              <button id="request-valuation-btn-2"><a href="">Request a valuation</a></button>
+            </div>
+          </div>
+
+      </div> 
+
+ <div class="sell-let-pager"></div>
+
+  </div>
+
+
+
+      
+
+<div id="sell-let-tabs" class="rows">
+    <div class="inner-container"> <!--start tabs section -->
+     
+      <div class="rows">
+
+        <div class="col-12">
+
+            <div id="tabsSellLet">
+
+              <ul>
+                <li><a href="#tabs-1">Selling a property</a></li>
+                <li><a href="#tabs-2">Letting a property</a></li>
+              </ul>
+
+                <div id="tabs-1">
+
+                  <div class="col-12">
+
+                    {% content_block sell_let_selling_intro %}
+
+                    <h2>{{ content_block_title }}</h2>
+
+
+                    {% endcontent_block %}
+            
+                  </div>
+
+                     
+
+                    <div class="col-8 ">
+
+                      <div class="col-12 ">
+
+                        {% content_block sell_let_selling_intro %}
+
+                           <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                           <p>{{ content_block_text }}</p>
+
+                        {% endcontent_block %}
+
+                      </div>
+                      <!-- Lower Pods -->
+                      <div class="flex-cont">
+                      <div class="col-6">
+                        {% content_block sell_let_selling_pod_one %}
+                        <div class="qual" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+
+                      <div class="col-6">
+                        {% content_block sell_let_selling_pod_two %}
+                        <div class="protect" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+
+                      <div class="col-6" >
+                        {% content_block sell_let_selling_pod_three %}
+                        <div class="money" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+
+                      <div class="col-6">
+                        {% content_block sell_let_selling_pod_four %}
+                        <div class="awards" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+                      <!-- End Pods -->
+                      </div><!-- End Flex-cont -->
+
+                    </div>
+                    <div class="col-4">
+                      <h4>Our Sales Offices</h3>
+                        <p>We are open <span class="blue"><strong>seven days a week</strong></span> and <span class="blue"><strong>until 7pm weekdays</strong></span>, so if you want to rent a house in Wirral or any property we are on hand to help. We work harder than any other Wirral lettings agent to market your property and find a suitable tenant. Tenants find this really helpful too as it means they can pop into the offices after work if they have any problems.</p>
+
+
+                        {% include 'sidebars/branch_show_sidebar' %}
+                           
+
+
+
+                    </div>
+
+                </div> <!--End Tab one -->
+
+
+
+                <div id="tabs-2">
+                 
+                    <div class="col-12">
+                     {% content_block sell_let_letting_intro %}
+
+                    <h2>{{ content_block_title }}</h2>
+
+
+                    {% endcontent_block %}
+                  </div>
+
+                    <div class="col-8 ">
+
+                      <div class="col-12 ">
+                        {% content_block sell_let_letting_intro %}
+
+                           <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                           <p>{{ content_block_text }}</p>
+
+                        {% endcontent_block %}
+                      </div>
+                      <!-- Lower Pods -->
+                      <div class="col-6">
+                        {% content_block sell_let_letting_pod_one %}
+                        <div class="qual" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+
+                      <div class="col-6">
+                        {% content_block sell_let_letting_pod_two %}
+                        <div class="protect" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+
+                      <div class="col-6">
+                         {% content_block sell_let_letting_pod_three %}
+                        <div class="money" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+
+                      <div class="col-6">
+                        {% content_block sell_let_letting_pod_four %}
+                        <div class="awards" style="background: #e5e5e5 url('{{ content_block_image | url_for_generic_image}}') no-repeat top left;"><h3>{{ content_block_title }}</h3></div>
+                        <p>{{ content_block_text }}</p>
+                        {% endcontent_block %}
+                      </div>
+                      <!-- End Pods -->
+
+
+                    </div>
+                    <div class="col-4">
+                      <h4>Our Lettings Offices</h3>
+                        <p>We are open <span class="blue"><strong>seven days a week</strong></span> and <span class="blue"><strong>until 7pm weekdays</strong></span>, so if you want to rent a house in Wirral or any property we are on hand to help. We work harder than any other Wirral lettings agent to market your property and find a suitable tenant. Tenants find this really helpful too as it means they can pop into the offices after work if they have any problems.</p>
+
+                   
+
+                            {% include 'sidebars/branch_show_sidebar_let' %}
+
+
+
+                    </div>
+
+                </div><!-- End Tab two -->
+
+
+
+            </div>
+
+        </div>
+
+      </div>
+
+    </div><!-- /inner container -->
+
+</div><!-- /row -->
+
+
+<!-- Valuation Form -->
+<div id="request-valuation" class="rows"> 
+
+  <div class="inner-container">
+
+        <h1>Request a valuation</h1>  
+
+
+  </div><!-- /inner container --> 
+     
+
+</div><!-- /row --> 
+     
+    <div class="rows white-bg val">
+
+      <div class="inner-container valuation-form">
+
+          <h2>Find out how much your home is worth</h2>
+
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+
+        
+            <form action="/leads" method="post" id="contact_form">
+
+       
+
+              <div class="col-4">
+
+               <input type="hidden" name="lead[is_valuation_request]" value="1"/>
+               <input type="hidden" value="{{agency.agency_id}}" name="lead_client[agency_id]">  
+                                       
+               <label class="text" for="client[first_name]">First name</label>
+               <input id="client[first_name]" name="client[first_name]" type="text">
+
+              </div>
+
+              <div class="col-4">
+
+               <label class="text" for="client[last_name]">Last name</label>
+               <input id="client[last_name]" name="client[last_name]" type="text">
+
+              </div>
+
+
+              <div class="col-4">
+
+               <label class="text" for="client[email]">Email</label>
+               <input id="client[email]" name="client[email]" type="email">
+
+              </div>
+
+         
+
+
+              <div class="col-4">
+
+               <label class="text" for="client[tel_home]">Telephone number</label>
+               <input id="client[tel_home]" name="client[tel_home]" type="text">
+
+              </div>
+
+              <div class="col-4">
+
+               <label class="text" for="client[street_address]">First line of address </label>
+               <input id="client[street_address]" name="client[street_address]" type="text">
+
+              </div>
+
+              <div class="col-4">
+
+               <label class="text" for="client[postcode]">Postcode</label>
+               <input id="client[postcode]" name="client[postcode]" type="text">
+
+              </div>
+
+          
+
+
+
+              <div class="col-4 valuation-checks">
+
+                <p>Valuation type</p>
+
+               <input id="client[is_vendor_at]" name="client[is_vendor_at]" type="checkbox">
+                <label class="check" for="client[is_vendor_at]">Sales Valuation</label>
+
+               <input id="client[is_landlord_at]" name="client[is_landlord_at]" type="checkbox">
+                <label class="check" for="client[is_landlord_at]">Rental Valuation</label>
+
+              </div>
+
+              <div class="col-8">
+
+               <label for="lead[message]">Other information about your property</label>
+                <textarea id="message" name="lead[message]"></textarea>
+
+              </div>
+
+              <div class="col-12">
+
+               <button type="submit">Send</button>
+              </div>
+
+
+
+
+            </form>
+
+        
+        
+
+
+  </div><!-- /inner container --> 
+     
+
+</div><!-- /row --> 
+
+
+
+
+
+
+<div class="rows white-bg"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container"><!--start similar properties section -->
+     
+    <div class="rows">
+
+        <div class="col-12">
+
+
+
+
+                   <div id="awards" class="owl-carousel">
+                             {% content_block footer_award_strip %}
+                                {{ content_block }}
+                           {% endcontent_block %}
+                    </div>
+
+        </div>
+        
+    </div>
+
+  </div><!-- /inner container --> 
+
+      <div class="carousel-nav">
+        <a class="prev-awards " title="previous"></a>   
+        <a class="next-awards " title="next"></a>   
+      </div>        
+
+</div><!-- /row --> 
+
+
+  <!-- Responsive Offset Footer section below info bar needed with inner dives for Background Colours left and Right plus Back to top anchor -->     
+
+    <div class="info-bar">
+      <div class="left-side">
+        
+      </div>
+      <div class="right-side"> 
+        <button id="scroll-to-top"></button>
+      </div>
+
+        
+    </div>
+
+  <!-- Main Info bar content and structure with a negative margin to bring it into line with the infobar section above-->
+<div class="inner-footer">
+
+          <div class="inner-left">
+              <div class="split-1">
+                <div class="footer-search">
+                  <h2>Property Search</h2>
+                  {% content_block footer_chunk_property_search %}
+                      <p>{{ content_block }}</p>
+                  {% endcontent_block %}
+               
+                </div>
+                <div class="footer-about">
+                  <h2>About Karl Tatler</h2>
+                  {% content_block footer_chunk_about_karl_tatler %}
+                      <p>{{ content_block }}</p>
+                  {% endcontent_block %}
+                </div>
+              </div>
+              <div class="split-2">
+                <h2>Our Branches</h2>
+                {% content_block footer_chunk_our_branches %}
+                      <p>{{ content_block }}</p>
+                  {% endcontent_block %}
+              </div>
+              <div class="split-3">
+                <h2>Twitter</h2>
+                {% twitter_user_timeline screen_name : agency.twitter_screen_name %}
+                   {% for tweet in tweets limit: 1 %}
+                    <p class="tweet">
+                     <a class="twitter_handle" href="https://twitter.com/{{ agency.twitter_screen_name }}" target="_blank">
+                      @{{ agency.twitter_screen_name }}
+                     </a> 
+                     <span class="tweet_date">
+                      {{ tweet.created_at | date: "%d %B" }}
+                     </span>
+                     </p>
+                      <p class="tweet">
+                     {{ tweet.text | auto_link }}
+                    </p>
+                   {% endfor %}
+                  {% endtwitter_user_timeline %}
+              </div>
+          </div>
+          <div class="inner-right"> 
+
+            <h2>Keep up to date by signing up to our newsletter</h2>
+
+
+            <form action="http://freshgroup.createsend.com/t/r/s/ihlrdrk/" method="post" id="subForm">
+           
+                  
+                    <input id="fieldName"  placeholder="name" name="cm-name" type="text" />
+           
+                    <input id="fieldEmail" placeholder="email address"  name="cm-ihlrdrk-ihlrdrk" type="email" required />
+             
+          
+                    <input class="newletter-sign" type="submit" value="Submit">
+          
+            </form>
+       
+     
+
+          </div>
+         
+        </div>
+
+    <footer>
+
+      <div class="inner-container">
+        <div class="footer-links">
+            <p>&copy; Karl Tatler Estate Agents 2014 <span>|</span> Terms and Conditions <span>|</span> Privacy Policy <span>|</span> Accessibility <span>|</span> Help Using This Site</p>
+          </div>
+          <div class="social-links">
+            <p>Follow Us</p>
+            <img src="{{'icos/facebook.jpg' | theme_image_url}}" alt="Facebook"> 
+            <img src="{{'icos/twitter.jpg' | theme_image_url}}" alt="Twitter">
+            <img src="{{'icos/linkedin.jpg' | theme_image_url}}" alt="LinkedIn">
+            <img src="{{'icos/youtube.jpg' | theme_image_url}}" alt="Youtube">
+          </div>
+      </div>
+
+    </footer>
+
+
+
+
+
+  </div> <!-- / end wrapper -->    
+
+
+    {{ "jquery.bxslider_with_prevent" | theme_javascript_link_tag }}
+   
+    {{ "jPages" | theme_javascript_link_tag }}
+    {{ "main" | theme_javascript_link_tag }}
+
+
+
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+        Ctesius.init()
+      });
+
+   
+  (function() {
+
+    "use strict";
+
+    var toggles = document.querySelectorAll(".cmn-toggle-switch");
+
+    for (var i = toggles.length - 1; i >= 0; i--) {
+      var toggle = toggles[i];
+      toggleHandler(toggle);
+    };
+
+    function toggleHandler(toggle) {
+      toggle.addEventListener( "click", function(e) {
+        e.preventDefault();
+        (this.classList.contains("active") === true) ? this.classList.remove("active") : this.classList.add("active");
+      });
+    }
+
+  })();
+
+
+
+$(document).ready(function(){
+        $( ".search-props-mob" ).click(function() {
+          $( "ul#menu" ).hide();
+          $( ".contain-mob-btn" ).removeClass("active-mob");
+          $( ".show-menu" ).removeClass("active");
+          $( ".mob-search-bar" ).toggle();
+          $( ".search-props-mob" ).toggleClass( "open-search" );
+ 
+
+
+
+ });
+
+
+
+$(document).ready(function(){
+       $( ".show-menu" ).click(function() {
+          $( ".mob-search-bar" ).hide();
+          $( ".search-props-mob" ).removeClass("open-search");
+          $( "ul#menu" ).toggle();
+          $( ".contain-mob-btn" ).toggleClass("active-mob");
+  });
+
+
+
+
+  $(window).resize(function(e){
+    updateMenu();
+  });
+
+    function updateMenu(){
+
+      if($(window).width() >= 690){
+
+        // mobile view instructions
+          $( "ul#menu" ).removeAttr('style');  
+          $( ".show-menu" ).removeClass('active');
+          $( ".mob-search-bar" ).removeAttr('style'); 
+          $( ".search-props-mob" ).removeClass('open-search');
+          $( ".contain-mob-btn" ).removeClass('active-mob');
+          } else {
+
+        // desktop view instructions
+
+          }
+
+      }
+
+   }); 
+
+});
+
+
+
+
+</script>
+    
+</div> <!-- /end container -->
+
+    <script type="text/javascript">
+
+
+      //Bind a scroll event to the tab system
+     // $('#go-to-sell, #go-to-let').click(function() {
+
+       //   var target = $('#sell-let-tabs');
+     
+        //    $('html,body').animate({
+        //      scrollTop: target.offset().top -140
+        //    }, 2000);
+        //    return false;
+        
+     // });
+
+     //   $('#request-valuation-btn, #request-valuation-btn-2').click(function() {
+
+      //    var target = $('#request-valuation');
+     
+       //     $('html,body').animate({
+       //       scrollTop: target.offset().top -140
+       //     }, 2000);
+       //     return false;
+        
+     // });
+
+      //Bind Sell / Let slider buttons to tab system
+
+    //  $('#go-to-sell').click(function() { // bind click event to link
+      //    $( "#tabsSellLet" ).tabs('option', 'active', 0); // switch to third tab
+      //    return false;
+    //  });
+
+   //   $('#go-to-let').click(function() { // bind click event to link
+     //     $( "#tabsSellLet" ).tabs('option', 'active', 1); // switch to third tab
+     //     return false;
+    //  });
+
+    </script>
+
+  </body>
+</html>
+
+
+
+
+
+

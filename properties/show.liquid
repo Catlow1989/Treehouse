@@ -1,0 +1,1075 @@
+<script>
+  Ctesius.addConfig('skip_polygon', true)
+  Ctesius.addConfig('small_map_element', 'contact_map')
+
+
+    Ctesius.registerEvent('render_tab', function(tab_name){
+        switch(tab_name){
+
+        case 'streetview':
+            {% gmap_for property as streetview in streetview %}
+        break;
+        case 'satellite':
+            {% gmap_for property as satellite in satellite %}
+        break;
+        }
+    });
+</script>
+
+
+{% include 'properties/gallery_carousel' %}
+
+
+
+
+
+<div class="single-main-block rows">
+
+
+    <div class="inner-container">
+
+
+
+        <div class="col-12">
+
+            <div id="main-content">
+
+               <div id="diff-bar"></div>
+
+               <div class="col-12">
+                  <h1>{{property.display_address | truncate: 50 }}</h1>
+
+                  <h2>{{ property.price }} {% if property.primary_channel == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://www.karltatler.com/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}
+                        {% if property.primary_channel == 'lettings' %}
+                          <span class="feetext">{{property.lettings_fee_text}}</span>
+                        {% endif %}
+                  </h2>
+               </div>
+
+
+               <div class="border-break"></div>
+
+              <div id="most_recent_search_view"></div>
+
+
+             <div id="next_and_previous_property_view"></div>
+
+
+               <div class="border-break"></div>
+
+               <div class="col-8 border-single">
+                  <div class="at-a-glance">
+                    <h3>At a Glance</h3>
+
+                    <div class="pod house-type">
+                      <p>{{property.property_type}}</p>
+                    </div>
+
+                    <div class="pod bedrooms">
+                      <p>{{property.bedrooms}} <span>{% if property.bathrooms == 1 %}Bedroom{% else %}Bedrooms{% endif %}</span></p>
+                    </div>
+
+                    <div class="pod bathrooms">
+                      <p>{{property.bathrooms}} <span>{% if property.bathrooms == 1 %}Bathroom{% else %}Bathrooms{% endif %}</span></p>
+                    </div>
+
+                    <div class="pod receptions">
+                      <p>{{property.reception_rooms}} <span>Reception{% if property.reception_rooms == 1 %}{% else %}s{% endif %}</span></p>
+                    </div>
+
+                  </div>
+
+                  <div class="single-image"><img src="{{ property.photos.first| url_for_property_asset : '794x419'}}"><p class="sold-flags">{{ property | photo_overlay }} {% if property.status == "Completed" %}<img src="http://mr0.homeflow.co.uk/files/site_asset/image/3003/5544/sold-red.png" class="property-status">{% else %}{% endif %}</p></div>
+
+                  <div class="single-description expandable show-more-height">
+
+                    <p>{{property.description}}</p>
+
+
+
+                  </div>
+
+                  <div class="gradient"></div>
+
+                  <div class="social-share">
+
+                    <div class="col-4">
+                      <a href="#" class='ExpandAll'>More info</a>
+                    </div>
+
+                    <div class="col-8">
+
+                      <a id="add-to-shortlist" class="add-to-shortlist plus-sign shortlist_link_{{ property.property_id }}" href="#" onclick="Ctesius.Actions.addSavedProperty({{property.property_id}}); return false;">Add to shortlist</a>
+
+                      <a href="#" data-featherlight="#socialShare" class='share-this-prop'>Share this property</a>
+
+                      <div id="socialShare" class="social">
+                        <div class="socialIcon">
+
+
+                            <a class="" href="https://www.facebook.com/sharer/sharer.php?u={{agency.external_domain}}{{page.canonical_url}}" target="_blank">  <img src="{{'icos/facebook.jpg' | theme_image_url}}" alt="Facebook">Share on Facebook</a> <br />
+
+                        </div>
+                        <div class="socialIcon">
+
+                            <a href="http://{{agency.external_domain}}{{page.canonical_url}}" title="Thought this property was worth a share! {{property.display_address}}" class="tweet" target="_blank"><img src="{{'icos/twitter.jpg' | theme_image_url}}" title="{{page.canonical_url}}" alt="Twitter">Share on Twitter</a>
+
+                            <script type="text/javascript">
+
+                                // We bind a new event to our link
+                                $('a.tweet').click(function(e){
+
+                                  //We tell our browser not to follow that link
+                                  e.preventDefault();
+
+                                  //We get the URL of the link
+                                  var loc = $(this).attr('href');
+
+                                  //We get the title of the link
+
+                                  var title  = encodeURIComponent($(this).attr('title'));
+
+                                  //We trigger a new window with the Twitter dialog, in the middle of the page
+                                  window.open('http://twitter.com/share?url=' + loc + '&text=' + title + '&', 'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+
+                                });
+
+                            </script>
+                        </div>
+
+                     </div>
+
+                    </div>
+
+                  </div>
+
+
+
+
+               </div>
+
+               <div class="col-4">
+                  <div class="sales-office">
+
+
+                    <h3>{{ branch.name }} office</h3>
+                    <p class="branch-add">{{branch.address | newline_to_br }}</p>
+                    <p class="sales-tele-email">
+                      <span class="blue">T:</span> {% if property.vox_number %}{{ property.vox_number }}{% else %}{{ branch.contact_telephone }}{% endif %}
+                    </p>
+                    <p class="sales-tele-email">
+
+                      {% if current_channel.name == 'sales' %}
+
+                          <span class="blue">E:</span> <a href="mailto:{{ branch.sales_email }}">{{ branch.sales_email }}</a>
+
+                      {% endif %}
+
+                      {% if current_channel.name == 'lettings' %}
+
+                           <span class="blue">E:</span> <a href="mailto:{{ branch.lettings_email }}">{{ branch.lettings_email }}</a>
+
+
+                      {% endif %}
+                    </p>
+                    <p><a class="view-branch" href="/branches">View branch info</a></p>
+
+                    <a class="lead-form" href="#lead-form"><button class="mobile-request">Request a viewing or more details</button></a>
+
+                    <a class="lead-form" href="#lead-form"><button>Request a viewing <br> or more details</button></a>
+
+                  </div>
+
+
+
+                  <div class="property-manager">
+                    <h3>Property manager</h3>
+
+                    <div class="agent">
+
+
+
+
+
+                   {% unless property.associated_profiles == empty %}
+                              {% assign profiles = property.associated_profiles %}
+                            {% endunless %}
+
+                            {% unless profiles == empty %}
+                                {% for profile in profiles %}
+                                      <div class="pic">
+                                            <img src="{{profile.avatar | url_for_staff_profile_avatar}}">
+                                        </div>
+                                        <div class="agent-dets">
+
+                                             <h4>{{profile.name}}</h4>
+
+                                             <h5>{{ branch.name }} office</h5>
+
+                                             <p class="sales-tele-email">
+                                              <span class="blue">T:</span> {% if property.vox_number %}{{ property.vox_number }}{% else %}{{ branch.contact_telephone }}{% endif %}
+                                             </p>
+
+                                             <p class="sales-tele-email">
+                                              <span class="blue">E:</span> <a href="#lead-form" class="lead-form anchor-to-form">Got a question? Happy to help, please click here to submit an enquiry!</a>
+                                             </p>
+
+                                        </div>
+                                  
+                               
+
+                            <div class="quotes"><p>
+        
+                   
+                             {% for comment in property.comments %}
+                              {{comment.content}}
+                             {% endfor %}
+
+
+                            </p></div>
+
+
+                            {% endfor %}
+                            {% endunless %}
+
+
+
+
+
+
+
+                    </div>
+
+                  </div>
+
+                  <div class="energy-brochure">
+
+                      {% for epc_chart in property.epc_charts %}
+                         {% if forloop.first %}
+                          <a data-featherlight="image" data-featherlight-loading="Image is loading" class='energy' href="{{ epc_chart | url_for_property_asset }}">
+                              {% if property.epc_charts.size == 1 %}
+                               View EPC chart
+                              {% else %}
+                               View EPC charts
+                              {% endif %}
+                          </a>
+                            {% else %}
+                          <a class='energy' data-featherlight="image" data-featherlight-loading="Image is loading" href="{{ epc_chart | url_for_property_asset }}" style="display:none"></a>
+                         {% endif %}
+                      {% endfor %}
+
+  
+
+
+                        {% if property.brochures.first %}
+                        
+                                {% for brochure in property.brochures %}
+                                    {% if brochure | file_type == "pdf" %}
+                                        <a  class='brochure' href="{{brochure | url_for_property_asset}}" target="_blank">Brochure</a>
+                                    {% else %}
+                                        <a  class='brochure' href="{{brochure | url_for_property_asset}}" >Brochure</a>
+                                    {% endif %}
+                                {% endfor %}
+                          
+                        {% endif %}
+
+
+                  </div>
+
+               </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div><!-- /inner container -->
+
+  </div> <!-- /row -->
+
+
+
+
+
+
+
+
+
+<!-- PHOTOS -->
+
+<div class="rows"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container">
+
+
+        <div class="col-12">
+
+            <div class="photo-gal">
+              <h2>Photographs</h2>
+            </div>
+
+
+        </div>
+
+  </div><!-- /inner container -->
+
+
+</div><!-- /row -->
+
+<div class="rows white-bg photo-block"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container">
+
+
+        <div class="col-12">
+
+
+
+
+          <div class="single-content">
+
+              <span id="slider-prev2"></span>
+              <span id="slider-next2"></span>
+              <span class="fs"></span>
+
+
+
+              <div class="gallerySlider" style="display:none">
+
+                <ul class="bslider">
+                    {% include 'properties/gallery_single_main' %}
+                </ul>
+
+
+
+              </div>
+
+
+          </div>
+
+
+  <div class="single-thumbs col-4">
+
+
+
+
+
+                <ul id="galleryPager">
+                      {% include 'properties/gallery_single_thumb' %}
+                </ul> <!-- / end thumbs -->
+
+
+
+          </div>
+
+
+        </div><!-- End col 12 -->
+
+
+      <div class="col-12 photo-control">
+
+          <div class="col-4">
+
+
+            <!-- navigation holder -->
+            <div class="holder">
+            </div>
+
+          </div>
+
+          <div class="col-8 remove-margin">
+
+            {% if property.brochures.first %}
+                        
+                                {% for brochure in property.brochures %}
+                                    {% if brochure | file_type == "pdf" %}
+                                        <a  class='brochure' href="{{brochure | url_for_property_asset}}" target="_blank">Brochure</a>
+                                    {% else %}
+                                        <a  class='brochure' href="{{brochure | url_for_property_asset}}" >Brochure</a>
+                                    {% endif %}
+                                {% endfor %}
+                          
+                        {% endif %}
+
+
+             <a class="lead-form" href="#lead-form"><button class="photo-gal">Request a viewing <br> or more details</button></a>
+
+
+          </div>
+
+      </div>
+
+
+
+
+
+  </div><!-- /inner container -->
+
+
+</div><!-- /row -->
+
+
+
+<div id="tabsSingleProp" class="rows">
+
+
+
+
+    <div class="inner-container"> <!--start tabs section -->
+
+              <ul>
+                <li><a href="#tabs-1">Floor plan</a></li>
+
+                {% unless property.floorplans.size < 2 %}
+                <li><a href="#tabs-2">Garden plan</a></li>
+                {% endunless %}
+
+                {% unless property.video_url == null %}
+
+                <li class="display:none"><a href="#tabs-3">Video</a></li>
+
+                {% endunless %}
+
+
+              </ul>
+      </div><!-- /inner container -->
+
+
+      <div class="rows grey">
+
+        <div class="inner-container">
+
+        <div class="col-12">
+
+
+
+
+                <div id="tabs-1">
+                    <div class="col-4">
+                      <div class="floor-plan-content">
+
+
+
+                        <h2>Floor plan</h2>
+
+
+                        {% unless property.features == empty %}
+                            <ul id="points" class="clearfix">
+                                {% for feature in property.features %}
+                                    {% unless feature == '' %}
+                                        <li>{{ feature }}</li>
+                                    {% endunless %}
+                                {% endfor %}
+                            </ul>
+                        {% endunless %}
+
+
+                         {% unless property.floorplans.size == 0 %}
+
+                           <a href="#floorplan-lgt" data-featherlight="#floorplan-lgt" class=' expand-floor'>View floorplan fullscreen</a>
+
+
+
+
+                           {% for floorplan in property.floorplans %}
+                                {% if forloop.first %}
+
+                                    <a download="floorplan.jpg" target="_blank" href="{{ floorplan | url_for_generic_image : "743x_" }}" class='brochure'>Download the Floor Plan</a>
+
+                                {% else %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                         {% endunless %}
+
+
+                      </div>
+                    </div>
+                    <div class="col-8">
+
+                      <div id="floorplan-lgt" class="inner-content">
+
+                        {% unless property.floorplans.size == 0 %}
+
+
+                            {% for floorplan in property.floorplans %}
+                                {% if forloop.first %}
+
+                                    <img src="{{ floorplan | url_for_generic_image : "1600x_" }}" title="Floor plan">
+
+                                {% else %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                           {% else %}
+
+                             <p> If there is a floor plan available it will be displayable in the near future.</p>
+
+                        {% endunless %}
+
+
+
+                      </div>
+
+                     <div class="col-12 floor-plan-content-mob">
+                         {% unless property.floorplans.size == 0 %}
+
+                         
+                           {% for floorplan in property.floorplans %}
+                                {% if forloop.first %}
+
+                                    <a download="floorplan.jpg" target="_blank" href="{{ floorplan | url_for_generic_image : "743x_" }}" class='brochure'>Download the Floor Plan</a>
+
+                                {% else %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                         {% endunless %}
+                     </div>
+
+                    </div>
+
+
+                </div> <!-- End Tab One -->
+
+                {% unless property.floorplans.size < 2 %}
+
+                <div id="tabs-2">
+
+                  <div class="col-4">
+
+                  <div class="floor-plan-content">
+
+                     <h2>Garden plan</h2>
+
+
+                        {% unless property.features == empty %}
+                            <ul id="points" class="clearfix">
+                                {% for feature in property.features %}
+                                    {% unless feature == '' %}
+                                        <li>{{ feature }}</li>
+                                    {% endunless %}
+                                {% endfor %}
+                            </ul>
+                        {% endunless %}
+
+
+                         {% unless property.floorplans.size == 0 %}
+
+                           <a href="#gardenplan-lgt" data-featherlight="#gardenplan-lgt" class='expand-floor'>View garden plan fullscreen</a>
+
+
+
+
+                           {% for floorplan in property.floorplans offset:1 %}
+                                {% if forloop.first %}
+
+                                    <a download="floorplan.jpg" target="_blank" href="{{ floorplan |  url_for_generic_image : '680x_' }}" class='brochure'>Download the Garden Plan</a>
+
+                                {% else %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                         {% endunless %}
+                    </div>
+                  </div>
+                   <div class="col-8">
+                    <div id="gardenplan-lgt" class="inner-content">
+
+
+                     {% unless property.floorplans.size == 0 %}
+
+
+                            {% for floorplan in property.floorplans offset:1 %}
+                                {% if forloop.first %}
+
+                                    <img src="{{ floorplan |  url_for_generic_image : '600x_' }}" title="Garden plan">
+
+                                {% else %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                           {% else %}
+
+                             <p> If there is a garden plan available it will be displayable in the near future.</p>
+
+                        {% endunless %}
+
+
+                    </div>
+
+                    <div class="col-12 floor-plan-content-mob">
+                      {% unless property.floorplans.size == 0 %}
+
+                           {% for floorplan in property.floorplans offset:1 %}
+                                {% if forloop.first %}
+
+                                    <a download="floorplan.jpg" target="_blank" href="{{ floorplan |  url_for_generic_image : '680x_' }}" class='brochure'>Download the Garden Plan</a>
+
+                                {% else %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                         {% endunless %}
+                    </div>
+
+
+                </div>
+                </div> <!-- End Tab Two -->
+
+                {% endunless %}
+
+                {% unless property.video_url == null %}
+
+                <div id="tabs-3">
+                 <div class="col-4">
+                <div class="floor-plan-content">
+
+
+
+                        <h2>Video</h2>
+
+
+                        {% unless property.features == empty %}
+                            <ul id="points" class="clearfix">
+                                {% for feature in property.features %}
+                                    {% unless feature == '' %}
+                                        <li>{{ feature }}</li>
+                                    {% endunless %}
+                                {% endfor %}
+                            </ul>
+                        {% endunless %}
+
+                      </div></div>
+                <div class="col-8">
+                    <div class="inner-content">
+
+                        {{ property.video_url | video_embed : 640, 390, 'iframe' }}
+
+                    </div>
+                </div>
+                </div><!-- End Tab Three -->
+
+                {% endunless %}
+
+
+        </div>
+
+      </div>
+
+    </div><!-- /inner container -->
+
+</div><!-- /row --> <!-- END FLOOR TABS -->
+
+
+
+
+
+    <div class="rows">
+
+            <div class="col-12 location-title-mob">
+              <h2>Location information</h2>
+            </div>
+
+            <div class="single-location-map-pop-mob">
+                                 
+              {% content_block geo_location_guides location: location %}
+                      {% if content_block_found %}
+                                   
+                          <a href="{{ content_block_url }}"><img src="{{ content_block_image | url_for_generic_image}}" alt=""></a>
+           
+                          {{content_block_text}}
+                                      
+                      {%endif%}
+              {%endcontent_block%}
+
+              
+            </div>
+
+    </div>
+
+
+
+     <div class="rows"> <!--start secondary hero banner -->
+        <div class="col-12">
+
+              <div id="map">
+
+
+                        <div id="contact_map">
+
+
+                                <div class="single-location-map-pop">
+                                 <h2>Location information</h2>
+
+                                  {% content_block geo_location_guides location: location %}
+                                           {% if content_block_found %}
+                                   
+                                              <a href="{{ content_block_url }}"><img src="{{ content_block_image | url_for_generic_image}}" alt=""></a>
+           
+                                              {{content_block_text}}
+                                      
+                                           {%endif%}
+                                  {%endcontent_block%}
+                                  
+
+                              </div>
+
+
+
+                        </div>
+
+              </div>
+
+
+        </div>
+      </div>  <!-- END MAP -->
+
+
+
+<!-- START SIMILAR -->
+
+ <div class="rows"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container"><!--start similar properties section -->
+
+    <div class="rows">
+
+        <div class="col-12">
+
+            <div id="tabs3" class="single-props-similar">
+
+
+              <ul>
+                <li><a href="#tabs-4">Similar properties</a></li>
+                <li><a href="#tabs-5">Agents' choice</a></li>
+                <li><a href="#tabs-6">New to market</a></li>
+              </ul>
+
+                <div id="tabs-4"> 
+
+                {% assign similar_properties =  property | similar_properties : 20%}
+
+                <script>Ctesius.appendConfig('properties', {% include_as_json properties/properties_list data: similar_properties target: properties %}.properties);</script>
+
+                   <div id="similar-prop" class="owl-carousel">                             
+
+                              {% if similar_properties.first %}
+                                {% for property in properties limit: 9 %}
+                                  {% include 'properties/similar_item'%}
+                                {% endfor %}
+                              {% endif %}
+
+
+
+                  </div>
+                </div>
+
+
+
+                <div id="tabs-5">
+                   <div id="agency-rec" class="owl-carousel">
+
+                        {% if current_channel.name == 'sales' %}
+                          {% include 'properties/sales_item' %}
+                        {% else %}
+                         {% include 'properties/lets_item' %}
+                        {% endif %}
+
+
+
+
+                  </div>
+                </div>
+
+                <div id="tabs-6">
+                   <div id="new-to-market" class="owl-carousel">
+
+
+                            {% if current_channel.name == 'sales' %}
+                              {% search_from_fragment fragment: most-recent-first channel: sales %}
+                                 {% for property in properties limit: 9 %}
+                                         {% include 'properties/similar_item'%}
+                                 {% endfor %}
+                            {% endsearch_from_fragment %}
+                            {% else %}
+                              {% search_from_fragment fragment: most-recent-first channel: lettings %}
+                                 {% for property in properties limit: 9 %}
+                                         {% include 'properties/similar_item'%}
+                                 {% endfor %}
+                            {% endsearch_from_fragment %}
+                            {% endif %}
+
+
+
+                  </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+  </div><!-- /inner container -->
+
+
+  <a class="prev" title="previous"></a>
+  <a class="next" title="next"></a>
+
+</div><!-- /row -->
+
+<!-- END PROP TABS -->
+
+
+
+<!-- START FEEDBACK -->
+
+
+     <div id="lead-form" class="rows white-bg"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+
+
+        <div class="col-12">
+
+            <div class="inner-container"><!--start similar properties section -->
+
+                <div class="property-request-form">
+                    <h4>Request a viewing or more information</h4>
+
+                    <p>Please fill in the below form and an agent will contact you with more information on this property</p>
+
+                    <div id='alert_location'></div>
+                    <div id='form_error'></div>
+
+                    <form id="property-lead-form" action="/properties/{{property.property_id}}/{{property.primary_channel}}/leads" method="post">
+
+                      <div class="col-12">
+                        <div class="col-3">
+                          <label for="firstname">First name</label>
+                          <input class="required" type="text" id="firstname" name="lead_client[first_name]">
+
+                        </div>
+                        <div class="col-3">
+                          <label for="surname">Last name</label>
+                          <input class="required" type="text"  id="surname" name="lead_client[last_name]" >
+                        </div>
+                        <div class="col-3">
+                          <label for="email">Email address</label>
+                          <input class="required" type="email" id="email" name="lead_client[email]" >
+                        </div>
+                        <div class="col-3">
+                          <label for="telephone">Telephone number</label>
+                          <input class="required" type="tel" id="telephone" name="lead_client[tel_home]" >
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+
+                      <div class="col-3">
+                            
+                            <label for="request-viewing">Request viewing</label><input type="radio" name="request-options" id="request-viewing" value="Request_Viewing" checked>
+                            <br>
+                            <label for="request-more-info">Request more information</label><input type="radio" name="request-options" id="request-more-info" value="Request_More_Information">
+
+                  
+                      </div>
+
+                      <div class="col-9">
+
+                          <label for="message">Please advise when you would like to view or what further information you require</label>
+                          <textarea id="message" name="lead[message]" ></textarea>
+
+                          <input type="submit" value="Send">
+                      </div>
+                      </div>
+
+
+                    </form>
+
+                </div>
+
+
+            </div><!-- /inner container -->
+
+        </div>
+
+
+
+</div><!-- /row -->
+
+
+
+<!-- END FEEDBACK -->
+
+
+
+
+
+
+{% if theme_preferences.map_pin_marker_asset  %}
+
+<script type="text/javascript">
+
+    Ctesius.addConfig('custom_map_icon', '{{ theme_preferences.map_pin_marker_asset | url_for_site_asset }}');
+
+      $(function(){
+        $('#property-lead-form input:radio').screwDefaultButtons({
+
+          image: 'url("/liquid_assets/images/icos/checkicos.jpg")',
+          width: 20,
+          height: 20
+
+        });
+
+    });
+
+</script>
+
+{% endif %}
+
+
+
+{% if theme_preferences.map_pin_marker_size %}
+
+<script type="text/javascript">
+
+ var dimensions = "{{ theme_preferences.map_pin_marker_size }}".split(',');
+ Ctesius.addConfig('custom_map_icon_size', dimensions);
+
+</script>
+
+{% endif %}
+
+
+
+<script type="text/javascript">
+
+
+
+  
+jQuery(document).ready(function($) {
+
+  $(".lead-form").click(function(event){
+    event.preventDefault();
+    $('html,body').animate({scrollTop:$(this.hash).offset().top - 90}, 2000);
+  });
+});
+
+
+
+jQuery(document).ready(function($) {
+
+
+function appendRadio( jQuery ) {
+  
+
+var selected = $("input[type='radio'][name='request-options']:checked").val();
+var leadMessage = $("#message");
+
+
+  if (selected == 'Request_Viewing'){
+
+    var complete = leadMessage.val('Request a viewing:::   ' + leadMessage.val()  );
+
+    
+  }
+  else{
+    var complete = leadMessage.val('Request more information:::   ' + leadMessage.val()  );
+  }
+
+}
+
+
+$('#property-lead-form').on('submit', function () {
+   
+appendRadio();      
+    
+    
+});
+
+
+
+});
+
+
+
+// Pagination for single property page image gallery
+
+$("div.holder").jPages({
+    containerID : "galleryPager", 
+    minHeight : false
+});
+
+
+
+
+$( window ).resize(function() {
+
+
+  if ($(window).width() < 590) {
+   $("div.holder").jPages("destroy");
+   console.log('Destroy');
+  }
+  else {
+    $("div.holder").jPages("destroy");
+    $("div.holder").jPages({
+    containerID : "galleryPager", 
+    minHeight : false
+    });
+
+    console.log('build');
+
+  }
+
+
+
+});
+
+
+  
+  $(window).resize(function(e){
+    updateMenu2();
+  });
+
+    function updateMenu2(){
+
+      if($(window).width() <= 690){
+
+        // mobile view instructions
+         $( "#tabs-4" ).addClass('display-block');
+          $( "#tabs-5" ).addClass('display-block');
+          $( "#tabs-6" ).addClass('display-block');
+          } else {
+            $( "#tabs-4" ).removeClass('display-block');
+            $( "#tabs-5" ).removeClass('display-block');
+            $( "#tabs-6" ).removeClass('display-block');
+            $( "#tabs-4" ).removeClass('r-tabs-state-default');
+            $( "#tabs-5" ).removeClass('r-tabs-state-default');
+            $( "#tabs-6" ).removeClass('r-tabs-state-default');
+
+          }
+
+      }
+
+
+
+
+</script>

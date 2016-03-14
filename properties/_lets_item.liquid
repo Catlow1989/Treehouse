@@ -1,0 +1,13 @@
+
+{% search_from_fragment  channel: lettings %}
+   {% for property in agency.featured_properties limit: 9 %}
+		<div class="item"> 
+		    <a href="{{property | url_for_property}}"><img src="{{ property.photos.first| url_for_property_asset : '350x232'}}" alt=""></a>
+		    <div class="slider-mob">
+		    <a href="{{property | url_for_property}}"><h1>{{property.display_address | truncate : 36 }}</h1></a>
+		    <h2>{{property.price}} {% if property.primary_channel == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://karltatler.agent.staging.homeflow.co.uk/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}</h2>
+		    </div>
+		</div>      
+ {% endfor %}
+{% endsearch_from_fragment %}
+

@@ -1,0 +1,7 @@
+{% for image in property.photos %}
+
+    <li>            
+      <img src="{{ image | url_for_property_photo : "1280x745" }}" alt="" />
+    </li>   
+
+{% endfor %}

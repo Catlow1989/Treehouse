@@ -1,0 +1,355 @@
+{% assign location = node.node_items | selected_by :  'type' , 'Location' | map : 'object' | index: 0%}
+<div class="rows">
+
+        <div class="col-12">
+
+
+                  <div id="static-hero" class="loc-bg"  style="background-image:url('{% with_node hf_node, type: sitecontentchunk, name: hero_image  %}{% for node_item in node_items %}{{node_item.image}} {% endfor %}{% endwith_node %}');">
+
+
+                  </div>
+
+
+
+                  <div class="inner-container"> <!-- Start Hero Intro -->
+
+                         <div class="location-hero-pod">
+
+                            <h3>Location guide for:</h3>
+
+                            <h1>{{hf_node.title}}</h1>
+
+
+                                  {% with_node hf_node, type: sitecontentchunk, name: hero_intro  %}
+                                    {% for node_item in node_items %}
+
+                                     <p>{{node_item.content}}</p>
+                                    {% endfor %}
+                                  {% endwith_node %}
+
+
+                                  <a class="location-props" href="#"><button>Properties for sale and rent in {{hf_node.title}}</button></a>
+                         </div>
+
+                  </div> <!-- End Hero Intro -->
+
+
+                  <div class="inner-container"><!-- Start Caption -->
+                        <div class="image-caption cap-right"><p>{% with_node hf_node, type: sitecontentchunk, name: hero_image  %}{% for node_item in node_items %}{{node_item.content}} {% endfor %}{% endwith_node %}</p></div>
+                  </div> <!-- End Caption -->
+
+        </div>
+
+
+
+  </div>
+
+
+<div class="rows location-secondary-holder white-bg">
+
+<div class="location-secondary" style="background-image:url('{% with_node hf_node, type: sitecontentchunk, name: second_image  %}{% for node_item in node_items %}{{node_item.image}} {% endfor %}{% endwith_node %}');">
+
+
+<div class="inner-container image-caption-holder">
+  <div class="image-caption"><p>{% with_node hf_node, type: sitecontentchunk, name: second_image  %}{% for node_item in node_items %}{{node_item.content}} {% endfor %}{% endwith_node %}</p></div>
+</div>
+
+</div>
+</div>
+
+
+<div class="rows location-block">
+
+  <div class="inner-container">
+
+    <div class="col-12 ">
+
+
+
+
+            <h2>Explore {{hf_node.title}}</h2>
+
+            <div class="location-description white-bg">
+
+              <div class="col-4">
+                <img src="{% with_node hf_node, type: sitecontentchunk, name: main_description  %}{% for node_item in node_items %}{{node_item.image}} {% endfor %}{% endwith_node %}" />
+              </div>
+              <div class="col-8">
+                <p>{% with_node hf_node, type: sitecontentchunk, name: main_description  %}{% for node_item in node_items %}{{node_item.content}} {% endfor %}{% endwith_node %}</p>
+              </div>
+
+            </div>
+
+
+
+        <div id="location-blocks">
+
+
+         <ul class="locations-chunks-holder">
+
+                                  {% with_node hf_node, type: sitecontentchunk, name: location_main  %}
+                                    {% for node_item in node_items %}
+
+                                     {{node_item.content}}
+
+
+                                    {% endfor %}
+                                  {% endwith_node %}
+
+          </ul>
+
+        </div><!--END LOCATION HOLDER DIV -->
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<div class="rows location-third-holder">
+
+  <div class="location-third" style="background-image:url('{% with_node hf_node, type: sitecontentchunk, name: third_image  %}{% for node_item in node_items %}{{node_item.image}} {% endfor %}{% endwith_node %}');">
+
+
+  <div class="inner-container image-caption-holder">
+    <div class="image-caption cap-right"><p>{% with_node hf_node, type: sitecontentchunk, name: third_image  %}{% for node_item in node_items %}{{node_item.content}} {% endfor %}{% endwith_node %}</p></div>
+  </div>
+
+</div>
+</div>
+
+
+
+
+<div class="rows white-bg"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container"><!--start similar properties section -->
+
+    <div class="rows white-bg">
+
+        <div class="col-12">
+
+            <div id="tabsLocationSingle" class="">
+
+              <h1>Properties in {{hf_node.title}}</h1>
+
+              <ul>
+                <li><a href="#tabs-5">For Sale</a></li>
+                <li><a href="#tabs-6">To Let</a></li>
+              </ul>
+                <div id="tabs-5">
+                   <div id="loc-sale" class="owl-carousel">
+
+                     {% search_from_fragment fragment: /most-recently-updated-first channel: sales place: location %}
+                        {% for property in properties limit: 9 %}
+                                {% include 'properties/similar_item'%}
+                        {% endfor %}
+                    {% endsearch_from_fragment %}
+
+                  </div>
+                </div>
+
+                <div id="tabs-6">
+                   <div id="loc-rent" class="owl-carousel">
+                              {% search_from_fragment fragment: /most-recently-updated-first channel: lettings place: location %}
+                                 {% for property in properties limit: 9 %}
+                                         {% include 'properties/similar_item'%}
+                                 {% endfor %}
+                            {% endsearch_from_fragment %}
+
+                  </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+  </div><!-- /inner container -->
+
+
+  <a class="prev" title="previous"></a>
+  <a class="next" title="next"></a>
+
+  <a class="l-btn-ref" href="{{ location | url_for_place }}"><button class="locationSingleBtn">View all</button></a>
+
+</div><!-- /row -->
+
+<div class="rows">
+  <div class="col-12">
+
+<div class="node">
+ {% with_node hf_node, type: property %}
+  {% for node_item in node_items %}
+   {{node_item.display_address}}
+  {% endfor %}
+ {% endwith_node %}
+</div>
+  </div>
+</div>
+
+<div class="rows">
+  <div class="col-12 location_map_cont">
+  {% include 'location_guides/map' %}
+  </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+//This function initializes the owl carousels on the home page for the property sliders and adds custom event triggers for previous and next buttons
+$(document).ready(function() {
+
+  $("#loc-sale, #loc-rent").owlCarousel({
+
+      items : 3,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3],
+      itemsTablet: [780,3],
+      itemsTabletSmall: [590, 1],
+      scrollPerPage : true,
+      dragBeforeAnimFinish : false,
+      pagination: true
+
+  });
+
+
+  //This function initializes the owl carousel on the single property page for the hero slider and adds custom event triggers for previous and next buttons
+
+
+
+//This section binds the previous and next buttons to external buttons for similar prop slider (not the deaults navigation inside the container)
+  var owl = $("#loc-sale, #loc-rent");
+
+  $(".next").click(function(){
+    owl.trigger('owl.next');
+  })
+  $(".prev").click(function(){
+    owl.trigger('owl.prev');
+  })
+
+
+
+
+});
+
+
+
+( function( $, window, document, undefined )
+{
+    'use strict';
+
+    var s = document.body || document.documentElement, s = s.style;
+    if( s.webkitFlexWrap == '' || s.msFlexWrap == '' || s.flexWrap == '' ) return true;
+
+    var $list       = $( '.locations-chunks-holder' ),
+        $items      = $list.find( '.location-chunk' ),
+        setHeights  = function()
+        {
+            $items.css( 'height', 'auto' );
+
+            var perRow = Math.floor( $list.width() / $items.width() );
+            if( perRow == null || perRow < 2 ) return true;
+
+            for( var i = 0, j = $items.length; i < j; i += perRow )
+            {
+                var maxHeight   = 0,
+                    $row        = $items.slice( i, i + perRow );
+
+                $row.each( function()
+                {
+                    var itemHeight = parseInt( $( this ).outerHeight() );
+                    if ( itemHeight > maxHeight ) maxHeight = itemHeight;
+                });
+                $row.css( 'height', maxHeight );
+            }
+        };
+
+    setHeights();
+    $( window ).on( 'resize', setHeights );
+    $list.find( 'img' ).on( 'load', setHeights );
+
+})( jQuery, window, document );
+
+
+
+
+
+
+var count = $(".loc-content").height();
+var count2 = $(".loc-content2").height();
+var count3 = $(".loc-content3").height();
+var count4 = $(".loc-content4").height();
+var count5 = $(".loc-content5").height();
+var count6 = $(".loc-content6").height();
+
+if(count < 200) {
+  $('.expander-btn').hide();
+}
+else {
+   $('.expander-btn').show();
+}
+
+if(count2 < 200) {
+  $('.expander-btn2').hide();
+}
+else {
+   $('.expander-btn2').show();
+}
+
+
+if(count3 < 200) {
+  $('.expander-btn3').hide();
+}
+else {
+   $('.expander-btn3').show();
+}
+
+
+if(count4 < 200) {
+  $('.expander-btn4').hide();
+}
+else {
+   $('.expander-btn4').show();
+}
+
+
+if(count5 < 200) {
+  $('.expander-btn5').hide();
+}
+else {
+   $('.expander-btn5').show();
+}
+
+
+if(count6 < 200) {
+  $('.expander-btn6').hide();
+}
+else {
+   $('.expander-btn6').show();
+}
+
+
+
+$('.location-props').click(function() {
+
+         var target = $('#tabsLocationSingle');
+
+           $('html,body').animate({
+             scrollTop: target.offset().top -140
+           }, 2000);
+           return false;
+
+});
+
+
+</script>

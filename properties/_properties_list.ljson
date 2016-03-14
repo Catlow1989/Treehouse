@@ -1,0 +1,33 @@
+properties :
+{% for property in properties %}
+  -
+    main_photo : {{ property.main_photo | url_for_property_photo :  "357x233" }}
+    second_photo : {{ property.photos[1]| url_for_property_photo : "357x233" }}
+    third_photo : {{ property.photos[2]| url_for_property_photo : "357x233"  }}
+    photos_size : {{property.photos.size}}
+    small_photo : {{ property.main_photo | url_for_property_photo : "80x60" }}
+    property_overlay : {{ property | photo_overlay }}
+    property_url : {{ property | url_for_property }}
+    short_description : {{ property.short_description | truncate : 150 | capitalize | yaml_safe}}
+    display_address : {{property.display_address | truncate: 40 | yaml_safe}}
+    price : "{{property.price}}"
+    bedrooms: "{{property.bedrooms}}"
+    status : {{property.status}}
+    video_embed : {% if property.video_url %}{{ property.video_url | video_embed }}{% endif %}
+    lat: {{property.lat}}
+    lng: {{property.lng}}
+    property_id: {{property.property_id}}
+    agency_name : {{property.agency.agency_name}}{% if company.type == 'portal'%}
+    agency_url : {{property.agency | url_for_agency}}{%endif%}
+    vox_number: '{{property.vox_number}}'
+    primary_channel : {{property.primary_channel}}
+    floorplans:{% for floorplan in property.floorplans %}
+      - {{ floorplan | url_for_property_asset : "743x" }}{% endfor %}
+{% endfor %}
+pagination :
+    current_page : {{ pagination.current_page }}
+    has_prev_page : {{ pagination.has_prev_page }}
+    total_count : {{ pagination.total_count }}
+    has_next_page : {{ pagination.has_next_page }}
+    from_record : {{ pagination.from_record }}
+    to_record : {{ pagination.to_record}}

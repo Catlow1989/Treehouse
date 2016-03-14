@@ -1,0 +1,377 @@
+
+
+{{ "noui" | theme_javascript_link_tag }}
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+  $(function(){
+        $('.refine-search .margin-seven input:radio').screwDefaultButtons({
+
+          image: 'url("/liquid_assets/images/icos/checkicos.jpg")',
+          width: 20,
+          height: 20
+
+        });
+
+  });
+
+
+  Ctesius.addConfig('enable_infinite_scroll', true);
+  Ctesius.addConfig('autoscroll_infinite_scroll', false);
+
+  $( "#views a" ).click(function() {
+    $("#infinite_pages").removeAttr('class');
+    $("#infinite_pages").addClass($(this).attr("data-target"));
+    console.log('click')
+  });
+
+});
+
+</script>
+
+
+{% if current_channel.name == 'lettings' %}
+
+
+<script type="text/javascript">
+
+
+
+
+  $(document).ready(function(){
+
+    //Force Webkit Browser redraw due to issues in legacy Safari and Native Android Browsers
+
+      function multiply() {
+
+        $('#h-cont-t').hide().show(0);
+        $('#h-cont').hide().show(0);
+        $('#h-cont-b').hide().show(0);
+
+      }
+
+      Ctesius.addConfig( 'sales_range', {{ company.sales_price_range | yaml_safe }});
+      Ctesius.addConfig( 'lets_range', {{ company.lettings_price_range_monthly | yaml_safe }});
+
+      var lets_last = Ctesius.getConfig('lets_range').last();
+      var lets_first = Ctesius.getConfig('lets_range').first();
+
+        $("#rent_range").noUiSlider({
+              start: [ lets_first, lets_last ],
+              range: {
+                      'min': lets_first,
+                       'max': lets_last
+                      },
+              connect: true,
+              //Value between steps
+              step:50,
+              // Set some default formatting options.
+              // These options will be applied to any Link
+              // that doesn't overwrite these values.
+              format: wNumb({
+                            decimals: 0
+                           })
+
+        });
+
+        //serialize values into hidden form fields
+        $("#rent_range").Link('lower').to($("#min_price"), null, wNumb({
+               decimals: 0
+        }));
+
+
+        $("#rent_range").Link('upper').to($("#max_price"), null, wNumb({
+              decimals: 0
+        }));
+
+
+        //display lower value and upper value in spans
+        $("#rent_range").Link('lower').to($('.lower_val'));
+        $("#rent_range").Link('upper').to($('.upper_val'));
+
+
+      var lastVal2 = 0;
+
+      lastVal2 = $('#max_price').val();
+
+        if (lastVal2 == lets_last){
+            $( ".upper_val" ).append( "+" );
+        } else {
+
+        }
+
+        $("#rent_range").on({
+             slide: function(){
+                lastVal2 = $('#max_price').val();
+                  if (lastVal2 == lets_last){
+                        $('#plus-sign').remove();
+                        $( ".upper_val" ).append("<span id='plus-sign'>+</span>");
+                  }
+
+                  multiply();
+             }
+        });
+
+
+      var bedMax = 5;
+
+      bedMax = $('#max_beds').val();
+
+        if (bedMax == 5){
+                $( ".upper_bed" ).append( "<span id='plus-sign-bed'>+</span>" );
+        } else {
+
+        }
+
+        $("#num_bedrooms").on({
+              slide: function(){
+                    bedMax = $('#max_beds').val();
+                            if (bedMax == 5){
+                                    $('#plus-sign-bed').remove();
+                                    $( ".upper_bed" ).append( "<span id='plus-sign-bed'>+</span>");
+                            }
+
+                        multiply();
+                    }
+        });
+
+
+        $("#search_radius").on({
+              slide: function(){
+                  multiply();
+              }
+        });
+
+
+
+  });
+
+</script>
+
+{% endif %}
+
+
+
+
+{% if current_channel.name == 'sales' %}
+
+<script type="text/javascript">
+
+
+
+
+  $(document).ready(function(){
+
+
+  //Force Webkit Browser redraw due to issues in legacy Safari and Native Android Browsers
+
+      function multiply() {
+
+        $('#h-cont-t').hide().show(0);
+        $('#h-cont').hide().show(0);
+        $('#h-cont-b').hide().show(0);
+
+      }
+
+
+
+      Ctesius.addConfig( 'sales_range', {{ company.sales_price_range | yaml_safe }});
+      Ctesius.addConfig( 'lets_range', {{ company.lettings_price_range_monthly | yaml_safe }});
+
+      var sales_last = Ctesius.getConfig('sales_range').last();
+      var sales_first = Ctesius.getConfig('sales_range').first();
+
+
+        $("#price_range").noUiSlider({
+              start: [ sales_first, sales_last ],
+              range: {
+                        'min': sales_first,
+                        '65%': [ 300000, 50000 ],
+                        'max': sales_last
+                     },
+              connect: true,
+              step:10000,
+              format: wNumb({
+                        decimals: 0,
+                        thousand: ','
+              })
+
+        });
+
+
+
+        //display lower value and upper value in spans
+
+        $("#price_range").Link('lower').to($('.lower_val'));
+        $("#price_range").Link('upper').to($('.upper_val'));
+
+
+        //serialize values into hidden form fields
+
+        $("#price_range").Link('lower').to($("#min_price"), null, wNumb({
+              decimals: 0
+        }));
+
+
+        $("#price_range").Link('upper').to($("#max_price"), null, wNumb({
+              decimals: 0
+        }));
+
+      var lastVal2 = 0;
+
+      lastVal2 = $('#max_price').val();
+
+        if (lastVal2 == sales_last){
+              $( ".upper_val" ).append( "<span id='plus-sign'>+</span>" );
+        } else {
+
+        }
+
+        $("#price_range").on({
+              slide: function(){
+                  lastVal2 = $('#max_price').val();
+                      if (lastVal2 == sales_last){
+                            $('#plus-sign').remove();
+                            $( ".upper_val" ).append( "<span id='plus-sign'>+</span>" );
+                      }
+                       multiply();
+                 }
+        });
+
+
+      var bedMax = 5;
+
+      bedMax = $('#max_beds').val();
+
+        if (bedMax == 5){
+              $( ".upper_bed" ).append( "<span id='plus-sign-bed'>+</span>" );
+        } else {
+
+        }
+
+        $("#num_bedrooms").on({
+              slide: function(){
+                    bedMax = $('#max_beds').val();
+                        if (bedMax == 5){
+                              $('#plus-sign-bed').remove();
+                              $( ".upper_bed" ).append( "<span id='plus-sign-bed'>+</span>" );
+                        }
+                       multiply();
+                    }
+        });
+
+
+        $("#search_radius").on({
+              slide: function(){
+                  multiply();
+              }
+        });
+
+
+
+
+
+
+  });
+
+
+
+
+
+
+</script>
+
+{% endif %}
+
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    //This itertates through each array and adds a data attribute to each one
+
+    var test = "#floorplan-flight";
+    var id = "floorplan-flight";
+    var test2 = "#gardenplan-flight";
+    var id2 = "gardenplan-flight";
+    var test3 = "#video-flight";
+    var id3 = "video-flight";
+    var i = 0;
+    var d = 0;
+    var g = 0;
+    var f = 0;
+    var y = 0;
+    var q = 0;
+
+    $("div.results-floor").each(function(index) {
+
+          d = d + 1;
+
+          var k = d.toString();
+          var res2 = id.concat(k);
+
+         $(this).attr("id", res2);
+    });
+
+     $("div.results-garden").each(function(index) {
+
+          g = g + 1;
+
+          var z = g.toString();
+          var res3 = id2.concat(z);
+
+         $(this).attr("id", res3);
+    });
+
+     $("div.results-video").each(function(index) {
+
+          y = y + 1;
+
+          var e = y.toString();
+          var res6 = id3.concat(e);
+
+         $(this).attr("id", res6);
+    });
+
+
+    $("a.feather ").each(function(index) {
+
+          i = i + 1;
+
+          var n = i.toString();
+          var res = test.concat(n);
+
+         $(this).attr("data-featherlight", res);
+    });
+
+    $("a.feather-gar ").each(function(index) {
+
+          f = f + 1;
+
+          var t = f.toString();
+          var res4 = test2.concat(t);
+
+         $(this).attr("data-featherlight", res4);
+    });
+
+        $("a.feather-vid ").each(function(index) {
+
+          q = q + 1;
+
+          var s = q.toString();
+          var res5 = test3.concat(s);
+
+         $(this).attr("data-featherlight", res5);
+    });
+
+
+
+
+
+ });
+</script>

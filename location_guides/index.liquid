@@ -1,0 +1,131 @@
+<div class="rows">
+  <div class="col-12">
+    <div id="static-hero" class="loc-bg"  style="background-image:url('{% content_block location_intro_main %}  {{ content_block_image | url_for_generic_image}} {% endcontent_block %}');"></div>
+    <div class="inner-container">
+     <div class="location-hero-pod index-pod">
+       <h1>The Wirral</h1>
+       {% content_block location_intro_main %}
+       <p>{{ content_block_text }}</p>
+       {% endcontent_block %}
+       <a href="/branches" class="location_main_btn"><button>Find your nearest office</button></a>
+
+     </div>
+   </div>
+ </div>
+</div>
+
+
+<div id="tabsLocation" class="rows">
+  <div class="inner-container"> <!--start tabs section -->
+    <div class="col-12 blue-bg">
+      <h2>Choose a location</h2>
+    </div>
+    <div class="col-12 dark-blue border-btm">
+
+      <div class="col-6">
+        <ul>
+          <li class="gold">View as</li>
+          <li class="grid"><a href="#tabs-1" class="tabs-grid"></a></li>
+          <li class="map"><a href="#tabs-3" class="tabs-map tab-re-size"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- /inner container -->
+
+  <div class="rows grey">
+
+    <div class="col-12 location-negative">
+
+     <!--GRID VIEW -->
+     <div id="tabs-1">
+
+      <div class="inner-container">
+
+        <div class="col-12 location-pod-holder">
+          {% assign sorted_nodes = nodes | sort_by: 'title'%}
+          {% for hf_node in sorted_nodes  %}
+          <div class="col-6 location-pod">
+
+           <div class="col-4">
+            {{hf_n}}
+            {% assign node_items = hf_node.node_items | selected_by :  'name' , 'hero_image' | map : 'object' %}
+            {% for node_item in node_items %}
+            <a href="/location_guides/{{hf_node.slug}}"><img src="{{node_item.image | url_for_generic_image : '336x348'}}" class="promo_asset"></a>
+            {% endfor %}
+          </div>
+          <div class="col-8">
+            {% assign node_items = hf_node.node_items | selected_by :  'name' , 'main_description' | map : 'object' %}
+            <a href="/location_guides/{{hf_node.slug}}"><h4>{{hf_node.title}}</h4></a>
+            {% for node_item in node_items %}
+            <p>{{node_item.content_text | truncatewords: 30}}</p>
+            {% endfor %}
+            <p><a class="view-all" href="/location_guides/{{hf_node.slug}}">View location guide</a></p>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+  <div id="tabs-3">
+    {% include 'location_guides/map_index' %}  
+  </div>
+
+</div>
+</div>
+</div><!-- /row -->
+
+
+
+<script type="text/javascript">
+
+
+  ( function( $, window, document, undefined )
+  {
+    'use strict';
+
+    var s = document.body || document.documentElement, s = s.style;
+    if( s.webkitFlexWrap == '' || s.msFlexWrap == '' || s.flexWrap == '' ) return true;
+
+    var $list       = $( '.location-pod-holder' ),
+    $items      = $list.find( '.col-6.location-pod' ),
+    setHeights  = function()
+    {
+      $items.css( 'height', 'auto' );
+
+      var perRow = Math.floor( $list.width() / $items.width() );
+      if( perRow == null || perRow < 2 ) return true;
+
+      for( var i = 0, j = $items.length; i < j; i += perRow )
+      {
+        var maxHeight   = 0,
+        $row        = $items.slice( i, i + perRow );
+
+        $row.each( function()
+        {
+          var itemHeight = parseInt( $( this ).outerHeight() );
+          if ( itemHeight > maxHeight ) maxHeight = itemHeight;
+        });
+        $row.css( 'height', maxHeight );
+      }
+    };
+
+    setHeights();
+    $( window ).on( 'resize', setHeights );
+    $list.find( 'img' ).on( 'load', setHeights );
+
+  })( jQuery, window, document );
+
+
+$(document).ready(function() {
+
+  $( ".tab-re-size" ).click(function() {
+      map2.invalidateSize(false);
+      map2.fitBounds(polygons.getBounds());
+  });
+
+});
+
+
+</script>

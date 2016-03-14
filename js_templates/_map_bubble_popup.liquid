@@ -1,0 +1,24 @@
+{% raw %}
+	<script id="property_map_pin_template" type="text/liquid">
+
+
+		<div class="pop_up_cont">
+
+		  	<a href='{{property.property_url}}'>
+		  		<img style='width:215px;' src='{{ property.main_photo}}'/>
+		  	</a>
+		
+		 <p class="sold-flags">{{ property.property_overlay }} </p>
+		 <p class="photos">{{ property.photos_size }}</p>
+
+		 </div>
+
+		  <a href='{{property.property_url}}'><h1> {{ property.display_address | truncate:20 }}  <br />  {{ property.price }}</h1></a>	
+		 
+		 <p> 	
+		  		{% unless property.bedrooms == 0 %}{{property.bedrooms}} Bedrooms {% endunless %}
+		  		<a href="#" class='add-to-shortlist' onclick="Ctesius.Actions.addSavedProperty({{property.property_id}}); return false;"></a>
+		</p>
+		 
+	</script>
+{% endraw %}

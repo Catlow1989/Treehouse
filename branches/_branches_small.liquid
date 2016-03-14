@@ -1,0 +1,17 @@
+
+                            <div class="office-pod">
+
+                                {% if branch.agency.portal_logo %}
+                                  <img src="{{ branch.photo | url_for_agency_logo  }}" />
+                                 {% else %}
+                                  <img src="{{ 'awaiting-image.png' | theme_image_url }}" />
+                                 {% endif %}
+
+                                 <div class="rfc-mob">
+
+                               <h5>{{branch.name}} office</h5>
+                               <p>{{branch.address }}</p>
+                               <p class="sales-tele-email">{% if property.vox_number %}{{ property.vox_number }}{% else %}{{ branch.contact_telephone }}{% endif %}</p>
+                               <p class="sales-tele-email"> <a class="link-a" href="mailto:{{ branch.contact_email }}">{{ branch.contact_email }}</a></p>
+                                  </div>
+                            </div>

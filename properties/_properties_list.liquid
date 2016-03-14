@@ -1,0 +1,77 @@
+               
+
+                <!--LIST VIEW -->
+                <div id="tabs-1">
+
+                   <div class="inner-container">
+                  	<div id="infinite_pages"> 
+ 						<div class="infinite_page" id='page-no-{{ pagination.current_page }}' data-page-no="{{ pagination.current_page }}">
+ 
+
+						
+							   {% for property in properties %}
+							    {% include "properties/list_item" %}
+							   {% endfor %}
+						
+							   
+							   
+
+						</div><!-- End Infin Item-->
+
+
+ 						
+
+
+
+    				</div> <!-- End Infin Wrapper-->
+
+
+								{% unless page.controller_name == 'branches' %}
+						            {% if pagination.has_next_page %}
+						              <button
+						                type="button"
+						                class="btn btn-alternative active btnLoadMoreProperties js-btnLoadMoreProperties"
+						                onclick="Ctesius.kickEvent('load_next_for_infinite_scroll');">
+						                Show More
+						              </button>
+						            {% endif %}
+						        {% endunless %}
+
+
+    				</div>
+
+    			</div>
+
+
+
+
+         <script type="text/javascript">
+
+         $(document).ready(function(){
+			//List View
+				
+			    $('.imgLinkList').hover(function(){
+			          $(this).closest('.col-6').find('#preview').css({'background-image':'url('+ $(this).attr('src') +')'});
+			    },function(){
+			          $(this).closest('.col-6').find('#preview').css({'background-image':''});
+			        
+			    });
+
+
+
+      		//Grid View
+
+		          $('.imgLinkGrid').hover(function(){
+		                $(this).closest('.col-4').find('#preview').css({'background-image':'url('+ $(this).attr('src') +')'});
+		          },function(){
+		                $(this).closest('.col-4').find('#preview').css({'background-image':''});
+		              
+		          });
+
+  			});
+
+		</script>
+ 
+
+
+

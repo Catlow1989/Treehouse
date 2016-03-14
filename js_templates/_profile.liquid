@@ -1,0 +1,59 @@
+{% raw %}
+  <script id="user_profile_template" type="text/liquid">
+    <div class="profile_lightbox core">
+      <div class ='row'>
+        <div class="span4"><h1>Welcome, {{ user.first_name}}</h1></div>
+      </div>
+      <div class='row'>
+        <ul style='' class="profile_tab_nav nav nav-tabs">
+          <li id = "profile_tab" class="current">
+            <a href="#user">My Profile</a>
+          </li>
+          <li id="profile_tab_saved_properties">
+            <a href="/#user/saved_properties">Saved Properties ({{saved_properties.length}})</a>
+          </li>
+        
+          <li id="profile_tab_alerts">
+           <a href="/#user/alerts">Alerts & Searches ({{saved_searches.length}})</a>
+          </li>
+        </ul>
+        {%if user_type != 'local'%}
+          <a class="logout" href="#" onclick="Ctesius.Actions.logUserOut()">Sign out</a>
+        {%endif%}
+      </div>
+      <div class="alert flash_message_container {%unless flash.message %} hidden {%endunless%}">
+          {%if flash.message %} 
+            <strong>Warning!</strong> {{flash.message}}</span>
+          {%endif%}
+      </div>
+
+      
+      {% endraw %}
+         {% include 'js_templates/profile_account' %}
+
+    {% raw %}
+
+    {% endraw %}
+      
+    {% include 'js_templates/profile_forgotten_password' %}
+
+    {% raw %}
+
+    {% endraw %}
+      
+    {% include 'js_templates/profile_saved_searches' %}
+      
+    {% raw %}
+
+    {% endraw %}
+
+    {% include 'js_templates/profile_saved_properties' %}
+      {% raw %}
+    </div>
+  </script>
+{% endraw %}
+
+<div id ='user_profile_view' style='display:none;'>
+
+</div>
+

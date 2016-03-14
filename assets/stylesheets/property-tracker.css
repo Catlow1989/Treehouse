@@ -1,0 +1,718 @@
+
+
+
+
+
+
+
+
+
+
+/**************************
+    **************************
+        **************************
+
+    PROPERTY TRACKER STYLES
+
+        **************************
+    **************************
+*****************************/
+
+#tracker-body{
+    display: none;
+}
+
+.tracker-container input[type=submit]{
+    padding: 15px 45px;
+    background: #00499a;
+    border: none;
+    color: #e3c37b;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tracker-container input[type=text], .tracker-container input[type=password]{
+    padding: 10px;
+}
+
+.tracker-container h2{
+    color: #00499a;
+    font-size: 36px;
+    margin: 55px 0 30px 0;
+    font-family: "ProximaLight", Arial, Helvetica, sans-serif;
+}
+
+.tracker-container #tracker-intro{
+    margin-bottom: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+
+.tracker-container #tracker-intro h3{
+    margin: 30px 0 20px 3%;
+    color: #00499a;
+    font-size: 26px;
+    display: inline-block;
+    font-weight: normal;
+    clear: both;
+    float: left;
+    width: 97%;
+}
+
+.tracker-container #tracker-intro .col-6 h4{
+     margin: 0 5% 25px 5%;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+.tracker-container #tracker-intro .col-6{
+    width: 49%;
+    margin-right: 2%;
+    padding-bottom: 20px;
+
+
+
+}
+
+
+.tracker-container #tracker-intro .col-6 img{
+
+    position: relative;
+    display: block;
+    margin: 0 auto 0 10%;
+    width: 90%;
+}
+
+.tracker-container #tracker-intro .col-6 p{
+    margin: 0 5%;
+    font-size: 18px;
+    float: left;
+    width: 90%;
+}
+
+.tracker-container #tracker-intro .col-6:last-child{
+    margin-right: 0;
+}
+
+.tracker-container #tracker-intro .col-6:last-child img{
+    width: 70%;
+    margin: 0 15% 0 15%;
+}
+
+.t-property, .t-neg{
+    margin-bottom: 20px;
+
+    width: 100%;
+}
+
+.tracker-container #tracker-intro .t-neg .col-9{
+    margin-right: 0;
+    width: 74.5%;
+
+}
+
+.tracker-container #tracker-intro .t-property .col-8{
+
+}
+
+
+.tracker-container #tracker-main{
+    margin-bottom: 70px;
+}
+
+.tracker-container #tracker-main .col-9{
+    width: 74.5%;
+    margin-right: 0;
+}
+
+.tracker-container #tracker-main .col-9 h3{
+    width: 100%;
+    text-align: center;
+    border-bottom: 7px solid #a29061;
+    padding: 25px 0;
+    margin: 0 0 25px 0;
+    font-size: 36px;
+    font-family: "ProximaLight", Arial, Helvetica, sans-serif;
+    color: #e1c481;
+    background: #00499a;
+}
+
+.tracker-container #tracker-main .col-3 ul{
+    padding-left: 0;
+    width:100%;
+    margin: 0;
+}
+
+.tracker-container #tracker-main .col-3 ul li{
+    list-style: none;
+    padding: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: "ProximaReg", Arial, Helvetica, sans-serif;
+    color: #4e4e4e;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.tracker-container #tracker-main .col-3 ul li:hover, .tracker-container #tracker-main .col-3 ul li.resp-tab-active {
+    background: #00346e;
+    color: #e1c481;
+}
+
+#offers-cont,  #viewings-cont,  #marketing-cont,  #profile-cont{
+    display: none;
+    position: relative;
+    margin-bottom: 40px;
+    overflow: auto;
+}
+
+#overview-cont{
+    position: relative;
+    margin-bottom: 40px;
+    overflow: auto;
+}
+
+/*****Overview******/
+
+.tracker-container #tracker-main  #overview-cont ul{
+    width: 100%;
+    margin-top: 0;
+    display: inline-block;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li{
+    width: 23.5%;
+    margin-right: 2%;
+    float: left;
+    list-style: none;
+    height: 134px;
+    display: inline-block;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li:last-child{
+    margin-right: 0;
+}
+
+.tracker-container #tracker-main  #overview-cont #offer-stats li:last-child{
+    margin-right: 2%;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li.t-offer{
+    background: #ffffff url(/liquid_assets/images/icos/offers.png) no-repeat;
+    background-position: center 10px;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li.t-viewings{
+    background: #ffffff url(/liquid_assets/images/icos/viewings.png) no-repeat;
+    background-position: center 10px;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li.t-details{
+    background: #ffffff url(/liquid_assets/images/icos/views.png) no-repeat;
+    background-position: center 10px;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li.t-page-v{
+    background: #ffffff url(/liquid_assets/images/icos/details.png) no-repeat;
+    background-position: center 10px;
+}
+
+.tracker-container #tracker-main  #overview-cont  .pdf-reports ul li{
+    background: #ffffff url(/liquid_assets/images/icos/pdf-tracker.png) no-repeat;
+    background-position: center 10px;
+}
+
+.tracker-container #tracker-main  #overview-cont ul li h4{
+    margin-top: 100px;
+    text-align:center;
+    color: #00499a;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tracker-container #tracker-main  #overview-cont h5{
+    color: #00499a;
+    font-size: 26px;
+    margin: 30px 30px 10px;
+    display: inline-block;
+}
+
+.tracker-container #tracker-main  #overview-cont p{
+    margin: 0 30px 25px;
+}
+
+
+
+/*****Offers******/
+
+#offers-cont .col-12 table{
+      width: 100%;
+      border-collapse: collapse;
+}
+
+#offers-cont .col-12 table tr{
+    border-bottom:1px solid #cccccc;
+}
+
+#offers-cont .col-12 table tr:last-child{
+    border-bottom:none;
+}
+
+#offers-cont .col-12 table td{
+    padding: 2.5% 2%;
+}
+
+#offers-cont .col-12 table tr#sale-tracker{
+    display: none;
+}
+
+#offers-cont .col-12 table button{
+    padding: 10px 10px;
+    border-radius: 5px;
+    color: #00499a;
+    text-transform: none;
+    background: #e3c37b;
+}
+
+.checklist h4{
+    margin: 10px 0 20px 0;
+    color: #00499a;
+    font-size: 20px;
+    font-weight: bold;
+    clear: both;
+}
+
+.checklist h4:last-of-type {
+    margin-top: 25px;
+}
+
+.checklist ul{
+    margin-left:0;
+
+}
+
+
+
+li.Pending  {
+    list-style: none;
+    background: url(/liquid_assets/images/icos/pt-progress-hyphen.jpg) no-repeat;
+}
+
+li.needed, li.Done, li.Sent{
+    list-style: none;
+    background: url(/liquid_assets/images/icos/pt-progress-tick.jpg) no-repeat;
+}
+
+.checklist li {
+    padding-left: 24px;
+    background-position: left center;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.checklist li span, .checklist p span{
+    font-weight: bold;
+}
+
+/*****Viewings******/
+
+#viewings-cont img{
+    width: 100%;
+    display: block;
+}
+
+#viewing-chart {
+    display: none;
+}
+
+#viewings-cont .col-12 table{
+      width: 100%;
+      border-collapse: collapse;
+}
+
+#viewings-cont .col-12 table tr{
+    border-bottom:1px solid #cccccc;
+}
+
+#viewings-cont .col-12 table tr:first-child{
+     border-top:1px solid #cccccc;
+}
+
+#viewings-cont .col-12 table tr:last-child{
+    border-bottom:none;
+}
+
+#viewings-cont .col-12 table td{
+    width: 33%;
+    padding: 2.5% 3.5%;
+
+}
+
+#viewings-cont .col-12 h4{
+    color: #00499a;
+    font-family: "ProximaBold", Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    margin: 0 30px 25px;
+    display: inline-block;
+}
+
+
+
+#viewings-view {
+    background: #ffffff;
+    padding: 40px 0;
+}
+
+canvas#viewing-chart {
+    display: none!important;
+}
+
+
+/******Marketing*******/
+
+#marketing-cont #sum-table{
+    padding-bottom: 25px;
+}
+
+#marketing-cont #sum-table ul li{
+    margin-bottom: 10px;
+}
+
+#marketing-cont #sum-table h4, #marketing-cont #interest h4{
+    color: #00499a;
+    font-family: "ProximaBold", Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    margin: 30px 30px 10px;
+    display: inline-block;
+}
+
+#marketing-cont #sum-table .blue{
+    font-weight: bold;
+}
+
+#marketing-cont #interest{
+    margin-top: 20px;
+    position: relative;
+}
+
+#marketing-cont #interest .col-12{
+    margin: 0 0 20px 0;
+}
+
+#marketing-cont #interest p{
+    margin: 0 30px 25px;
+}
+
+#marketing-cont #interest img{
+    width: 100%;
+}
+
+#marketing-cont #interest label, #marketing-cont #interest form select{
+    margin-left: 10%;
+    width: 90%;
+    display: block;
+}
+
+ #marketing-cont #interest form select{
+    padding: 10px;
+ }
+
+#marketing-cont #interest input[type=submit]{
+    margin-top: 30px;
+    padding: 10px 45px;
+}
+
+#marketing-cont #interest label{
+    color: #00499a;
+    font-family: "ProximaBold", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#tracker-main .col-3 .tabs.mob-acc{
+
+    display:none;
+
+}
+
+#intrest-chart-leg {
+    float: left;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    width: 98%;
+}
+
+#intrest-chart-wrapper {
+    margin: 0 3%;
+    max-width: 94%;
+}
+
+ul.line-legend li{
+    font-weight: bold;
+}
+
+ul.line-legend li:nth-child(1n){
+    color:#2ACB2C;
+}
+
+ul.line-legend li:nth-child(2n){
+     color:#408FB3;
+}
+
+ul.line-legend li:nth-child(3n){
+    color: #2A5CFD;
+}
+
+#update-graph {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    width: 92%;
+    padding: 4% 4%;
+}
+
+#update-graph button {
+    padding: 1% 3%;
+    margin-top: 15px;
+}
+
+#update-graph select {
+    border-radius: 0;
+    line-height: 100%;
+    padding: 1% 1%;
+    height: 100%;
+    margin-right:15px;
+    margin-top:15px;
+}
+
+#marketing-tab {
+    overflow: auto;
+}
+
+#profile-cont button{
+    display: none;
+}
+
+.mob-td-hide{
+    display: table-cell;
+}
+
+.mob-td-show{
+    display: none;
+}
+
+
+@media only screen and (max-width: 690px) {
+
+    .tracker-container #tracker-intro{
+        display: block;
+    }
+
+    #offers-cont,  #viewings-cont,  #marketing-cont,  #profile-cont, #overview-cont{
+        margin-bottom: 0;
+    }
+
+
+    #tracker-login {
+        margin: 3%;
+        width: 94%;
+    }
+
+    #tracker-login .submit{
+        margin-top:15px;
+    }
+
+    .tracker-container h2{
+        padding: 0 3%;
+    }
+
+    .tracker-container #tracker-intro .col-6{
+        width: 100%;
+        margin-right: 0;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .tracker-container #tracker-intro .col-6:last-child{
+        margin-bottom: 0;
+    }
+
+    .tracker-container {
+        margin-bottom: 40px;
+    }
+
+    .tracker-container #tracker-main .col-9{
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .tracker-tab h3{
+      display:none;
+    }
+
+    #tracker-main .col-3 .tabs{
+        display:none;
+    }
+
+    #tracker-main .col-3{
+        width: 100%;
+    }
+
+    #tracker-main .col-3 .tabs.mob-acc{
+        display:block;
+    }
+
+    tr#offer-accepted img {
+        min-width: 20px;
+    }
+
+    .tracker-container #tracker-main #overview-cont ul li {
+        width: 48%;
+        margin: 4% 1% 1% 1%;
+    }
+
+    .tracker-container #tracker-main #overview-cont #offer-stats li:last-child {
+        margin: 4% 1% 1% 1%;
+    }
+
+    #profile-cont button{
+        display: block;
+        margin: 30px auto;
+    }
+
+
+}
+
+
+
+@media only screen and (max-width: 490px) {
+
+    .mob-td-hide{
+        display: none;
+    }
+
+    #viewings-cont .col-12 h4{
+        margin: 0 10px 25px;
+    }
+
+    .mob-td-show{
+        display: block;
+    }
+
+    .mob-td-show span{
+        font-weight: bold;
+    }
+
+    .checklist h4{
+        font-size: 16px;
+    }
+
+    #offers-cont .col-12 table td{
+        font-size: 14px;
+    }
+
+    .t-property .col-4, .t-property .col-8 {
+        width: 94%;
+        margin: 0 3%;
+    }
+
+    .tracker-container #tracker-intro .col-6 img {
+        margin: 0 auto 20px;
+        width: 100%;
+    }
+
+    .tracker-container #tracker-intro .t-neg .col-9{
+        width: 100%;
+    }
+
+    .tracker-container #tracker-intro .t-property .col-8 p {
+        margin-left: 0;
+    }
+
+    .generatePDF p{
+
+    }
+
+}
+
+
+.generatePDF img{
+    position: relative;
+    clear: both;
+    text-align: center;
+    width: auto;
+    display: block;
+    margin:30px auto;
+}
+
+
+div#marketing-stats li, div#offer-stats li{
+    cursor: pointer;
+}
+
+#marketing-graph-loading {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#spinner {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(0, 73, 154, 0.2);
+  border-right: 1.1em solid rgba(0, 73, 154, 0.2);
+  border-bottom: 1.1em solid rgba(0, 73, 154, 0.2);
+  border-left: 1.1em solid #00499a;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+#spinner,
+#spinner:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+#marketing-graph-updating {
+  display: none;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+}
+
+#marketing-graph-updating #spinner {
+  width: 2em;
+  height: 2em;
+  border-width: 0.4em;
+  margin: 30px;
+}

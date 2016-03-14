@@ -1,0 +1,35 @@
+<div class="rows">
+
+        <div class="col-12">
+
+
+
+
+
+      <div id="single-hero" class="bxslider" style="display:none">
+
+                    {% for image in property.photos | limit:3 %}
+
+                    <div class="hero">
+                        <div class="image-cropper {% if forloop.first %}active{% endif %}"">
+               
+                            <img  class="centered" src="{{ image | url_for_property_photo : "1600x1066" }}" alt="" />
+
+                         </div>
+                    </div>
+
+                    {% endfor %}
+
+      </div>   
+           
+
+
+          
+
+        </div>
+
+
+<span id="slider-prev"></span><span id="slider-next"></span>
+
+        
+    </div>

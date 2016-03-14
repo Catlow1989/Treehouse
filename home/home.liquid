@@ -1,0 +1,350 @@
+<div class="slider-wrapper"> <!--start hero image and thumbnails -->
+
+      <span id="slider-prev"></span><span id="slider-next"></span>
+
+
+
+      <div class="bxslider" style="display:none">
+
+      {% for item in agency.carousel_items %}
+
+          <div class="hero"><div class="image-cropper"><img class="centered" src="{{item.image | url_for_generic_image : '1900:1266' }}"></div></div>
+
+      {% endfor %}
+
+        <div class="hero"><div class="image-cropper">{% content_block hero_banner_main %}<img class="centered" src="{{ content_block_image | url_for_generic_image}}" />{% endcontent_block %}</div></div>
+
+      </div>
+
+
+    <div class="inner-container">
+        <div class="home-search">
+
+          <div class="col-12">
+
+          <h2>Search properties</h2>
+            <form action='/search' method='get'>
+              <input type="hidden" id='place_id' name='place_id' value='{{place_id}}'>
+              <div class="col-12">
+                <input type="text" placeholder="Enter location or postcode" id='location' name="location" value="{{location_field}}">
+              </div>
+          </div>
+
+          {% if agency.default_search_channel%}
+            <input type="hidden" name="channel" value="{{ agency.default_search_channel }}">
+          {% endif %}
+
+          <div class="col-12">
+            <label class="home-buy"><input type="radio" name='channel' id="buy" value="sales" onclick="Ctesius.Actions.submitSearchForm(); return false;">Buy</label>
+            <label class="home-rent"><input  type="radio" name='channel' id="let" value="lettings" onclick="Ctesius.Actions.submitSearchForm(); return false;">Rent</label>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<div class="inner-container">
+      <div id="bx-pager">
+
+        <div class="slider-controls-bg">
+
+        </div>
+
+         {% for item in agency.carousel_items %}
+            <div class="col-4">
+              <a id="thumb-bx" href="{{ item.link_url }}">
+                <div class="arrow-up"></div>
+                <div class="small-inner">
+                  <div class="inner-thumb-content">
+                    <img src="{{item.image | url_for_generic_image : "130x110" }}">
+                    <h1>{{item.title }}</h1>
+                    <h2>{{item.price}}</h2>
+                  </div>
+                </div>
+
+              </a>
+            </div>
+
+          {% endfor %}
+
+
+         <div class="col-4 banner-pod">
+          <a id="thumb-bx" href="{% content_block hero_banner_thumb %}{{ content_block_url }}{% endcontent_block %}">
+          <div class="arrow-up"></div>
+                <div class="small-inner">
+                  <div class="inner-thumb-content">
+                    {% content_block hero_banner_thumb %}<img class="centered" src="{{ content_block_image | url_for_generic_image : "130x110"}}" />{% endcontent_block %}
+                      {% content_block hero_banner_thumb %}
+                            {{ content_block_text }}
+                        {% endcontent_block %}
+                  </div>
+                </div>
+             </a>
+          </div>
+
+
+
+    </div> <!-- / end hero image and thumbnails -->
+ </div>
+
+
+  <div class="rows">
+    <div class="inner-container"> <!--start tabs section -->
+
+      <div class="rows">
+
+        <div class="col-12">
+
+            <div id="tabs">
+
+              <h1>The Karl Tatler difference</h1>
+
+              <ul>
+                <li><a href="#tabs-1">Video introduction</a></li>
+                <li><a href="#tabs-2">Our awards</a></li>
+                <li><a href="#tabs-3">Our approach</a></li>
+                <li><a href="#tabs-4">Our difference</a></li>
+              </ul>
+
+                <div id="tabs-1">
+                    <div class="col-6">
+
+                    <div class="inner-content youtube-vid">
+
+                    {% content_block home_video_pod %}
+                            {{ content_block }}
+                        {% endcontent_block %}
+
+                    </div></div>
+
+                    <div class="col-6">
+
+                    <div class="inner-content">
+
+
+
+                        {% content_block home_video_intro %}
+                            {{ content_block }}
+                        {% endcontent_block %}
+
+
+
+
+                    </div></div>
+
+                </div>
+
+                <div id="tabs-2">
+                   <div class="col-6"><div class="inner-content youtube-vid">
+
+                        <p>
+
+                           {% content_block karl_tatler_difference_awards %}
+                               {{ content_block_text }}
+                          {% endcontent_block %}
+
+
+                        </p>
+
+                   </div></div>
+                   <div class="col-6"><div class="inner-content">
+
+                        <p>
+
+                           {% content_block our_approach %}
+                              {{ content_block_text }}
+                          {% endcontent_block %}
+
+
+                        </p>
+
+                   </div></div>
+                </div>
+
+                <div id="tabs-3">
+                 <div class="col-6"><div class="inner-content">
+
+                           <p>
+
+                          {% content_block plots_and_plans %}
+                              <img src="{{ content_block_image | url_for_generic_image}}" />
+                          {% endcontent_block %}
+
+                        </p>
+
+                   </div></div>
+                   <div class="col-6"><div class="inner-content">
+
+                        <p>
+
+                          {% content_block plots_and_plans %}
+
+                              {{ content_block_text }}
+
+                          {% endcontent_block %}
+
+                        </p>
+
+                   </div></div>
+                </div>
+
+                <div id="tabs-4">
+                   <div class="col-6"><div class="inner-content">
+
+                             <p>
+
+                            {% content_block awards_and_rec %}
+                              <img src="{{ content_block_image | url_for_generic_image}}" />
+                          {% endcontent_block %}
+
+                        </p>
+
+                   </div></div>
+                   <div class="col-6"><div class="inner-content">
+
+                           <p>
+
+                          {% content_block awards_and_rec %}
+                              {{ content_block_text }}
+                          {% endcontent_block %}
+
+                    </p>
+
+                   </div></div>
+                </div>
+
+            </div>
+
+        </div>
+
+      </div>
+
+    </div><!-- /inner container -->
+
+</div><!-- /row -->
+
+
+     <div class="rows"> <!--start secondary hero banner -->
+        <div class="col-12">
+
+          {% content_block home_secondary_banner %}
+            <div class="home-secondary-banner" style="background: url({{ content_block_image | url_for_generic_image}});">
+                <div class="secondary-banner-content">
+
+
+
+
+                         {{ content_block_text }}
+
+
+
+
+                </div>
+            </div>
+
+            {% endcontent_block %}
+        </div>
+      </div>
+
+
+
+
+ <div class="rows"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container"><!--start similar properties section -->
+
+    <div class="rows">
+
+        <div class="col-12">
+
+            <div id="tabs2" class="this-is-test">
+
+              <h1>More great properties</h1>
+
+              <ul>
+                <li><a href="#tabs-5">Agents' choice</a></li>
+                <li><a href="#tabs-6">New to market</a></li>
+              </ul>
+
+                <div id="tabs-5">
+                   <div id="agency-rec" class="owl-carousel">
+
+
+
+                             {% for property in agency.featured_properties limit:9 %}
+                               {% include 'properties/similar_item'%}
+                             {% endfor %}
+
+
+                  </div>
+                </div>
+
+                <div id="tabs-6">
+                   <div id="new-to-market" class="owl-carousel">
+
+                              {% search_from_fragment fragment: most-recent-first channel: sales %}
+                                 {% for property in properties limit: 9 %}
+                                         {% include 'properties/similar_item'%}
+                                 {% endfor %}
+                            {% endsearch_from_fragment %}
+
+                  </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+  </div><!-- /inner container -->
+
+
+  <a class="prev" title="previous"></a>
+  <a class="next" title="next"></a>
+
+</div><!-- /row -->
+
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    //This itertates through each array and adds a data attribute to each one
+    $(".col-4 > #thumb-bx ").each(function(index) {
+         $(this).attr("data-slide-index", index);
+    });
+ });
+</script>
+
+
+ <script type="text/javascript">
+ $(document).ready(function() {
+  $(window).resize(function(e){
+    updateMenu2();
+  });
+
+    function updateMenu2(){
+
+      if($(window).width() <= 690){
+
+        // mobile view instructions
+          $( "#tabs-5" ).addClass('display-block');
+          $( "#tabs-6" ).addClass('display-block');
+          } else {
+            $( "#tabs-5" ).removeClass('display-block');
+            $( "#tabs-6" ).removeClass('display-block');
+            $( "#tabs-5" ).removeClass('r-tabs-state-default');
+            $( "#tabs-6" ).removeClass('r-tabs-state-default');
+
+          }
+
+      }
+
+  });
+
+
+  </script>

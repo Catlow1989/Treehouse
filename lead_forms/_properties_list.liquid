@@ -1,0 +1,30 @@
+<div id="myContactForm-{{ property.property_id }}" class="results-contact-form modal">
+  <button data-dismiss="modal"></button>
+  <form id="myResultsForm-{{ property.property_id }}" action="/properties/{{ property.property_id }}/{{ property.primary_channel }}/leads" method="post">
+    <input type="hidden" name="lead[custom_redirect]" value="{{page.current_path}}">
+    <div class="col-12">
+      <div class="col-6">
+        <label for="firstname">First name</label>
+        <input class="required" type="text" id="firstname" name="lead_client[first_name]">
+      </div>
+      <div class="col-6">
+        <label for="surname">Last name</label>
+        <input class="required" type="text"  id="surname" name="lead_client[last_name]" >
+      </div>
+      <div class="col-6">
+        <label for="email">Email address</label>
+        <input class="required" type="email" id="email" name="lead_client[email]" >
+      </div>
+      <div class="col-6">
+        <label for="telephone">Telephone number</label>
+        <input class="required" type="tel" id="telephone" name="lead_client[tel_home]" >
+      </div>
+    </div>
+
+    <div class="col-12">
+        <label for="message">Please advise when you would like to view or what further information you require</label>
+        <textarea id="message" name="lead[message]" ></textarea>
+        <input id="results-send" type="submit" value="Send">
+    </div>
+  </form>
+</div>

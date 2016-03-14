@@ -1,0 +1,287 @@
+ <div class="rows ">
+
+        <div class="col-12 ">
+
+
+                  <div id="about-hero">
+
+                        
+ 
+                       <img src="{{'about-bg.jpg' | theme_image_url}}">
+
+                                      
+                  </div>
+
+                <div class="about-hero-block">
+
+                      <h1>{{cms_page.title}}</h1>
+
+                      <div class="col-8">
+                        <h2>Wirral Estate Agents &amp; Lettings</h2>
+                                
+                        <img src="{% content_block about_page_main %}{{ content_block_image | url_for_generic_image}}{% endcontent_block %}" class="mob-show" alt="">
+
+                        {% content_block about_page_main %}
+                                 {{ content_block_text }}
+                             {% endcontent_block %}
+                         
+                      </div>
+                      <div class="col-4 mob-hide">  
+                
+
+							                 <img src="{% content_block about_page_main %}{{ content_block_image | url_for_generic_image}}{% endcontent_block %}" class="large_image" alt="">
+
+							
+					</div>
+
+                </div>
+
+        </div>
+
+                  
+</div>
+
+
+
+
+<div class="rows white-bg">
+
+  <div class="inner-container">
+
+    <div class="col-4 mob-hide company-hist">
+       
+ 
+
+        {% content_block company_history_pod %}
+
+			     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+		    {% endcontent_block %}
+
+   
+
+    </div>
+
+     <div class="col-8 no-margin company-hist">
+        
+        <h2>What we do</h2>
+
+        {% content_block company_history_pod %}
+          <img class="mob-show" src="{{ content_block_image | url_for_generic_image}}" />
+        {% endcontent_block %}
+
+        <div class="single-description expandable show-more-height">
+
+        {% content_block company_history_pod %}
+  			   {{ content_block_text }}
+  			{% endcontent_block %}
+
+        </div>
+
+        <div class="gradient"></div>
+
+        <a href="#" class='ExpandAll'>More Info</a>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+ 
+
+
+     <div class="rows">
+        <div class="col-12">
+            <div class="about-secondary-banner">
+                <div class="secondary-banner-content">
+                  <h1>Our recent awards</h1>
+
+
+                   {% content_block  awards_intro_about %}
+                         <p> {{ content_block_text }} </p>
+                   {% endcontent_block %}
+                  
+                 
+
+                   <div id="about-awards" class="owl-carousel">
+
+                              {% content_block about_small_awards %}
+                                 {{ content_block_text }}
+                              {% endcontent_block %}
+    
+                    </div>
+
+
+                      <a class="about-prev" title="previous"></a>   
+                      <a class="about-next" title="next"></a>  
+
+                </div>
+            </div>
+        </div>
+      </div>
+
+        
+
+
+
+
+<div class="rows">
+
+  <div id="testimonials-all" class="inner-container">
+
+    <div class="col-12 testimonial-block">
+
+        <h2>Testimonials</h2>
+
+        <p>We love hearing from clients about the job we have done and regularly receive thank you cards and letters. Take a look at the latest feedback below or check out our <a href="https://www.facebook.com/media/set/?set=a.402299023208824.1073741826.166823643423031 " target="_blank">Facebook page</a> where clients have posted testimonials and feedback on our wall.</p>
+
+        <div id="masonary-blocks">
+
+
+		        {% for testimonial in agency.testimonials  %}
+					<div class="testimonial">
+
+			              <div class="testimonial-inner">
+			                <div class="test-b-t"><!--Border Top--></div>
+			                <p>{{ testimonial.content }}</p>
+			                <div class="test-b-b"><!-- Border Bottom --></div>
+			              </div>
+
+			              <span class="test-author">{{ testimonial.name }}</span>
+
+			        </div>
+				{% endfor %}
+
+       
+
+        </div>
+
+       <p class="lazy-holder" ><button class="lazy-trigger" href="#">Load More</button></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div id="company-history" class="rows white-bg">
+
+  <div class="inner-container">
+
+    <div class="col-4 mob-hide company-recruit">
+       
+    {% content_block company_recruitment_pod %}
+
+			 <img src="{{ content_block_image | url_for_generic_image}}" />
+
+		{% endcontent_block %}
+
+    </div>
+
+     <div class="col-8 no-margin company-recruit">
+        
+        <h2>Company history</h2>
+
+       {% content_block company_recruitment_pod %}
+
+       <img class="mob-show" src="{{ content_block_image | url_for_generic_image}}" />
+
+			{{ content_block_text }}
+
+		{% endcontent_block %}
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="rows">
+
+  <div class="inner-container">
+
+    <div class="col-12 seperator">
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+$( document ).ready(function() {
+
+   var testContainer = $( '#masonary-blocks' );
+
+      $(function(){
+        $('#masonary-blocks').masonry({
+          // options
+          itemSelector : '.testimonial',
+          isAnimated: true,
+          isFitWidth: true
+        });
+      });
+
+
+
+var lastChild = $(".testimonial:last-child").addClass("last");
+
+      $(function () {
+        $(".lazy-trigger").on("click", function () {
+          $("#masonary-blocks").find(".testimonial:hidden:lt(5)").show();
+          $( testContainer ).masonry( 'reloadItems' );
+          $( testContainer ).masonry( 'layout' );
+
+
+          if (!$('.last').is(':hidden')) {
+                $( ".lazy-trigger" ).hide();
+            } else {
+
+            }
+          });
+
+
+      });
+
+
+      $('a.button').click(function(e)
+        {
+            // Special stuff to do when this link is clicked...
+
+            // Cancel the default action
+            e.preventDefault();
+        });
+
+});
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+

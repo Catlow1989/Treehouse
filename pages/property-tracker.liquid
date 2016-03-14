@@ -1,0 +1,385 @@
+{%raw%}
+<!-- /////////////////////////////
+
+  START OF PROPERTY TRACKER MARK-UP
+
+/////////////////////////////   -->
+
+
+
+<script id='tracker-intro-template' type='text/liquid'>
+<!-- Your Property -->
+  <div class="col-6 white-bg">
+
+      <h3>Your Property</h3>
+
+      <div class="t-property">
+
+        <div class="col-4">
+           {% for image in property.image limit:1 %}
+            <img src="{{image.filepath}}">
+           {%endfor%}
+        </div>
+
+        <div class="col-8">
+          <p>{{property.address1}}, {{property.address2}}, {{property.address3}}</p>
+        </div>
+
+      </div>
+  </div> <!--END - Your Property -->
+
+  <div class="col-6 white-bg">
+
+      <h3>Your Property Manager</h3>
+
+      <div class="t-neg">
+
+        <div class="col-3">
+        </div>
+
+        <div class="col-9">
+          <h4>{{property.negotiator.name}}</h4>
+          <p><span class="blue">T:</span> {{property.negotiator.telephone}}</p>
+          <p><span class="blue">E:</span> <a href="mailto:{{property.negotiator.email}}" >{{property.negotiator.email}}</a></p>
+        </div>
+
+      </div>
+  </div>
+</script>
+
+<script id='marketing-tab-template' type='text/liquid'>
+  <div id="sum-table" class="col-12 white-bg">
+      <h4>Summary</h4>
+
+      <ul>
+        <li><span class="blue">{{marketing_stats.detailssent}} buyers sent details</span> of property</li>
+        <li><span class="blue">Property has had {{marketing_stats.viewings}} viewings</span></li>
+        <li>Property viewed <span class="blue">{{marketing_stats.pageviews}} times</span> on our website (by {{marketing_stats.uniquepageviews}} different people)</li>
+      </ul>
+
+  </div>
+
+  <div id="interest" class="col-12 white-bg">
+      <h4>Online Interest</h4>
+
+      <p>The following chart summarises the web interest on karltatler.com in your property.</p>
+
+      <div id="intrest-chart-leg" ></div>
+      <div id="intrest-chart-wrapper">
+        <canvas id="intrest-chart" width="700" height="400"></canvas>
+      </div>
+
+      <div id="marketing-graph-loading">
+        <div id="spinner"></div>
+      </div>
+
+  </div>
+
+</script>
+
+
+<script id='offer-stats-template' type='text/liquid'>
+  <li class="t-offer">
+      <h4>{{offers.length}} Offers</h4>
+  </li>
+
+</script>
+
+<script id='marketing-stats-template' type='text/liquid'>
+  <li class="t-viewings">
+       <h4>{{marketing_stats.viewings}} Viewings</h4>
+  </li>
+  <li class="t-details">
+       <h4>{{marketing_stats.detailssent}} Details Sent</h4>
+  </li>
+  <li class="t-page-v">
+      <h4>{{marketing_stats.pageviews}} Page Views</h4>
+  </li>
+</script>
+
+
+<script id='offers-template' type='text/liquid'>
+<div class="col-12 white-bg">
+    <table>
+
+      {% for offer in offers %}
+
+
+
+        <tr {%if offer.status == 'Offer Accepted'%}id="offer-accepted"{%endif%}>
+          <td>{%if offer.status == 'Offer Accepted'%}<img src="/liquid_assets/images/icos/accepted.png">{%endif%}</td>
+          <td>{{offer.status}}</td>
+          <td>{%if offer.status == 'Offer Accepted'%}<button id="sales-progress">Sales progress</button>{%endif%}</td>
+          <td class="mob-td-hide">{{offer.buyertitle}} {{offer.buyerinitials}} {{offer.buyersurname}}</td>
+          <td class="">£{{offer.price}}</td>
+          <td class="mob-td-hide">{{offer.date | date: "%H:%m %d %b %Y"}}</td>
+        </tr>
+
+        {%if offer.status == 'Offer Accepted'%}
+
+        <td class="checklist" colspan="6">
+        <div>
+
+          <h4 class="mob-td-show">Sales Details</h4>
+
+          <p class="mob-td-show"><span>Name:</span> {{offer.buyertitle}} {{offer.buyerinitials}} {{offer.buyersurname}}</p>
+
+          {% if false %}
+          <p class="mob-td-show"><span>Name:</span> {{vendor.title}} {{offer.initials}} {{offer.surname}}</p>
+          {% endif %}
+
+          <p class="mob-td-show"><span>Offer:</span> £{{offer.price}}</p>
+
+          <p class="mob-td-show"><span>Date:</span> {{offer.date | date: "%H:%m %d %b %Y"}}</p>
+
+          <h4>Sales Progress Checklist</h4>
+
+
+
+            <ul>
+                <li class="{{offer.titledeedrequested}}"><span>Title Deed Requested:</span> {{offer.titledeedrequested}}</li>
+                <li class="{{offer.titledeedreceived}}"><span>Title Deed Received:</span> {{offer.titledeedreceived}}</li>
+                <li class="{{offer.draftcontractsent}}"><span>Draft Contact Sent:</span> {{offer.draftcontractsent}}</li>
+                <li class="{{offer.draftcontractreceived}}"><span>Draft Contract Received:</span> {{offer.draftcontractreceived}}</li>
+                <li class="{{offer.draftcontractapproved}}"><span>Draft Contract Approved:</span> {{offer.draftcontractapproved}}</li>
+                <li class="{{offer.searchespaid}}"><span>Searches Paid:</span> {{offer.searchespaid}}</li>
+                <li class="{{offer.mortgage}}"><span>Mortgage:</span> {{offer.mortgage}}</li>
+                <li class="{{offer.surveycarriedout}}"><span>Survey Carried Out:</span> {{offer.surveycarriedout}}</li>
+                <li class="{{offer.enquiriessent}}"><span>Searches Received:</span> {{offer.enquiriessent}}</li>
+                <li class="{{offer.enquiriesanswered}}"><span>Enquiries Answered:</span> {{offer.enquiriesanswered}}</li>
+                <li class="{{offer.contractsignedvendor}}"><span>Contracts Signed Vendor:</span> {{offer.contractsignedvendor}}</li>
+                <li class="{{offer.contractsignedpurchaser}}"><span>Contract Signed Purchaser:</span> {{offer.contractsignedpurchaser}}</li>
+                <li class="{{offer.completiondateagreed}}"><span>Completion Date Agreed:</span> {{offer.completiondateagreed}}</li>
+                <li class="{{offer.exchangedconfirmedtovendor}}"><span>Exchanged. Confirmed to Vendor:</span> {{offer.exchangedconfirmedtovendor}}</li>
+                <li class="{{offer.exchangedconfirmedtopurchaser}}"><span>Exchanged. Confirmed to Purchaser:</span> {{offer.exchangedconfirmedtopurchaser}}</li>
+            </ul>
+
+        </div>
+        </td>
+
+        <tr id="sale-tracker">
+        </tr>
+
+        {%endif%}
+
+      {%endfor%}
+    </table>
+</div>
+
+
+<script type="text/javascript">
+
+$('#sales-progress').on('click', function (e) {
+        e.preventDefault();
+         $( "#sale-tracker" ).toggle();
+    });
+
+$( "#sale-tracker" ).append( $( ".checklist" ) );
+
+
+</script>
+</script>
+
+
+
+<script id='viewings-template' type='text/liquid'>
+
+<canvas id="viewing-chart" width="700" height="400"></canvas>
+
+
+<div class="col-12 white-bg">
+   <h4>Viewing Notes</h4>
+
+   <table>
+   {%for viewing in viewings %}
+     <tr>
+       <td>{{viewing.applicantname}}</td>
+       <td>{{viewing.followup}}</td>
+       <td>{{viewing.datetime | date: "%H:%m %d %b %Y"}}</td>
+     </tr>
+   {%endfor%}
+   </table>
+</div>
+
+
+</script>
+
+
+
+
+
+
+
+<div class="rows tracker-container">
+
+  <div class="inner-container">
+
+    <div class="col-12 ">
+
+            <h2>Live Property Tracker</h2>
+
+
+        <div id="tracker-login" class="col-6">
+
+            <form id="login_form">
+              <p><input type="text" id="property_id" value="{%endraw%}{{ page.get_params.p_id }}{%raw%}" placeholder="Property id"></p>
+              <p><input type="password" id="password" value="{%endraw%}{{ page.get_params.p_wd }}{%raw%}" placeholder="Password"></p>
+              <p class="submit"><input type="submit" name="commit" value="Login"></p>
+            </form>
+
+        </div>
+
+<div id="tracker-body">
+
+        <div id="tracker-intro" class="col-12 ">
+
+
+        </div> <!--End #tracker-intro .col12 -->
+
+
+        <div id="tracker-main" class="col-12 ">
+
+            <div class="col-3 white-bg">
+                <ul class='tabs resp-tabs-list tracker-tab'>
+                  <li id="overview-btn">Overview</li>
+                  <li id="offers-btn">Offers</li>
+                  <li id="viewings-btn">Viewings</li>
+                  <li id="marketing-btn">Marketing</li>
+                  <!--<li id="profile-btn" class="">Profile details</li>-->
+                  <li id="log-out-btn" onClick="location.reload();">Logout</li>
+              </ul>
+            </div>
+
+              <div class="col-9 resp-tabs-container tracker-tab">
+
+                <!-- Overview Container -->
+                  <div id="overview-cont">
+                    <h3>Overview</h3>
+                    <ul>
+                      <div id= 'offer-stats'></div>
+                      <div id ='marketing-stats'></div>
+                    </ul>
+
+                    <div class="pdf-reports white-bg">
+                      <h5>PDF Reports</h5>
+
+                      <p>Choose from the options below to download a PDF report of interest in your property.</p>
+                      <ul>
+                       <li>
+                          <a id="monthlyPdf" href="#"><h4>Monthly Report</h4></a>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div><!-- ##END - Overview Container -->
+
+
+
+
+                <!-- Offers Container -->
+
+
+                  <div id="offers-cont">
+                    <h3>Offers</h3>
+
+                    <div id='offers-view'>
+
+
+
+
+                    </div>
+
+
+
+                  </div><!-- ##END - Offers Container -->
+
+
+
+
+
+                <!-- Viewings Container -->
+                  <div id="viewings-cont" >
+                    <h3>Viewings</h3>
+
+
+
+                     <div id='viewings-view'></div>
+                  </div><!-- ##END - Overview Container -->
+
+
+
+
+                <!-- Marketing Container -->
+                  <div id="marketing-cont">
+                    <h3>Marketing</h3>
+                    <div id='marketing-tab'></div>
+                      <div id="update-graph">
+                        View:
+
+                        <form id='interval_select'>
+                              <select>
+                                <option value="week">Week</option>
+                                <option value="month">Month</option>
+                                <option value="quarter">Quarter</option>
+                              </select>
+                              <button>Update</button>
+                              <div id="marketing-graph-updating">
+                                <div id="spinner"></div>
+                              </div>
+
+                        </form>
+                      </div>
+
+                  </div>
+
+                <!-- Profile Container -->
+                  <div id="profile-cont">
+                    <h3>Log Out</h3>
+
+                   <button onClick="location.reload();">click here</button>
+
+                  </div><!-- ##END - Profile Container -->
+
+              </div>
+
+
+        </div> <!--End #tracker-intro .col12 -->
+
+
+    </div>   <!--End #tracker-body -->
+
+  </div>
+
+</div>
+
+</div>
+
+
+
+
+<!-- /////////////////////////////
+
+  END OF PROPERTY TRACKER MARK-UP
+
+/////////////////////////////   -->
+{%endraw%}
+
+
+
+<script type="text/javascript">
+
+  $(document).ready(function($) {
+    var p_id = "klrrps-" + $("#property_id").val();
+    var p_wd = $("#password").val();
+
+    if(p_id != '' && p_wd != '') {
+      $( "#login_form" ).submit();
+    }
+  });
+
+ if (window.location.href.indexOf("main3") > -1) {
+    console.log("found it");
+  }
+
+
+</script>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{page.page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="{{page.page_title}}">
+    <meta name="description" content="{{page.page_description}}">
+
+
+
+    {{ "application" | javascript_include_tag }}
+    {{ "application" | stylesheet_link_tag }}
+    {{ "normalize" | theme_stylesheet_link_tag }}
+    {{ "owl.carousel" | theme_stylesheet_link_tag }}
+
+    {{ "nolan" | theme_stylesheet_link_tag }}
+    
+
+    {{ "owl.carousel.min" | theme_javascript_link_tag }}
+
+      
+
+
+    
+  </head>
+
+  <body>
+    {% include 'layouts/js_templates' %}
+    {% include 'layouts/js_event_registers' %}
+    <div class="container">
+
+    <header> <!--start header -->
+
+      <div class="inner-container">
+
+          <div class="logo"><a href="/"><img src="{{agency.logo | url_for_agency_logo}}" alt="{{agency.name}} logo"/></a></div>
+
+          <div class="buttons">
+            <button onClick="window.location.hash='user';">Register</button>
+            <button onClick="window.location.hash='user';">Log in</button>
+
+          </div>
+
+          <div class="main-menu">
+
+              <label for="show-menu" class="show-menu">Show Menu</label>
+              <input type="checkbox" id="show-menu" role="button">
+
+
+
+              {% assign primary_menu = 'primary' | site_menu %}
+                <ul  id="menu">
+                            
+                                {% for menu_item in primary_menu.items %}
+                                    <li class="{% if menu_item.category == page.category %}menu-active{% endif %}">
+                                        <a href="{{menu_item.url}}">{{menu_item.name}}
+                                        </a>
+                                    </li>                                                                                            
+                           
+                            
+               
+                
+              {% endfor %}
+
+                
+              </ul>
+
+
+          </div>
+        </div>
+
+    </header> <!-- /end hero image and thumbnails -->
+
+<div id="wrapper"> <!--start wrapper main content -->
+
+
+
+
+
+
+
+
+
+
+
+<div class="rows">
+
+        <div class="col-12">
+
+
+                  <div id="static-hero">
+ 
+                   <img src="{{cms_page.image | url_for_generic_image : '1600x1066' }}">
+                    
+                  </div>
+
+
+
+                  <div class="inner-container">
+
+                         <div class="contact-hero-pod">
+
+                            <h1>Contact us</h1>
+
+
+                            <p> {{cms_page.content}}</p>
+
+                             
+
+                              <div class="links">
+                                <p class="office-locations"><a  href="#contact-office-location">View Office locations</a></p>
+                                <p class="contact-office"><a href="#contact-details">Contact an office</a></p>
+                                <p class="contact-team-member"><a href="#team-members">Contact a team member</a></p>
+                                <p class="leave-feedback"><a href="#feedback-section">Leave feedback</a></p>
+                              </div>
+                         </div>
+
+                  </div>
+
+        </div>
+
+                  
+
+  </div>
+
+
+<div id="contact-office-location" class="rows">
+
+
+
+     
+
+                    <div class="inner-container">
+
+                        <h2> Office Locations</h2>
+                        
+                    </div>
+
+                   
+            
+
+
+
+
+</div>
+        
+
+
+<div id="contact-map" class="rows">
+
+<div id='agency_map'></div>
+<script>
+ {{ gmap_for agency.branches as roadmap in agency_map }}
+</script>
+
+      <div id="map">
+
+                    <div class="inner-container">
+
+
+                        <div class="map-key">
+
+                          <p class="sales-map-pin">Sales offices</p>
+                          <p class="lettings-map-pin">Lettings offices</p>
+
+                        </div>
+
+                        
+                    </div>
+
+
+                    <script>
+                     {{ gmap_for agency.branches as roadmap in agency_map }}
+                    </script>
+
+                   
+            
+        </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="contact-details" class="rows white-bg">
+
+
+
+
+
+                    <div class="inner-container">
+
+
+                        <h3>Office contact details</h3>
+
+                        <h4>Sales offices</h4>
+
+                        <div class="sale-times">
+                            <p><span>Mon - Thurs:</span> 9am - 7pm</p>
+                            <p><span>Fri - Sat:</span> 9am - 5.30pm</p>
+                            <p><span>Sun / Bank Holidays:</span> 11am - 4pm</p>
+                        </div>
+
+
+                        <div class="office-pods-sales">
+                            <div class="office-pod">
+                               <img src="assets/images/office-placer.jpg" alt=""> 
+                               <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                            <div class="office-pod">
+                              <img src="assets/images/office-placer.jpg" alt=""> 
+                              <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                            <div class="office-pod">
+                              <img src="assets/images/office-placer.jpg" alt=""> 
+                              <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                            <div class="office-pod">
+                              <img src="assets/images/office-placer.jpg" alt=""> 
+                              <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                            <div class="office-pod">
+                              <img src="assets/images/office-placer.jpg" alt=""> 
+                              <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+
+
+                        </div>
+
+                        
+                    </div><!--End Inner Containers -->
+
+
+
+</div>
+
+
+
+<div id="contact-details" class="rows">
+
+
+
+
+
+                    <div class="inner-container">
+
+                      <div class="lettings-offices">
+
+
+
+                        <h4>Lettings offices</h4>
+
+                        <div class="lettings-times">
+                            <p><span>Mon - Thurs:</span> 9am - 7pm</p>
+                            <p><span>Fri - Sat:</span> 9am - 5.30pm</p>
+                            <p><span>Sun / Bank Holidays:</span> 11am - 4pm</p>
+                        </div>
+
+
+                        <div class="office-pods-lettings">
+                            <div class="office-pod">
+                               <img src="assets/images/office-placer.jpg" alt=""> 
+                               <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                            <div class="office-pod">
+                              <img src="assets/images/office-placer.jpg" alt=""> 
+                              <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                            <div class="office-pod">
+                              <img src="assets/images/office-placer.jpg" alt=""> 
+                              <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>
+                            </div>
+
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div class="head-office">
+
+
+
+                        <h4>Head office</h4>
+
+                        <div class="head-times">
+                            <p><span>Mon - Fri:</span> 9am - 5.30pm</p>
+                            <p><span>Weekends:</span> 11am - 4pm</p>
+                        </div>
+
+
+                        <div class="office-pod-head">
+                            <div class="office-pod-double">
+                               <img src="assets/images/office-placer.jpg" alt="">
+                               <img src="assets/images/office-placer.jpg" alt="">
+                               <h5>Greasby Sales Office</h5>
+                               <p>80a Greasby Road, Greasby, Wirral, CH49 3NG</p>
+                               <p class="sales-tele-email"><span class="blue">T.</span> 0151 606 1717</p>
+                               <p class="sales-tele-email"><span class="blue">E.</span> greasby@karltatler.com</p>  
+                            </div>
+
+
+                        </div>
+
+                      </div>
+
+
+
+                        
+                    </div><!--End Inner Containers -->
+
+
+
+</div>
+
+
+
+
+
+<div id="team-members" class="rows white-bg">
+
+
+
+
+
+                    <div class="inner-container">
+
+                      <div class="our-people-container">
+                        <h3>Our People</h3>
+
+                        <p>Click on a member of staff to view profile and contact details</p>
+                      </div>
+
+
+                      <div class="staff-profiles">
+
+                     
+                            {% for profile in agency.staff_profiles %}
+
+
+
+                            <div class="col-2">
+
+                             <img src="{{ profile.avatar | url_for_staff_profile_avatar : "192x201" }}" 
+                             alt="{{ profile.name }}" width="192">
+                        
+                              <p class="blue"><strong>{{ profile.name }}</strong></p>
+                              <p>{{ profile.job_title }}</p>
+                              
+                            </div>
+
+
+                            {% endfor %}
+
+                             
+
+
+
+                      </div> <!--End Staff Profiles -->
+
+
+                        
+                    </div><!--End Inner Containers -->
+
+
+
+</div>
+
+
+
+
+<div id="feedback-section" class="rows"> <!--start secondary hero banner -->
+    <div class="col-12">
+            <div class="contact-secondary-banner">
+                <div class="secondary-banner-content">
+                  <h1>Give us your feedback</h1>
+                  <p>We welcome your compliments, complaints and suggestions. Your feedback will help us improve the quality of our service.</p>
+
+                  <form>
+
+                      <div class="col-12">
+                        <div class="col-4"> 
+                          <label for="title">Title</label>
+                          <select id="title">
+                            <option value="">Please select</option>
+                            <option value="mr">Mr</option>
+                            <option value="mrs">Mrs</option>
+                            <option value="miss">Miss</option>
+                            <option value="ms">Ms</option>
+                          </select>
+                        </div>
+                        <div class="col-4"> 
+                          <label for="first_name">First name</label>
+                          <input type="text" name="first_name" id="first_name">
+                        </div>
+                        <div class="col-4"> 
+                          <label for="last_name">Last name</label>
+                          <input type="text" name="last_name" id="last_name" >
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="col-4">  
+
+                          <label for="email_address">Email address</label>
+                          <input type="email" name="email_address" id="email_address" >
+
+                          
+                        </div>
+
+                        <div class="col-4"> 
+
+                          <label for="tel_number">Telephone number</label>
+                          <input type="tel" name="tel_number" id="tel_number" >
+
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                 
+                          <label for="comments">Comments</label>
+                          <textarea id="comments"></textarea>
+
+                      </div>
+
+                          <div class="col-12">
+
+                              <input type="submit" value="Send">
+                  
+                          </div>
+
+                       
+                    </form>
+
+
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="rows white-bg"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container"><!--start similar properties section -->
+     
+    <div class="rows">
+
+        <div class="col-12">
+
+
+
+
+                   <div id="awards" class="owl-carousel">
+                              <div class="item">
+                                <img src="/liquid_assets/images/awards-place.jpg" alt="Owl Image"> 
+                              </div>
+                              <div class="item">
+                                <img src="/liquid_assets/images/awards-place.jpg" alt="Owl Image">
+                              </div>
+                              <div class="item">
+                                <img src="/liquid_assets/images/awards-place.jpg" alt="Owl Image">
+                              </div>
+                              <div class="item">
+                                <img src="/liquid_assets/images/awards-place.jpg" alt="Owl Image">
+                              </div>
+                              <div class="item">
+                                <img src="/liquid_assets/images/awards-place.jpg" alt="Owl Image">
+                              </div>
+                              <div class="item">
+                                <img src="/liquid_assets/images/awards-place.jpg" alt="Owl Image">
+                              </div> 
+                    </div>
+
+        </div>
+        
+    </div>
+
+  </div><!-- /inner container --> 
+
+      <div class="carousel-nav">
+        <a class="prev-awards " title="previous"></a>   
+        <a class="next-awards " title="next"></a>   
+      </div>        
+
+</div><!-- /row --> 
+
+
+  <!-- Responsive Offset Footer section below info bar needed with inner dives for Background Colours left and Right plus Back to top anchor -->     
+
+    <div class="info-bar">
+      <div class="left-side">
+        
+      </div>
+      <div class="right-side"> 
+        <button id="scroll-to-top"></button>
+      </div>
+
+        
+    </div>
+
+  <!-- Main Info bar content and structure with a negative margin to bring it into line with the infobar section above-->
+<div class="inner-footer">
+
+          <div class="inner-left">
+              <div class="split-1">
+                <div class="footer-search">
+                  <h2>Property Search</h2>
+                  <p>It is intended to look Like actual text but not To be read some dummy</p>
+                </div>
+                <div class="footer-about">
+                  <h2>About Karl Tatler</h2>
+                  <p>It is intended to look Text use greek or latin But these can look odd due to unusual letter shapes and formations</p>
+                </div>
+              </div>
+              <div class="split-2">
+                <h2>Our Branches</h2>
+                <p>It is intended to look Like actual text but not To be read some dummy Text use greek or latin But these can look odd Due to unusual letter Shapes and formationsIt is intended to look</p>
+              </div>
+              <div class="split-3">
+                <h2>Twitter</h2>
+                <p>It is intended to look Like actual text but not To be read some dummy Text use greek or latin But these can look odd Due to unusual letter Shapes and formationsIt is intended to look</p>
+              </div>
+          </div>
+          <div class="inner-right"> 
+
+            <h2>Keep up to date by signing up to our newsletter</h2>
+       
+           <form>
+            <input type="text" placeholder="name" name="name">
+            <input type="email"  placeholder="email address" name="email address">
+            <input class="newletter-sign" type="submit" value="Submit">
+           </form>
+
+          </div>
+         
+        </div>
+
+    <footer>
+
+      <div class="inner-container">
+        <div class="footer-links">
+            <p>&copy; Karl Tatler Estate Agents 2014 <span>|</span> Terms and Conditions <span>|</span> Privacy Policy <span>|</span> Accessibility <span>|</span> Help Using This Site</p>
+          </div>
+          <div class="social-links">
+            <p>Follow Us</p>
+            <img src="{{'icos/facebook.jpg' | theme_image_url}}" alt="Facebook"> 
+            <img src="{{'icos/twitter.jpg' | theme_image_url}}" alt="Twitter">
+            <img src="{{'icos/linkedin.jpg' | theme_image_url}}" alt="LinkedIn">
+            <img src="{{'icos/youtube.jpg' | theme_image_url}}" alt="Youtube">
+          </div>
+      </div>
+
+    </footer>
+
+
+
+
+
+  </div> <!-- / end wrapper -->    
+
+    {{ "jquery.bxslider" | theme_javascript_link_tag }}
+    {{ "jPages" | theme_javascript_link_tag }}
+    {{ "main" | theme_javascript_link_tag }}
+
+
+
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+        Ctesius.init()
+      });
+    </script>
+    
+</div> <!-- /end container -->
+
+     <!--Scroll to anchor function -->
+    <script type="text/javascript">
+
+
+    $(function() {
+    $('a[href*=#]:not([href=#])').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html,body').animate({
+            scrollTop: target.offset().top -90
+          }, 2000);
+          return false;
+        }
+      }
+    });
+  });
+
+    </script>
+
+  </body>
+</html>
+
+
+
+
+
+

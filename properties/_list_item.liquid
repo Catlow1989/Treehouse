@@ -1,0 +1,97 @@
+<!-- list view -->
+<div class="col-12 list">
+  <div class="col-6 mobile-pd">
+    <a href="{{ property | url_for_property }}"><h1>{{property.display_address}}</h1></a>
+    <h2>{{property.price}} {% if current_channel.name == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://www.karltatler.com/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}</h2>
+    <hr>
+  </div>
+
+  <div class="col-6">
+    <div class="single-imagery">
+      <a href="{{ property | url_for_property }}">
+        <div id="holder">
+          <div id="preview"></div>
+          <p class="sold-flags">{{ property | photo_overlay }} </p>
+          <img class="list-main" src="{{ property.photos.first| url_for_property_asset : '408x268'}}" alt="">
+          <p class="photos">{{ property.photos.size }}</p>
+        </div>
+        <div class="supporting-imagery">
+          {% for photo in property.photos offset:1 limit:2 %}
+            <img class="imgLinkList" src="{{ photo | url_for_property_photo : "408x268"}}"/>
+          {% endfor %}
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="mobilepd-hide">
+      <a href="{{property | url_for_property}}"><h1>{{property.display_address}}</h1></a>
+      <h2>{{property.price}} {% if current_channel.name == 'lettings' %}<a target="_blank" title="Our lettings fees" href="http://www.karltatler.com/pages/karl-tatler-lettings-fees">+ fees</a>{% endif %}</h2>
+      <hr>
+    </div>
+    <p>{{property.bedrooms}} bedrooms</p>
+    <a href="#" id="add-to-shortlist" class='add-to-shortlist plus-sign shortlist_link_{{ property.property_id }}' onclick="Ctesius.Actions.addSavedProperty({{property.property_id}}); return false;">Add to shortlist</a>
+    <p class="short-description">{{property.short_description | truncate : 150}}</p>
+
+    <div class="mobile-cta">
+        <a href="{{property | url_for_property}}"><img src=" http://mr1.homeflow.co.uk/files/site_asset/image/3037/8621/view-the-details-mob-g.jpg" title="View the Details"></a>
+        <a href="{{property | url_for_property}}#lead-form"><img src="http://mr0.homeflow.co.uk/files/site_asset/image/3037/8620/arrange-a-viewing-mob-g.jpg" title="Arrange a Viewing"></a>
+    </div>
+
+    {% unless property.floorplans.size == 0 and property.video_url == null %}
+      <div class="plans-holder">
+        {% for floorplan in property.floorplans %}
+          {% if forloop.index == 1  %}
+            {% unless property.floorplans == 0 %}
+              <a class="floorplan feather" data-featherlight="#floorplan-flight" href="">Floor plan</a>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+
+        {% for floorplan in property.floorplans %}
+          {% if forloop.index == 1  %}
+            {% unless property.floorplans.size == 0 %}
+              <div id="floorplan-flight" class="results-flight results-floor">
+                <img src="{{ floorplan | url_for_generic_image : '743x_' }}" title="Floor plan">
+              </div>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+
+        {% for floorplan in property.floorplans %}
+          {% if forloop.index == 1  %}
+            {% unless property.floorplans.size == 1 %}
+              <a class="gardenplan feather-gar" data-featherlight="#gardenplan-flight" href="">Garden plan</a>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+
+        {% for floorplan in property.floorplans %}
+          {% if forloop.index == 2  %}
+            {% unless property.floorplans.size == 1 %}
+              <div id="gardenplan-flight" class="results-flight results-garden">
+                <img src="{{ floorplan | url_for_generic_image : '643x_' }}" title="Garden plan">
+              </div>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+
+        {% unless property.video_url == null %}
+          <a class="video-ico feather-vid" data-featherlight="#video-flight" href="">Video</a>
+          <div id="video-flight"  class="results-flight results-video">
+            {{ property.video_url | video_embed : 640, 390, 'iframe' }}
+          </div>
+        {% endunless %}
+
+        <a href="#myContactForm-{{ property.property_id }}" class="view-location" data-toggle="modal" data-target="#myContactForm-{{ property.property_id }}">Request a viewing</a>
+
+      </div>
+    {% endunless %}
+
+    {% include 'lead_forms/properties_list' %}
+
+  </div>
+</div>
+
+{% include 'properties/grid_item' %}

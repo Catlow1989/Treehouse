@@ -1,0 +1,13 @@
+
+                            <div class="office-pod"> <!--Start Office Pod -->
+
+                            <h3>{{branch.name}} office</h3>
+                            <p>{{branch.address }}</p>
+                            <p class="sales-tele-email">
+                              <span class="blue">T:</span> {% if property.vox_number %}{{ property.vox_number }}{% else %}{{ branch.contact_telephone }}{% endif %}
+                            </p>
+                            <p class="sales-tele-email">
+                              <span class="blue">E:</span> <a class="link-a" href="mailto:{{ branch.contact_email }}">{{ branch.contact_email }}</a>
+                            </p>
+
+                          </div><!--End Office Pod -->

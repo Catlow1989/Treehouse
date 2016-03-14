@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{page.page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="{{page.page_title}}">
+    <meta name="description" content="{{page.page_description}}">
+
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="{{page.page_title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:description" content="{{page.page_description}}" />
+
+    <link rel="shortcut icon" href="/liquid_assets/images/favicon.ico" type="image/x-icon"/>
+
+    {% include 'js_templates/async_head' %}
+
+    <link href="/vendor_assets/blob20160216.css" rel="stylesheet" type="text/css" />
+    <script src='/vendor_assets/blob.js' type='text/javascript'></script>
+
+
+
+  </head>
+
+  <body>
+
+
+    <div class="container">
+
+
+      <div id="user_micro_view"></div>
+
+      <!--<div class="fixed-book">
+        <a href="http://karltatler.agent.staging.homeflow.co.uk/pages/sell-let?request-valuation#request-valuation"><span></span></a>
+      </div>
+
+      <div class="fixed-book-v">
+        <a href="http://karltatler.agent.staging.homeflow.co.uk/pages/sell-let?request-valuation#request-valuation"><span></span></a>
+      </div>-->
+
+
+
+    <header> <!--start header -->
+
+      <div class="vendor-login">
+
+            <span>Vendors: </span>
+            <a href="/pages/property-tracker"><span>Log in</span></a>
+
+
+      </div>
+
+      <div class="inner-container">
+
+          <div class="logo"><a href="/"><img src="{{agency.logo | url_for_agency_logo}}" alt="{{agency.name}} logo"/></a></div>
+
+          <div class="buttons">
+            <span>Vendors: </span>
+            <a href="/pages/property-tracker"><button>Log in</button></a>
+          </div>
+
+          <div class="main-menu">
+
+              <div class="contain-mob-btn">
+
+                <button class="show-menu cmn-toggle-switch cmn-toggle-switch__htx">
+                       <span>Menu</span>
+                </button>
+
+                <span class="menu-wording">Menu</span>
+
+              </div>
+  
+                <button class="search-props-mob">
+                    <span>Search properties</span>
+                </button>
+
+                <div class="login-buttons-mob">
+                    <a href="/branches"><button><span>Contact us</span></button></a>
+                </div>
+
+
+
+                <div class="mob-search-bar">
+                    <form action='/search' method='get'>
+
+                      <input type="hidden" id='place_id' name='place_id' value='{{place_id}}'>
+                      <a id="locate_btn" onclick="Ctesius.Actions.geoLocate()"></a>
+                      <input type="text" placeholder="Enter location or postcode" id='location' name="location" value="{{location_field}}">
+
+                      <label class="home-rent"><input  type="radio" name='channel' id="let" value="lettings" onclick="Ctesius.Actions.submitSearchForm(); return false;">Rent</label>
+                      <label class="home-buy"><input type="radio" name='channel' id="buy" value="sales" onclick="Ctesius.Actions.submitSearchForm(); return false;">Buy</label>
+
+                    </form>
+                </div>
+
+              <div class="testing">
+
+
+                <ul  id="menu">
+              {% assign primary_menu = 'primary' | site_menu %}
+
+
+                                {% for menu_item in primary_menu.items %}
+                                    <li class="{% if menu_item.category == page.category %}menu-active{% endif %}">
+                                        <a href="{{menu_item.url}}">{{menu_item.name}}
+                                        </a>
+                                    </li>
+
+
+
+
+              {% endfor %}
+
+              </ul>
+
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+    </header> <!-- /end hero image and thumbnails -->
+
+<div id="wrapper"> <!--start wrapper main content -->
+
+
+      <div id="sidebar"><a href="/pages/sell-let?request-valuation#request-valuation"></a></div>
+
+
+
+
+
+
+
+      {{ content_for_layout }}
+
+
+
+
+
+ <div class="rows white-bg"> <!-- This 100% row is wrapping  the inner container on the slider to allow the buttons to be placed absolutely left and right of the sliders inner container-->
+  <div class="inner-container"><!--start similar properties section -->
+
+    <div class="rows">
+
+        <div class="col-12">
+
+
+
+
+                   <div id="awards" class="owl-carousel">
+
+                           {% content_block footer_award_strip %}
+                                {{ content_block }}
+                           {% endcontent_block %}
+
+                    </div>
+
+        </div>
+
+    </div>
+
+  </div><!-- /inner container -->
+
+      <div class="carousel-nav">
+        <a class="prev-awards " title="previous"></a>
+        <a class="next-awards " title="next"></a>
+      </div>
+
+</div><!-- /row -->
+
+
+  <!-- Responsive Offset Footer section below info bar needed with inner dives for Background Colours left and Right plus Back to top anchor -->
+
+    <div class="info-bar">
+      <div class="left-side">
+
+      </div>
+      <div class="right-side">
+        <button id="scroll-to-top"></button>
+      </div>
+
+
+    </div>
+
+  <!-- Main Info bar content and structure with a negative margin to bring it into line with the infobar section above-->
+<div class="inner-footer">
+
+          <div class="inner-left">
+              <div class="split-1">
+                <div class="footer-search">
+
+                  {% content_block footer_chunk_property_search %}
+                      {{ content_block }}
+                  {% endcontent_block %}
+
+                </div>
+                <div class="footer-about">
+
+                  {% content_block footer_chunk_about_karl_tatler %}
+                      {{ content_block }}
+                  {% endcontent_block %}
+                </div>
+              </div>
+              <div class="split-2">
+
+                {% content_block footer_chunk_our_branches %}
+                     {{ content_block }}
+                  {% endcontent_block %}
+              </div>
+              <div class="split-3">
+                <h2>Twitter</h2>
+
+                  {% twitter_user_timeline screen_name : agency.twitter_screen_name %}
+                   {% for tweet in tweets limit: 1 %}
+                    <p class="tweet">
+                     <a class="twitter_handle" href="https://twitter.com/{{ agency.twitter_screen_name }}" target="_blank">
+                      @{{ agency.twitter_screen_name }}
+                     </a>
+                     <span class="tweet_date">
+                      {{ tweet.created_at | date: "%d %B" }}
+                     </span>
+                     </p>
+                      <p class="tweet">
+                     {{ tweet.text | auto_link }}
+                    </p>
+                   {% endfor %}
+                  {% endtwitter_user_timeline %}
+
+              </div>
+          </div>
+          <div class="inner-right">
+
+
+            <h2>Keep up to date by signing up to our newsletter</h2>
+
+
+            <form action="http://karltatlerestateagentslettings.createsend.com/t/i/s/irztu/" method="post" id="subForm">
+
+
+                  <input id="fieldName" placeholder="name" name="cm-name" type="text" />
+
+
+                  <input id="fieldEmail" placeholder="email address"  name="cm-irztu-irztu" type="email" required />
+
+                  <input class="newletter-sign" type="submit" value="Submit">
+
+          </form>
+
+
+
+          </div>
+
+        </div>
+
+    <footer>
+
+      <div class="inner-container">
+        <div class="footer-links">
+            <p>&copy; Karl Tatler Estate Agents 2015 <span>|</span> <a href="/pages/terms-and-conditions">Terms and Conditions</a> <span>|</span> <a href="/pages/privacy-policy">Privacy Policy</a> <span>|</span> <a href="/pages/accessibility">Accessibility</a> <span>|</span> <a href="/pages/help-using-this-website">Help Using This Site</a></p>
+          </div>
+          <div class="social-links">
+            <p>Follow Us</p>
+            <a href="https://www.facebook.com/karltatler" target="_blank"><img src="{{'icos/facebook.jpg' | theme_image_url}}" alt="Facebook"></a>
+            <a href="https://twitter.com/karl_tatler" target="_blank"><img src="{{'icos/twitter.jpg' | theme_image_url}}" alt="Twitter"></a>
+            <a href="https://www.linkedin.com/company/karl-tatler-estate-agents-&-lettings" target="_blank"><img src="{{'icos/linkedin.jpg' | theme_image_url}}" alt="LinkedIn"></a>
+            <a href="https://www.youtube.com/channel/UCZsPDw8R8MwnbklZXcEBugA" target="_blank"><img src="{{'icos/youtube.jpg' | theme_image_url}}" alt="Youtube"></a>
+          </div>
+      </div>
+
+    </footer>
+
+
+
+
+
+  </div>
+<!-- / end wrapper -->
+
+
+<!--Move back to top of  body if not working -->
+{% include 'layouts/js_templates' %}
+{% include 'layouts/js_event_registers' %}
+{% include 'js_templates/next_prev_recent_search' %}
+<!-- -->
+
+
+</div> <!-- /end container -->
+
+{% if page.category == 'home' %}
+
+{{ "jquery.bxslider" | theme_javascript_link_tag }}
+
+{% else %}
+
+{{ "jquery.bxsliderTest" | theme_javascript_link_tag }}
+
+{% endif %}
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    Ctesius.init()
+});
+
+
+
+
+(function() {
+
+    "use strict";
+
+    var toggles = document.querySelectorAll(".cmn-toggle-switch");
+
+    for (var i = toggles.length - 1; i >= 0; i--) {
+      var toggle = toggles[i];
+      toggleHandler(toggle);
+    };
+
+    function toggleHandler(toggle) {
+      toggle.addEventListener( "click", function(e) {
+        e.preventDefault();
+        (this.classList.contains("active") === true) ? this.classList.remove("active") : this.classList.add("active");
+      });
+    }
+
+})();
+
+
+
+$(document).ready(function(){
+      $( ".search-props-mob" ).click(function() {
+      $( ".testing" ).hide();
+      $( ".contain-mob-btn" ).removeClass("active-mob");
+      $( ".show-menu" ).removeClass("active");
+      $( ".mob-search-bar" ).toggle();
+      $( ".search-props-mob" ).toggleClass( "open-search" );
+ });
+
+
+
+$(document).ready(function(){
+      $( ".show-menu, .menu-wording" ).click(function() {
+      $( ".mob-search-bar" ).hide();
+      $( ".search-props-mob" ).removeClass("open-search");
+      $( ".testing" ).toggle();
+      $( ".contain-mob-btn" ).toggleClass("active-mob");
+});
+
+
+
+$(document).ready(function(){
+      $( ".menu-wording" ).click(function() {
+      $( ".show-menu" ).toggleClass("active");
+  });
+});
+
+
+$(window).resize(function(e){
+    updateMenu();
+});
+
+function updateMenu(){
+
+      if($(window).width() >= 690){
+
+        // mobile view instructions
+          $( ".testing" ).removeAttr('style');
+          $( ".show-menu" ).removeClass('active');
+          $( ".mob-search-bar" ).removeAttr('style');
+          $( ".search-props-mob" ).removeClass('open-search');
+          $( ".contain-mob-btn" ).removeClass('active-mob');
+          } else {
+
+        // desktop view instructions
+
+          }
+
+      }
+
+   });
+
+});
+
+
+
+  </script>
+{% include 'js_templates/async_foot' %}
+{{ agency.preferences.analytics_code }}
+  </body>
+</html>

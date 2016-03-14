@@ -1,0 +1,133 @@
+<div class="col-12">
+
+
+                  <div id="static-hero" style="background-image:url('/liquid_assets/images/hero-placer.jpg');">
+ 
+                    
+                  </div>
+
+                   <div class="refine-search">
+
+
+
+                      <h3>Refine search</h3>
+                            
+                            <form action="/search" method="get" >
+
+                                 
+
+                                      <div class="col-4"> 
+
+                                        
+
+                                        <h4>Search radius:</h4> <p id="h-cont-t">within <span class="search_rad"></span> miles</p>
+                                        <div id="search_radius" class="noUi-extended"></div>
+
+                                      </div>
+
+                                      <div class="col-4">
+
+                                       {% if current_channel.name == 'sales' %}
+
+                                        <h4 class="sl-1">Price range:</h4> <p id="h-cont"> &pound;<span class="lower_val"></span> - &pound;<span class="upper_val"></span></p>
+                                        <div id="price_range" class="noUi-extended"></div>
+
+                                         {% endif %}
+
+                                          {% if current_channel.name == 'lettings' %}
+
+                                            <h4 class="sl-1">Rent range (pcm):</h4> <p id="h-cont"> &pound;<span class="lower_val"></span> - &pound;<span class="upper_val"></span></p>
+                                            <div id="rent_range" class="noUi-extended"></div>
+
+
+                                          {% endif %}
+
+                                      </div>
+
+                                <div class="col-4">
+
+                                  <h4 class="sl-2">Number of bedrooms:</h4><p id="h-cont-b"><span class="lower_bed"></span> - <span class="upper_bed"></span></p>
+                                  <div id="num_bedrooms" class="noUi-extended"></div>
+
+                                </div>
+
+                                <div class="col-8">
+
+                                  <h4>Property type</h4>
+
+                                    <div class="clear margin-seven">
+
+                                      <input type="radio" id="types" name="types" value="all" checked="checked"><label for="all">All</label>
+                                      <input type="radio" id="types" name="types" value="house"><label for="house">House</label>
+                                      <input type="radio" id="types" name="types" value="bungalow"><label for="bungalow">Bungalow</label><br>
+                                      <input type="radio" id="types" name="types" value="flat"><label for="flat">Flat</label>
+                                      <input type="radio" id="types" name="types" value="land"><label for="land">Land</label>
+                
+                                    </div> 
+                                </div>
+
+                                                          
+
+
+                                <div class="col-4">  
+
+                                  <input type='hidden' id ='place_id' name='place_id' value='' />
+                                  <input id="min_price" name="min_price" type="hidden" value='' />                              
+                                  <input id="max_price" name="max_price" type="hidden" value='' />
+                                  <input id="min_beds" name="min_beds" type="hidden" value='' />
+                                  <input id="max_beds" name="max_beds" type="hidden" value='' />
+                                  <input id="within" name="within" type="hidden" value='' />
+                                  <input id="type" name="type" type="hidden" value='' />
+
+
+                                      {% if current_channel.name == 'lettings' %}
+                                            <label id="search_buttons" class="index-rent"><input type="radio" name="channel" id="let" value="lettings" onclick="Ctesius.Actions.submitSearchForm(); return false;">Update</label>
+
+                                            <label for="status" style="display:none">
+                                                <input type="checkbox" id="status" name="status" value="all" />
+                                                <span>Include sold/sstc properties</span>
+                                            </label>
+                                            
+                                        {% else %}
+                                            <label id="search_buttons" class="index-rent"><input type="radio" name="channel" id="buy" value="sales" onclick="Ctesius.Actions.submitSearchForm(); return false;">Update</label>
+
+                                             <label for="status" style="display:none">
+                                                <input type="checkbox" id="status" name="status" value="all" />
+                                                <span>Include sold/sstc properties</span>
+                                            </label>
+
+                                      {% endif %}
+
+
+
+                                </div>
+
+                            </form>
+
+
+
+                      </div>
+               
+
+    </div>
+
+
+
+  <script type="text/javascript">
+
+   
+$(document).ready(function(){
+
+        $('input[name="types"]').on('change', function() {
+
+            $('input[name="type"]').val($(this).val());
+
+
+        });
+});
+
+
+
+</script>
+
+

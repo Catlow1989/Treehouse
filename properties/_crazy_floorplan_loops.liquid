@@ -1,0 +1,35 @@
+{% for floorplan in property.floorplans %}
+  {% if forloop.index == 1  %}
+    {% unless property.floorplans.size == 0 %}
+      <a class="floorplan feather" data-featherlight="#floorplan-flight" href="">Floor plan</a>
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for floorplan in property.floorplans  %}
+  {% if forloop.index == 1  %}
+    {% unless property.floorplans.size == 0 %}
+      <div id="floorplan-flight" class="results-flight results-floor">
+        <img src="{{ floorplan | url_for_generic_image : '743x_' }}" title="Floor plan">
+      </div>
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for floorplan in property.floorplans  %}
+  {% if forloop.index == 2  %}
+    {% unless property.floorplans.size == 1 %}
+      <a class="gardenplan feather-gar" data-featherlight="#gardenplan-flight" href="">Garden plan</a>
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+{% for floorplan in property.floorplans  %}
+  {% if forloop.index == 2  %}
+    {% unless property.floorplans.size == 1 %}
+      <div id="gardenplan-flight" class="results-flight results-garden">
+        <img src="{{ floorplan | url_for_generic_image : '643x_' }}" title="Garden plan">
+      </div>
+    {% endunless %}
+  {% endif %}
+{% endfor %}

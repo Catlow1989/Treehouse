@@ -1,0 +1,129 @@
+#sliderRent {
+    display: none;
+}
+.noUiSlider,
+.noUiSlider * {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-ms-touch-action: none;
+-ms-user-select: none;
+-moz-user-select: none;
+-moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.noUiSlider {
+    position: relative;
+}
+.noUi-origin {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+.noUi-handle {
+    position: relative;
+    z-index: 1;
+    bottom: 10px;
+}
+.noUi-stacking .noUi-handle {
+/* This class is applied to the lower origin when
+   its values is > 50%. */
+    z-index: 10;
+}
+.noUi-stacking + .noUi-origin {
+/* Fix stacking order in IE7, which incorrectly
+   creates a new context for the origins. */
+    *z-index: -1;
+}
+.noUi-state-tap .noUi-origin {
+-webkit-transition: left 0.3s, top 0.3s;
+    transition: left 0.3s, top 0.3s;
+}
+.noUi-state-drag * {
+    cursor: inherit !important;
+}
+
+/* Slider size and handle placement;
+ */
+.noUi-horizontal {
+    width: 90%;
+    height: 10px;
+}
+.noUi-horizontal .noUi-handle {
+    height: 15px;
+    width: 10px;
+    border: 0;
+    /*background:#f2681f;*/
+    background: url({{"slider-arrow.png" | theme_image_url}}) 0 0 no-repeat;
+    cursor:move;
+    margin-left: -5px;
+}
+.noUi-horizontal.noUi-extended {
+    padding: 0 15px;
+}
+.noUi-horizontal.noUi-extended .noUi-origin  {
+    right: -15px;
+}
+
+/* Styling;
+ */
+.noUi-background {
+    background: #e1ddda;
+}
+.noUi-connect {
+    background: #3FB8AF;
+-webkit-transition: background 450ms;
+    transition: background 450ms;
+}
+.noUi-origin {
+    background-color: #f16623;
+    margin: 3px 0px 2px 0px;
+}
+
+.noUi-origin + .noUi-origin {
+    background-color: #e1ddda;
+}
+
+.noUiSlider {
+    
+}
+
+/* Handles and cursors;
+ */
+.noUi-dragable {
+    cursor: w-resize;
+}
+
+.noUi-handle:after {
+    left: 17px;
+}
+
+/* Disabled state;
+ */
+[disabled].noUi-connect,
+[disabled] .noUi-connect {
+    background: #B8B8B8;
+}
+[disabled] .noUi-handle {
+    cursor: not-allowed;
+}
+
+/* Blocked state;
+ */
+.noUi-state-blocked.noUi-connect,
+.noUi-state-blocked .noUi-connect {
+    background: #4FDACF;
+}
+
+#sales_range, #lets_range {
+    width: 90%;
+}
+
+#sales_range > div, #lets_range > div {
+    float: left;
+    width: 33.3%;
+    text-align: center !important;
+    position: relative;
+    left: -16.65%;
+}

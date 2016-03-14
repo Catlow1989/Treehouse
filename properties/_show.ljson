@@ -1,0 +1,12 @@
+{% if property %}
+main_photo : {{ property.main_photo | url_for_property_photo : "357x233" }}
+property_url : {{ property | url_for_property }}
+photos_size : {{property.photos.size}}
+display_address : {{property.display_address | truncate: 40 | yaml_safe}}
+price : "{{property.price}}"
+bedrooms: "{{property.bedrooms}}"
+lat : {{property.lat}}
+lng : {{property.lng}}
+property_id : {{property.property_id}}
+property_channel : {{property.primary_channel}}
+{% endif %}

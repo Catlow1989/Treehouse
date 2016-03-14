@@ -1,0 +1,842 @@
+<div class="rows">
+
+        <div class="col-12">
+
+
+                  <div id="static-hero" style="background-image:url('{{cms_page.image | url_for_generic_image : '1600x1066' }}');">
+
+           
+
+                  </div>
+
+                   <div class="search-index">
+
+                      <h3>Search properties to{% if  page.category == 'buy' %} buy {% endif %}{% if  page.category == 'rent' %} rent{% endif %}</h3>
+
+
+
+                              <form action='/search' method='get'>
+
+
+
+                              <div class="col-6">
+                                  <input type="hidden" id='place_id' name='place_id' value='{{place_id}}'>
+                                  <a id="locate_btn" onclick="Ctesius.Actions.geoLocate()"></a>
+                                  <input type="text" placeholder="Enter location or postcode" id='location' name="location" value="{{location_field}}">
+                              </div>
+  
+
+                              {% if  page.category == 'rent' %}
+
+                              <div class="col-6">
+                                  <div class="slider-float"><h4 class="sl-1">Rent range (pcm):</h4> <p id="h-cont"> &pound;<span class="lower_val"></span> - &pound;<span class="upper_val"></span></p>
+                                  <div id="rent_range" class="noUi-extended"></div></div>
+
+                                  <div class="label-wrapper"><label  class="index-rent"><input  type="radio" name='channel' id="let" value="lettings" onclick="Ctesius.Actions.submitSearchForm(); return false;">Search</label></div>
+
+                              {% endif %}
+
+
+                              {% if  page.category == 'buy' %}
+
+                              <div class="col-6">
+                                  <div class="slider-float"><h4 class="sl-1">Price range:</h4> <p id="h-cont"> &pound;<span class="lower_val"></span> - &pound;<span class="upper_val"></span></p>
+                                  <div id="price_range" class="noUi-extended"></div></div>
+
+                                  {% if agency.default_search_channel%}
+                                    <input type="hidden" name="channel" value="{{ agency.default_search_channel }}">
+                                  {% endif %}
+
+
+
+                                  <div class="label-wrapper"><label id="" class="index-buy"><input type="radio" name='channel' id="buy" value="sales" onclick="Ctesius.Actions.submitSearchForm(); return false;">Search</label></div>
+
+                              {% endif %}
+                                  <input id="min_price" name="min_price" type="hidden" value='' />
+                                  <input id="max_price" name="max_price" type="hidden" value='' />
+
+                              </div>
+                            </form>
+
+
+
+                  </div>
+        </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+{% if  page.category == 'buy' %}
+
+<div class="rows buy-rent-header">
+
+    <div class="inner-container">
+
+        <div class="col-12 ">
+          <h2>Buying a property with Karl Tatler</h2>
+
+
+
+
+      <div id="rent-buy-blocks">
+
+    
+         <ul class="rb-chunks">
+              <li class="rbitem">
+                <div class="rbitem-inner">
+
+                <div class="single-description expandable-BR show-more-height">
+
+                   {% content_block buy_index_pod_one %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                     <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+                </div>
+
+                  <div class="gradient-BR"></div>
+
+
+
+                    <div class="col-12 expander-btn">
+                      <a href="#" class='ExpandAll-BR'>More Info</a>
+                    </div>
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                   <div class="single-description expandable-BR2 show-more-height">
+
+                   {% content_block buy_index_pod_two %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                     <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent2">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+
+
+                </div>
+
+                    <div class="gradient-BR2"></div>
+
+
+                    <div class="col-12 expander-btn2">
+                      <a href="#" class='ExpandAll-BR2'>More Info</a>
+                    </div>
+
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                  <div class="single-description expandable-BR3 show-more-height">
+
+                   {% content_block buy_index_pod_three %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                     <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent3">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+
+                </div>
+
+                  <div class="gradient-BR3"></div>
+
+
+
+                    <div class="col-12 expander-btn3">
+                      <a href="#" class='ExpandAll-BR3'>More Info</a>
+                    </div>
+
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                 <div class="single-description expandable-BR4 show-more-height">
+
+                   {% content_block buy_index_pod_four %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                    <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent4">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+                </div>  
+
+                    <div class="gradient-BR4"></div>
+
+
+                    <div class="col-12 expander-btn4">
+                      <a href="#" class='ExpandAll-BR4'>More Info</a>
+                    </div>
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                <div class="single-description expandable-BR5 show-more-height">
+
+                   {% content_block buy_index_pod_five %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                    <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent5">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}        
+
+
+                </div>
+
+                    <div class="gradient-BR5"></div>
+
+
+                    <div class="col-12 expander-btn5">
+                      <a href="#" class='ExpandAll-BR5'>More Info</a>
+                    </div>
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+
+              
+                <div class="rbitem-inner">
+
+                  <div class="single-description expandable-BR6 show-more-height">
+
+                    {% content_block buy_index_pod_six %}
+
+                       <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                       <h3>{{ content_block_title }}</h3>
+
+                       <div class="rbcontent6">{{ content_block_text }}</div>
+
+                    {% endcontent_block %}   
+
+                  </div>
+
+                    <div class="gradient-BR6"></div>
+
+
+                    <div class="col-12 expander-btn6">
+                      <a href="#" class='ExpandAll-BR6'>More Info</a>
+                    </div>
+
+                </div>
+
+                   
+              </li>
+
+          </ul>
+
+
+
+          </div><!--END RENT-BUY DIV -->
+         
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif  %}
+
+
+{% if  page.category == 'rent' %}
+
+<div class="rows buy-rent-header">
+
+    <div class="inner-container">
+
+        <div class="col-12 ">
+          <h2>Renting a property with Karl Tatler</h2>
+
+
+    <div id="rent-buy-blocks">
+
+    
+         <ul class="rb-chunks">
+              <li class="rbitem">
+                <div class="rbitem-inner">
+
+                <div class="single-description expandable-BR show-more-height">
+
+                   {% content_block rent_index_pod_one %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                     <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+                </div>
+
+                  <div class="gradient-BR"></div>
+
+
+
+                    <div class="col-12 expander-btn">
+                      <a href="#" class='ExpandAll-BR'>More Info</a>
+                    </div>
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                   <div class="single-description expandable-BR2 show-more-height">
+
+                   {% content_block rent_index_pod_two %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                     <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent2">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+
+
+                </div>
+
+                    <div class="gradient-BR2"></div>
+
+
+                    <div class="col-12 expander-btn2">
+                      <a href="#" class='ExpandAll-BR2'>More Info</a>
+                    </div>
+
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                  <div class="single-description expandable-BR3 show-more-height">
+
+                   {% content_block rent_index_pod_three %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                     <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent3">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+
+                </div>
+
+                  <div class="gradient-BR3"></div>
+
+
+
+                    <div class="col-12 expander-btn3">
+                      <a href="#" class='ExpandAll-BR3'>More Info</a>
+                    </div>
+
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                 <div class="single-description expandable-BR4 show-more-height">
+
+                   {% content_block rent_index_pod_four %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                    <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent4">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}
+
+                </div>  
+
+                    <div class="gradient-BR4"></div>
+
+
+                    <div class="col-12 expander-btn4">
+                      <a href="#" class='ExpandAll-BR4'>More Info</a>
+                    </div>
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+                <div class="rbitem-inner">
+
+                <div class="single-description expandable-BR5 show-more-height">
+
+                   {% content_block rent_index_pod_five %}
+
+                     <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                    <h3>{{ content_block_title }}</h3>
+
+                     <div class="rbcontent5">{{ content_block_text }}</div>
+
+                   {% endcontent_block %}        
+
+
+                </div>
+
+                    <div class="gradient-BR5"></div>
+
+
+                    <div class="col-12 expander-btn5">
+                      <a href="#" class='ExpandAll-BR5'>More Info</a>
+                    </div>
+
+                </div>
+              </li>
+
+                <li class="rbitem">
+
+             
+                <div class="rbitem-inner">
+
+                  <div class="single-description expandable-BR6 show-more-height">
+                    
+                    {% content_block rent_index_pod_six %}
+                 
+
+                       <img src="{{ content_block_image | url_for_generic_image}}" />
+
+                       <h3>{{ content_block_title }}</h3>
+
+                       <div class="rbcontent6">{{ content_block_text }}</div>
+
+                    {% endcontent_block %}   
+
+                  </div>
+
+                    <div class="gradient-BR6"></div>
+
+
+                    <div class="col-12 expander-btn6">
+                      <a href="#" class='ExpandAll-BR6'>More Info</a>
+                    </div>
+
+                </div>
+
+                   
+              </li>
+
+          </ul>
+
+
+
+          </div><!--END RENT-BUY DIV -->
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif  %}
+
+
+
+
+
+<div id="search-index-pods" class="rows white-bg">
+
+  <div class="inner-container">
+
+    <div class="col-12">
+
+      <div class="col-4">
+
+      <div class="inner">
+        <h4>Get a sales <br> or rent <br>valuation today</h4>
+
+        <p><a href="/pages/sell-let#request-valuation"><span>Find out more</span></a></p>
+      </div>
+      </div>  
+
+      <div class="col-4 register-kt">
+          <h3><a href="/pages/wirral-awards">Our awards success</a></h3>
+          <p>Since 2006 we have achieved year-on-year awards for our quality of performance as Estate and Lettings Agents.</p>
+          <p><a href="/pages/wirral-awards" class="sign-up-kt">Find out more here</a></p>
+      </div>
+
+      <div class="col-4 single-testimonial">
+          <h3><a href="/pages/about-us#testimonials-all">Testimonials</a></h3>
+
+          {% if  page.category == 'rent' %}
+
+              {% assign testimonial = agency.testimonials | selected_by : 'channel', 'lettings' | sample %}
+              
+              <p>
+               {{testimonial.content}}
+               <span class="author">{{testimonial.name}}</span>
+              </p>
+
+          {% endif %}
+
+          {% if  page.category == 'buy' %}
+              {% assign testimonial = agency.testimonials | selected_by : 'channel', 'sales' | sample %}
+              
+              <p>
+               {{testimonial.content}}
+               <span class="author">{{testimonial.name}}</span>
+              </p>
+          {% endif %}
+
+          
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+{% if  page.category == 'rent' %}
+
+<script type="text/javascript">
+
+
+
+  $(document).ready(function(){
+
+      //Force Webkit Browser redraw due to issues in legacy Safari and Native Android Browsers
+
+      function multiply() {
+
+
+        $('#h-cont').hide().show(0);
+
+
+      }
+
+      Ctesius.addConfig( 'sales_range', {{ company.sales_price_range | yaml_safe }});
+      Ctesius.addConfig( 'lets_range', {{ company.lettings_price_range_monthly | yaml_safe }});
+
+      var lets_last = Ctesius.getConfig('lets_range').last();
+      var lets_first = Ctesius.getConfig('lets_range').first();
+
+        $("#rent_range").noUiSlider({
+              start: [ lets_first, lets_last ],
+              range: {
+                      'min': lets_first,
+                       'max': lets_last
+                      },
+              connect: true,
+              //Value between steps
+              step:50,
+              // Set some default formatting options.
+              // These options will be applied to any Link
+              // that doesn't overwrite these values.
+              format: wNumb({
+                            decimals: 0
+                           })
+
+        });
+
+        //serialize values into hidden form fields
+        $("#rent_range").Link('lower').to($("#min_price"), null, wNumb({
+               decimals: 0
+        }));
+
+
+        $("#rent_range").Link('upper').to($("#max_price"), null, wNumb({
+              decimals: 0
+        }));
+
+
+        //display lower value and upper value in spans
+        $("#rent_range").Link('lower').to($('.lower_val'));
+        $("#rent_range").Link('upper').to($('.upper_val'));
+
+
+      var lastVal2 = 0;
+
+          lastVal2 = $('#max_price').val();
+
+        if (lastVal2 == lets_last){
+            $( ".upper_val" ).append( "+" );
+        } else {
+
+        }
+
+        $("#rent_range").on({
+             slide: function(){
+                lastVal2 = $('#max_price').val();
+                  if (lastVal2 == lets_last){
+                        $('#plus-sign').remove();
+                        $( ".upper_val" ).append("<span id='plus-sign'>+</span>");
+                  }
+
+                multiply();
+             }
+        });
+
+  });
+
+</script>
+
+{% endif %}
+
+
+
+
+{% if  page.category == 'buy' %}
+
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+
+
+      //Force Webkit Browser redraw due to issues in legacy Safari and Native Android Browsers
+
+      function multiply() {
+
+        $('#h-cont').hide().show(0);
+
+      }
+
+      Ctesius.addConfig( 'sales_range', {{ company.sales_price_range | yaml_safe }});
+      Ctesius.addConfig( 'lets_range', {{ company.lettings_price_range_monthly | yaml_safe }});
+
+      var sales_last = Ctesius.getConfig('sales_range').last();
+      var sales_first = Ctesius.getConfig('sales_range').first();
+
+
+        $("#price_range").noUiSlider({
+              start: [ sales_first, sales_last ],
+              range: {
+                        'min': sales_first,
+                        '65%': [ 300000, 50000 ],
+                        'max': sales_last
+                     },
+              connect: true,
+              //Value between steps
+              step:10000,
+              // Set some default formatting options.
+              // These options will be applied to any Link
+              // that doesn't overwrite these values.
+              format: wNumb({
+                        decimals: 0,
+                        thousand: ','
+              })
+
+        });
+
+
+
+        //display lower value and upper value in spans
+        $("#price_range").Link('lower').to($('.lower_val'));
+        $("#price_range").Link('upper').to($('.upper_val'));
+
+
+        //serialize values into hidden form fields
+
+        $("#price_range").Link('lower').to($("#min_price"), null, wNumb({
+              decimals: 0
+        }));
+
+
+        $("#price_range").Link('upper').to($("#max_price"), null, wNumb({
+              decimals: 0
+        }));
+
+      var lastVal2 = 0;
+
+      lastVal2 = $('#max_price').val();
+
+        if (lastVal2 == sales_last){
+              $( ".upper_val" ).append( "<span id='plus-sign'>+</span>" );
+        } else {
+
+        }
+
+        $("#price_range").on({
+              slide: function(){
+                  lastVal2 = $('#max_price').val();
+                      if (lastVal2 == sales_last){
+                            $('#plus-sign').remove();
+                            $( ".upper_val" ).append( "<span id='plus-sign'>+</span>" );
+                      }
+
+                      multiply();
+                 }
+
+              
+        });
+
+  });
+
+</script>
+
+{% endif %}
+
+
+
+<script type="text/javascript">
+
+
+
+
+
+
+var count = $(".rbcontent").height();
+var count2 = $(".rbcontent2").height();
+var count3 = $(".rbcontent3").height();
+var count4 = $(".rbcontent4").height();
+var count5 = $(".rbcontent5").height();
+var count6 = $(".rbcontent6").height();
+
+if(count < 200) {
+  $('.expander-btn').hide();
+} 
+else {
+   $('.expander-btn').show();
+}
+
+if(count2 < 200) {
+  $('.expander-btn2').hide();
+} 
+else {
+   $('.expander-btn2').show();
+}
+
+
+if(count3 < 200) {
+  $('.expander-btn3').hide();
+} 
+else {
+   $('.expander-btn3').show();
+}
+
+
+if(count4 < 200) {
+  $('.expander-btn4').hide();
+} 
+else {
+   $('.expander-btn4').show();
+}
+
+
+if(count5 < 200) {
+  $('.expander-btn5').hide();
+} 
+else {
+   $('.expander-btn5').show();
+}
+
+
+if(count6 < 200) {
+  $('.expander-btn6').hide();
+} 
+else {
+   $('.expander-btn6').show();
+}
+
+
+
+
+
+( function( $, window, document, undefined )
+{
+    'use strict';
+ 
+    var s = document.body || document.documentElement, s = s.style;
+    if( s.webkitFlexWrap == '' || s.msFlexWrap == '' || s.flexWrap == '' ) return true;
+ 
+    var $list       = $( '.rb-chunks' ),
+        $items      = $list.find( '.rbitem' ),
+        setHeights  = function()
+        {
+            $items.css( 'height', 'auto' );
+ 
+            var perRow = Math.floor( $list.width() / $items.width() );
+            if( perRow == null || perRow < 2 ) return true;
+ 
+            for( var i = 0, j = $items.length; i < j; i += perRow )
+            {
+                var maxHeight   = 0,
+                    $row        = $items.slice( i, i + perRow );
+ 
+                $row.each( function()
+                {
+                    var itemHeight = parseInt( $( this ).outerHeight() );
+                    if ( itemHeight > maxHeight ) maxHeight = itemHeight;
+                });
+                $row.css( 'height', maxHeight );
+            }
+        };
+ 
+    setHeights();
+    $( window ).on( 'resize', setHeights );
+    $list.find( 'img' ).on( 'load', setHeights );
+ 
+})( jQuery, window, document );
+
+
+
+
+
+
+
+
+</script>

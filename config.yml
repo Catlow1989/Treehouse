@@ -1,0 +1,68 @@
+theme:
+  name: "Nolan"
+  type: "agency_theme"
+  cache_for: 0
+  type: "agency_theme"
+  enabled:
+    - "national_search"
+    - "global_branch_search"
+    - "branches_by_distance_on_locations"
+    - "disambiguation"
+    - 'searchable_keyword_lookup'
+    - "lead_redirects"
+  site_content_chunks:
+    - name: 'company_history_pod'
+      description: 'Company History Pod'
+    - name: 'company_recruitment_pod'
+      description: 'Company Recruitment Pod'
+  article_topic_exclusions: "news1"
+  asset_packs:
+    javascript:
+      - jquery-ui.js
+      - plugins.js
+      - leaflet.markercluster-src.js
+      - masonry.pkgd.min.js
+      - plugins-secondary.js
+      - main.js
+      - strftime.js
+      - chart.js
+      - moment.js
+      - blob.js
+      - filesaver.js
+      - png.js
+      - jsPDF.js
+      - jspdf.plugin.addimage.js
+      - jspdf.plugin.png_support.js
+      - zlib.js
+      - easyresponsivetabs.js
+      - property-tracker
+      - pdf_gen
+    stylesheet:
+      - plugins.lcss
+      - jquery.bxslider.lcss
+      - property-tracker.css
+      - easyresponsivetabs.css
+      - nolan.lcss
+  vendor_assets:
+    javascripts:
+      - ctesius
+      - classic_extra
+      - reapit_property_tracker
+      - asset_pack
+    stylesheets:
+      - ctesius
+      - classic_extra
+      - asset_pack
+  page_sizes:
+    branches: 100
+  pages:
+    - uri: about-us
+      layout: default
+      title: "About Us"
+      content: "About Us"
+    - uri: 'property-tracker'
+      layout: default
+  additional_layouts:
+    - name: 'Tabbed'
+    - name: 'Sell_Let'
+    - name: 'Contact'

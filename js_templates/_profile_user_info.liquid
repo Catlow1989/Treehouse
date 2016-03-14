@@ -1,0 +1,32 @@
+{% raw %}
+	<script id="user_micro_template" type="text/liquid">
+
+
+	<ul class="nav-menu-list alt iconify" data-menu="action-menu">
+		{% if user_type ='persisted' %}
+
+			<a id="saved_properties_link" class="nav-menu-item " title="{% if saved_properties.length == 0 %}Save properties you are interested in{% else %}See the properties you have added to your wishlist{% endif %}" href="#user/saved_properties"><span> {{saved_properties.length }}</span><i>Wishlist</i></a>
+
+			<a id="saved_searches_link" class="nav-menu-item" title="{% if saved_searches.length == 0 %}Set up saved searches and email alerts{% else %}View your saved searches and email alerts{% endif %}" href="#user/alerts"><span>{{saved_searches.length }}</span><i>Saved Search</i></a>
+
+			<a id="mob_appraisal" class="nav-menu-item" title="{% if saved_searches.length == 0 %}Set up saved searches and email alerts{% else %}View your saved searches and email alerts{% endif %}" href="/pages/sell-let?request-valuation#request-valuation"><span></span><i>Market appraisal</i></a>
+
+		{% else %}
+
+
+			<a id="saved_properties_link" class="nav-menu-item " title="{% if saved_properties.length == 0 %}Save properties you are interested in{% else %}See the properties you have added to your wishlist{% endif %}" href="#user/saved_properties"><span>{{saved_properties.length }}</span><i>Wishlist</i></a>
+
+			<a id="saved_searches_link" class="nav-menu-item" title="{% if saved_searches.length == 0 %}Set up saved searches and email alerts{% else %}View your saved searches and email alerts{% endif %}" href="#user/alerts"><span>{{saved_searches.length }}</span><i>Saved Search</i></a>
+
+			<a id="mob_appraisal" class="nav-menu-item" title="{% if saved_searches.length == 0 %}Set up saved searches and email alerts{% else %}View your saved searches and email alerts{% endif %}" href="/pages/sell-let?request-valuation#request-valuation"><span></span><i>Market appraisal</i></a>
+
+		{% endif %}
+  </ul>
+
+
+
+  
+</script> 
+
+{% endraw %}
+  

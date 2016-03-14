@@ -1,0 +1,33 @@
+
+                      <div class="col-4 grid">
+                        <div class="single-imagery">
+                          <div id="preview">
+                          </div>
+                          <p class="sold-flag">{{ property | photo_overlay }} </p>
+                          <img class="grid-main"  src="{{ property.photos.first| url_for_property_asset : '408x268'}}" alt="">
+
+                          <p class="photos">{{ property.photos.size }}</p>
+                        </div>
+
+                        <div class="col-12">
+                           {% for photo in property.photos offset:1 limit:2 %}
+
+                            
+                                    <img class="imgLinkGrid" src="{{ photo | url_for_property_photo : "408x268"}}"/>
+                    
+
+                              {% endfor %}
+
+
+                          <a href="{{property | url_for_property}}"><h1>{{property.display_address | truncate: 30 }}</h1></a>
+                          <h2>{{property.price}}</h2>
+                            <p>{{property.bedrooms}} bedrooms</p>
+                           <a href="#" id="add-to-shortlist" class='add-to-shortlist plus-sign shortlist_link_{{ property.property_id }}' onclick="Ctesius.Actions.addSavedProperty({{property.property_id}}); return false;">Add to shortlist</a>
+                        </div>
+                      </div> 
+
+
+
+
+
+

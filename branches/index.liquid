@@ -1,0 +1,791 @@
+<div class="rows">
+
+        <div class="col-12">
+
+
+                  <div id="static-hero" class="contact-bg" style="background-image:url('{{"contact-bg.jpg" | theme_image_url}}');">
+
+
+                  </div>
+
+
+  
+                  <div class="inner-container">
+
+                         <div class="contact-hero-pod">
+
+                            <h1>Contact us</h1>
+
+                                {% content_block contact_page_hero_content %}
+                                    {{ content_block }}
+                                {% endcontent_block %}
+
+                              <div class="links">
+                                <p class="office-locations"><a  href="#contact-office-location">View office locations</a></p>
+                                <p class="contact-office"><a href="#contact-details">Contact an office</a></p>
+                                <p class="contact-team-member"><a href="#team-members">Contact a team member</a></p>
+                                <p class="leave-feedback"><a href="#feedback-section">Leave feedback</a></p>
+                              </div>
+                         </div>
+
+                  </div>
+
+        </div>
+
+
+
+  </div>
+
+
+<div id="contact-office-location" class="rows">
+
+
+
+
+
+                    <div class="inner-container">
+
+                        <h2> Office locations</h2>
+
+                    </div>
+
+
+</div>
+
+<div class="rows">
+
+<div id="contact-map">
+
+
+      <!--<div id="branch_map">
+
+                    <div class="inner-container">
+
+
+                        <div class="map-key">
+
+                          <p class="sales-map-pin">Sales offices</p>
+                          <p class="lettings-map-pin">Lettings offices</p>
+
+                        </div>
+
+
+                    </div>
+
+
+        </div>-->
+
+
+          <div id="custom_pin_map">
+
+
+
+        </div>
+
+
+
+</div>
+
+</div>
+
+
+
+<div id="contact-details" class="rows white-bg">
+
+
+                    <div class="inner-container">
+
+
+                        <h3>Office contact details</h3>
+
+                        <h4>Sales offices</h4>
+
+                        <div class="sale-times">
+
+                            {% content_block sales_opening_hours %}
+                                    {{ content_block }}
+                            {% endcontent_block %}
+
+                        </div>
+
+
+                        <div class="office-pods-sales">
+
+							{% for branch in branches %}
+
+								 {% if branch.sales_enabled %}
+								  {% include 'branches/branches_small' %}
+							     {% endif %}
+
+							{% endfor %}
+
+                        </div>
+
+
+                    </div><!--End Inner Containers -->
+
+
+
+</div>
+
+<div id="contact-details" class="rows">
+
+
+
+
+
+                    <div class="inner-container">
+
+                      <div class="lettings-offices">
+
+
+
+                        <h4>Lettings offices</h4>
+
+                        <div class="lettings-times">
+                          {% content_block lettings_opening_hours %}
+                                    {{ content_block }}
+                            {% endcontent_block %}
+
+                        </div>
+
+
+                        <div class="office-pods-lettings">
+
+          							 {% for branch in agency.branches %}
+
+          								 {% if branch.lettings_enabled %}
+          								  {% include 'branches/branches_small' %}
+          							     {% endif %}
+
+          							{% endfor %}
+
+
+
+
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div class="head-office">
+
+
+
+                        <h4>Head Office</h4>
+
+                        <div class="head-times">
+                            {% content_block head_office_opening_hours %}
+                                    {{ content_block }}
+                            {% endcontent_block %}
+
+                        </div>
+
+
+                        <div class="office-pod-head">
+
+                        	{% for branch in branches %}
+
+            								 {% if branch.name == 'Head Office' %}
+
+
+            										{% include 'branches/branches_head' %}
+
+
+            							     {% endif %}
+
+            							{% endfor %}
+
+
+
+                        </div>
+
+                      </div>
+
+
+
+
+                    </div><!--End Inner Containers -->
+
+
+
+</div>
+
+
+
+
+<div id="contact-details" class="rows white-bg mob-c-d">
+
+
+                    <div class="inner-container">
+
+                        <h3>Office contact details</h3>
+
+                          <div id="tabs">
+
+                            <ul>
+                              <li><a href="#tabs-1">Sales offices</a></li>
+                              <li><a href="#tabs-2">Lettings offices</a></li>
+                              <li><a href="#tabs-3">Head office</a></li>
+                            </ul>
+
+
+
+
+                      <div id="tabs-1">
+
+                      <h4>Opening times</h4>
+
+                        <div class="sale-times">
+                            <p><span>Mon - Thurs:</span> 9am - 7pm</p>
+                            <p><span>Fri - Sat:</span> 9am - 5.30pm</p>
+                            <p><span>Sun / Bank Holidays:</span> 11am - 4pm</p>
+                        </div>
+
+
+                        <div class="office-pods-sales">
+
+                          {% for branch in branches %}
+
+                             {% if branch.sales_enabled %}
+                              {% include 'branches/branches_small' %}
+                               {% endif %}
+
+                          {% endfor %}
+
+                        </div>
+
+                        </div> <!--End Tabs 1 -->
+
+                        <div id="tabs-2">
+
+                        <h4>Opening times</h4>
+
+                        <div class="lettings-times">
+                            <p><span>Mon - Thurs:</span> 9am - 5.30pm</p>
+                            <p><span>Fri - Sat:</span> 9am - 5.30pm</p>
+                            <p><span>Sun / Bank Holidays:</span> Closed</p>
+                        </div>
+
+
+                        <div class="office-pods-lettings">
+
+                         {% for branch in branches %}
+
+                           {% if branch.lettings_enabled %}
+                            {% include 'branches/branches_small' %}
+                             {% endif %}
+
+                        {% endfor %}
+
+
+
+                          </div>
+
+                        </div> <!--End Tabs 2 -->
+
+                        <div id="tabs-3">
+
+                            <div class="head-office">
+
+                            <h4>Opening times</h4>
+
+
+                        <div class="head-times">
+                            <p><span>Mon - Fri:</span> 9am - 5.30pm</p>
+                            <p><span>Weekends:</span> Closed</p>
+                        </div>
+
+
+                        <div class="office-pod-head">
+
+                          {% for branch in branches %}
+
+                             {% if branch.name == 'Head Office' %}
+
+
+                                {% include 'branches/branches_head' %}
+
+
+                               {% endif %}
+
+                          {% endfor %}
+
+
+
+                        </div>
+
+                      </div>
+
+
+
+                        </div> <!--End Tabs 3 -->
+
+
+
+
+
+
+                        </div><!--End Tab Container -->
+
+                    </div><!--End Inner Containers -->
+
+
+
+</div>  <!-- END MOBILE CONT -->
+
+
+
+
+<div id="team-members" class="rows white-bg">
+
+
+
+
+
+                    <div class="inner-container">
+
+                      <div class="our-people-container">
+                        <h3>Our people</h3>
+
+                        <p>Click on a member of staff to view profile and contact details</p>
+                      </div>
+
+
+                      <div class="staff-profiles">
+
+                          {% assign profiles =  agency.staff_profiles | sort_by : 'name' %}
+
+
+                            {% for profile in profiles %}
+  
+
+
+                            <div class="col-2">
+
+
+
+                                <div id="contact-lgt" class="contact-lgt">
+
+                                <a href="" class="feather" data-featherlight="#contact-lgt">
+
+                                 <img src="{{ profile.avatar | url_for_staff_profile_avatar : "192x201" }}"
+                                 alt="{{ profile.name }}" width="192">
+
+                                </a>
+
+                                 <div class="profile-main">
+
+
+
+                                  <p class="blue prof-title strong">{{ profile.name }}</p>
+                                  <p class="profile-title blue">{{ profile.job_title }}</p>
+                                  
+                                  {% unless profile.accreditation == empty %}
+                                    <p class="profile-accs blue">{{ profile.accreditation }}</p>
+                                  {% endunless %}
+
+                                  <p class="profile-title">{{ profile.branch.name }}</p>
+                                   <p>{{ profile.mobile_number }}</p>
+
+
+
+                                  <p class="profile-bio">
+                                      {{ profile.short_bio }}
+
+                                  </p>
+
+
+
+                                  {% unless profile.direct_line == empty %}
+
+                                   <p class="profile-number">
+                                     <span class="blue strong">T:</span> {{ profile.direct_line }}
+
+                                  </p>
+
+                                   {% endunless %}
+
+                                   {% unless profile.tel_mobile == empty %}
+
+                                   <p class="profile-number">
+                                     <span class="blue strong">DDI:</span> {{ profile.tel_mobile }}
+
+                                  </p>
+
+
+                                   {% endunless %}
+
+                                   <p class="profile-number"><span class="blue strong">E:</span> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+
+                                 </div>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+                            {% endfor %}
+
+
+
+
+
+                      </div> <!--End Staff Profiles -->
+
+
+
+                    </div><!--End Inner Containers -->
+
+
+
+</div>
+
+
+
+
+
+ <div id="tabs5">
+
+                            <ul>
+                              <li><a href="#tabs-5">Staff</a></li>
+
+                            </ul>
+
+
+
+
+                      <div id="tabs-5">
+
+
+                        {% assign profiles =  agency.staff_profiles | sort_by : 'name' %}
+
+
+                            {% for profile in profiles %}
+
+
+
+                            <div class="col-2">
+
+
+
+                                <div id="contact-lgt" class="contact-lgt">
+
+                                <a href="" class="feather" data-featherlight="#contact-lgt">
+
+                                 <img src="{{ profile.avatar | url_for_staff_profile_avatar : "192x201" }}"
+                                 alt="{{ profile.name }}" width="192">
+
+                                </a>
+
+                                 <div class="profile-main">
+
+
+
+                                  <p class="blue prof-title strong">{{ profile.name }}</p>
+                                  <p class="profile-title blue">{{ profile.job_title }}</p>
+                                  <p class="profile-title">{{ profile.branch.name }}</p>
+                                   {% unless profile.accreditation == empty %}
+                                    <p class="profile-accs blue">{{ profile.accreditation }}</p>
+                                  {% endunless %}
+                                   <p>{{ profile.mobile_number }}</p>
+
+
+                              
+
+                                  <p class="profile-bio">
+                                      {{ profile.short_bio }}
+
+                                  </p>
+
+
+
+                                  {% unless profile.direct_line == empty %}
+
+                                   <p class="profile-number">
+                                     <span class="blue strong">T:</span> {{ profile.direct_line }}
+
+                                  </p>
+
+                                   {% endunless %}
+
+                                   {% unless profile.tel_mobile == empty %}
+
+                                   <p class="profile-number">
+                                     <span class="blue strong">DDI:</span> {{ profile.tel_mobile }}
+
+                                  </p>
+
+
+                                   {% endunless %}
+
+                                   <p class="profile-number"><span class="blue strong">E:</span> <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+
+                                 </div>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+                            {% endfor %}
+
+
+
+                      </div> <!--End Tabs 5 -->
+
+
+
+
+
+
+
+
+</div><!--End Tab Container -->
+
+
+
+
+<div id="feedback-section" class="rows"> <!--start secondary hero banner -->
+    <div class="col-12">
+            <div class="contact-secondary-banner">
+                <div class="secondary-banner-content">
+                  <h1>Give us your feedback</h1>
+                  <p>We welcome your compliments, complaints and suggestions. Your feedback will help us improve the quality of our service.</p>
+
+                <div id='alert_location'></div>
+                <div id='form_error'></div>
+
+                  <form action="/leads" method="post" class="contact_form branch_form" id="contact_form">
+
+                    
+                        <div class="col-4">
+                          <input type="hidden" name="lead[is_branch_lead]" value="1">
+                          <label for="first_name">First name</label>
+                          <input id="firstname" class="required" name="lead_client[first_name]" type="text">
+                        </div>
+                        <div class="col-4">
+                          <label for="last_name">Last name</label>
+                           <input id="surname" class="required" name="lead_client[last_name]" type="text">
+                        </div>
+                        <div class="col-4">
+                          <label for="email_address">Email address</label>
+                           <input id="email" class="required" name="lead_client[email]" type="email">
+                        </div>
+
+
+
+                        <div class="col-4">
+
+                          <label for="tel_number">Telephone number</label>
+                           <input id="telephone" name="lead_client[tel_home]" type="text">
+
+
+                        </div>
+
+                        <div class="col-4">
+
+                          <label class="contact-dropdownform" for="office">Which office did you deal with?</label>
+                          
+                          <div class="dropdown-container">
+                            <select class="dropdown" id="office" name="lead[branch_id]" tabindex="1">
+                             {% for branch in agency.branches %}
+                              <option value="{{ branch.branch_id }}">{{branch.name}}</option>
+                             {% endfor %}
+                            </select>
+                          </div>
+
+
+                        </div>
+
+
+                      <div class="col-12">
+
+                          <label for="comments">Comments</label>
+                           <textarea id="message" name="lead[message]" rows="3"></textarea>
+
+                      </div>
+
+                          <div class="col-12">
+
+                              <input type="submit" value="Send">
+
+
+
+                          </div>
+
+
+                    </form>
+
+
+                </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+ Ctesius.addConfig('branches', {% include_as_json branches/branches_list %});
+
+
+
+</script>
+
+<script type="text/javascript">
+
+//Dropdown form
+
+$(function(){
+    var $selects = $('select');
+
+    $selects.easyDropDown({
+        cutOff: 5,
+        wrapperClass: 'dropdown',
+        onChange: function(selected){
+            // do something
+        }
+    });
+});
+
+</script>
+
+
+
+
+
+   <!--Scroll to anchor function -->
+    <script type="text/javascript">
+
+
+    $(function() {
+    $('a[href*=#]:not([href=#])').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html,body').animate({
+            scrollTop: target.offset().top -90
+          }, 2000);
+          return false;
+        }
+      }
+    });
+  });
+
+
+
+
+
+    </script>
+
+
+
+  <script type="text/javascript">
+
+
+
+
+$(document).ready(function() {
+
+    var LeafIcon = L.Icon.extend({
+      options: {
+        iconSize:     [20, 26],
+        iconAnchor:   [20, 26],
+        popupAnchor:  [-3, -76]
+      }
+});
+
+
+$(document).ready(function() {
+    var salesIcon = new LeafIcon({iconUrl: '/liquid_assets/images/icos/small-blue-pin.png'}),
+    lettingsIcon = new LeafIcon({iconUrl: '/liquid_assets/images/icos/small-gold-pin.png'});
+
+var addressPoints = [
+[53.3293351169, -3.098718881600007, "<h2 class='cluster-title'>Heswall Sales</h2> <p class='cluster-add'>23 Pensby Road Heswall Wirral CH60 7RA</p> <p class='cluster-add'>0151 342 2300 <br><a href='mailto:heswall@karltatler.com'>heswall@karltatler.com</a></p>"],
+[53.3762154341, -3.123506069199948, "<h2 class='cluster-title'>Greasby Sales</h2> <p class='cluster-add'>80a Greasby Road Greasby Wirral CH49 3NG</p> <p class='cluster-add'>0151 606 1717 <br><a href='mailto:greasby@karltatler.com'>greasby@karltatler.com</a></p>"],
+[53.4005045159,-3.114396035699997, "<h2 class='cluster-title'>Moreton Sales</h2> <p class='cluster-add'>258 Hoylake Road Moreton Wirral CH46 6AF</p> <p class='cluster-add'>0151 678 4300 <br><a href='mailto:moreton@karltatler.com'>moreton@karltatler.com</a></p> "],
+[53.3736691014, -3.044199520099937, "<h2 class='cluster-title'>Prenton Sales</h2> <p class='cluster-add'>347 Woodchurch Road Prenton Wirral CH42 8PE</p> <p class='cluster-add'>0151 608 6333 <br><a href='mailto:prenton@karltatler.com'>prenton@karltatler.com</a></p>"],
+[53.3721968449, -3.1844053268000607, "<h2 class='cluster-title'>West Kirby Sales</h2> <p class='cluster-add'>9 Banks Road West Kirby Wirral CH48 0QX</p> <p class='cluster-add'>0151 625 9300 <br><a href='mailto:westkirby@karltatler.com'>westkirby@karltatler.com</a></p>"],
+[53.3290645763, -3.0999737672000265, "<h2 class='cluster-title'>Heswall Lettings</h2> <p class='cluster-add'>252 Telegraph Road Heswall Wirral CH60 7SG</p> <p class='cluster-add'>0151 342 5777 <br><a href='mailto:heswall-lettings@karltatler.com'>heswall-lettings@karltatler.com</a></p>"],
+[53.372063712001214, -3.1848636382983386, "<h2 class='cluster-title'>West Kirby Lettings</h2> <p class='cluster-add'>16 Banks Road West Kirby Wirral CH48 0RD</p> <p class='cluster-add'>0151 625 6555 <br><a href='mailto:westkirby-lettings@karltatler.com'>westkirby-lettings@karltatler.com</a></p>"],
+[53.3291206416, -3.099920122999947, "<h2 class='cluster-title'>Maintenance</h2> <p class='cluster-add'>252 Telegraph Road, Heswall, Wirral, CH60 7SG</p> <p class='cluster-add'>0151 342 5551 <br><a href='mailto:maintenance@karltatler.com'>maintenance@karltatler.com</a></p>"],
+[53.3293361725, -3.0987233051000658, "<h2 class='cluster-title'>Head Office</h2> <p class='cluster-add'>23 Pensby Road Heswall Wirral CH60 7RA</p> <p class='cluster-add'>0151 342 6700 <br><a href='mailto:headoffice@karltatler.com'>headoffice@karltatler.com</a></p>"]
+];
+
+
+    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+      }),
+      latlng = L.latLng(53.36485276684864, -3.0929946899414062);
+
+    var map2 = L.map('custom_pin_map', {center: latlng, scrollWheelZoom:false, zoom: 12, layers: [tiles]});
+
+    var markers = L.markerClusterGroup();
+
+    for (var i = 0; i < addressPoints.length; i++) {
+      var a = addressPoints[i];
+      var title = a[2];
+      var icoy = a[3];
+      var marker = L.marker(new L.LatLng(a[0], a[1]));
+      marker.bindPopup(title);
+      markers.addLayer(marker);
+    }
+
+    map2.addLayer(markers);
+
+
+});
+});
+
+
+
+
+
+
+
+$(document).ready(function() {
+    //This itertates through each array and adds a data attribute to each one
+
+    var test = "#floorplan-flight";
+    var id = "floorplan-flight";
+    var i = 0;
+    var d = 0;
+
+    $("div#contact-lgt").each(function(index) {
+
+          d = d + 1;
+
+          var k = d.toString();
+          var res2 = id.concat(k);
+
+         $(this).attr("id", res2);
+    });
+
+    $("a.feather ").each(function(index) {
+
+          i = i + 1;
+
+          var n = i.toString();
+          var res = test.concat(n);
+
+         $(this).attr("data-featherlight", res);
+    });
+
+
+
+ });
+</script>
